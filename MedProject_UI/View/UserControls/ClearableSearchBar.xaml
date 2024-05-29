@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="MedProject_UI.View.UserControls.ClearableSearchBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MedProject_UI.View.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="35" d:DesignWidth="456">
+
+    <Border CornerRadius="7"
+            BorderBrush="#e6e6e6"
+            BorderThickness="3">
+
+        <Grid x:Name="SearchBarGrid" Background="#e6e6e6" >
+            <Grid x:Name="textArea" Margin="0,0,30,0">
+                <TextBox x:Name="tbSearchText"  
+                    FontFamily="Roboto"
+                    VerticalContentAlignment="Center" 
+                    FontSize="25" 
+                    Background="Transparent"
+                    FontWeight ="Normal"
+                    TextChanged="tbSearchText_TextChanged"
+                    BorderThickness ="0"
+                    HorizontalAlignment="Left"
+                    MinWidth="410" PreviewTextInput="tbSearchText_PreviewTextInput"  
+                         
+                 />
+
+                <TextBlock x:Name="tbLabel" 
+                    FontFamily="Roboto"
+                    FontSize="25" 
+                    Text="{Binding MyLabel}"
+                    FontWeight ="Normal"
+                    Foreground="#666666"
+                    Margin="5,0,0,0"
+                    VerticalAlignment="Center"
+                    Panel.ZIndex="-1" />
+
+            </Grid>
+            <Button x:Name="btnClear" 
+                FontSize="20" 
+                HorizontalAlignment="Right" 
+                Content="X"
+                Foreground="#595959" 
+                BorderThickness="0"
+                  
+                Click="btnClearClick" Width="30">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}">
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="Border" Background="Transparent">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="#f2f2f2" TargetName="Border" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+        </Grid>
+    </Border>
+</UserControl>

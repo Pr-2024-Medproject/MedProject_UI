@@ -1,0 +1,52 @@
+﻿<Window x:Name="Window_Login" x:Class="MedProject_UI.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MedProject_UI"
+        mc:Ignorable="d"
+        Title="Login" Height="452" Width="432" ResizeMode="CanMinimize" WindowStartupLocation="Manual" >
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/c516ff9163fefeaa5974fc7c8855cd02.jpg" Stretch="UniformToFill" TileMode="Tile" Opacity="0.3" AlignmentX="Left"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2.7*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="1.5*"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="APP_Name" Content="Medical APP" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Roboto" FontSize="36">
+            <Label.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF56B1A9" Offset="1"/>
+                    <GradientStop Color="Transparent" Offset="0.678"/>
+                </LinearGradientBrush>
+            </Label.Background>
+        </Label>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="1.8*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label x:Name="Lable_Login" Content="Ваш логін" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" FontFamily="Roboto" FontSize="22" Margin="15,0,0,0"/>
+            <Label x:Name="Label_Pass" Content="Ваш пароль" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontFamily="Roboto" FontSize="22" Margin="15,0,0,0"/>
+            <TextBox x:Name="TB_Login" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Margin="0,7,15,7" FontSize="22"/>
+            <TextBox x:Name="TB_Pass" Grid.Row="3" TextWrapping="Wrap" Margin="0,7,15,7" FontSize="22" Grid.Column="1"/>
+        </Grid>
+        <Button x:Name="BTN_Login" 
+                Style="{StaticResource RoundButtonTemplate}"
+                Content="Увійти" 
+                Grid.Row="2" 
+                FontSize="22"
+                RenderTransformOrigin="0.5,0.5" Background="#FF56B1A9" Margin="75,25,75,25" Padding="1,2,1,2" Click="BTN_Login_Click" 
+                />
+
+    </Grid>
+</Window>
