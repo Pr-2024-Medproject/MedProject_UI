@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
+using System.Text.Json;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -45,6 +49,16 @@ namespace MedProject_UI
             tbOperationName.TextChanged += AddTextOperationName;
             tbChemotherapyName.TextChanged += AddTextChemotherapyName;
 
+            tbLastName.PreviewTextInput += PreviewTextLastName;
+            tbFirstName.PreviewTextInput += PreviewTextFirstName;
+            tbMiddleName.PreviewTextInput += PreviewTextMiddleName;
+            tbLivingAddress.PreviewTextInput += PreviewTextLivingAddress;
+            tbWorkAddress.PreviewTextInput += PreviewTextWork;
+            tbMKX.PreviewTextInput += PreviewTextMKX;
+            tbHistology.PreviewTextInput += PreviewTextHistology;
+            tbOperationName.PreviewTextInput += PreviewTextOperationName;
+            tbChemotherapyName.PreviewTextInput += PreviewTextChemotherapyName;
+
 
             btnPage1Next.btnClick += btnPage1Next_Click;
 
@@ -68,38 +82,361 @@ namespace MedProject_UI
 
             btnPage8Back.btnClick += btnPage8Back_Click;
             btnPage8Save.btnClick += btnPage8Next_Click;
+            btnPage8SaveChanges.Visibility = Visibility.Hidden;
+            //btnPage8SaveChanges.btnClick += btnPage8Save_Changes;
         }
+
+        public AddPatient(DataItem editData)
+        {
+            InitializeComponent();
+
+            newPatient = editData;
+
+            this.Title = "Edit Patient";
+
+          
+
+            mainGridPage1.Visibility = Visibility.Visible;
+            mainGridPage2.Visibility = Visibility.Hidden;
+            mainGridPage3.Visibility = Visibility.Hidden;
+            mainGridPage4.Visibility = Visibility.Hidden;
+            mainGridPage5.Visibility = Visibility.Hidden;
+            mainGridPage6.Visibility = Visibility.Hidden;
+            mainGridPage7.Visibility = Visibility.Hidden;
+            mainGridPage8.Visibility = Visibility.Hidden;
+
+
+            tbLastName.TextChanged += AddTextLastName;
+            tbFirstName.TextChanged += AddTextFirstName;
+            tbMiddleName.TextChanged += AddTextMiddleName;
+            tbLivingAddress.TextChanged += AddTextLivingAddress;
+            tbWorkAddress.TextChanged += AddTextWorkAddress;
+            tbMKX.TextChanged += AddTextMKX;
+            tbHistology.TextChanged += AddTextHistology;
+            tbOperationName.TextChanged += AddTextOperationName;
+            tbChemotherapyName.TextChanged += AddTextChemotherapyName;
+
+            tbLastName.PreviewTextInput += PreviewTextLastName;
+            tbFirstName.PreviewTextInput += PreviewTextFirstName;
+            tbMiddleName.PreviewTextInput += PreviewTextMiddleName;
+            tbLivingAddress.PreviewTextInput += PreviewTextLivingAddress;
+            tbWorkAddress.PreviewTextInput += PreviewTextWork;
+            tbMKX.PreviewTextInput += PreviewTextMKX;
+            tbHistology.PreviewTextInput += PreviewTextHistology;
+            tbOperationName.PreviewTextInput += PreviewTextOperationName;
+            tbChemotherapyName.PreviewTextInput += PreviewTextChemotherapyName;
+
+
+            btnPage1Next.btnClick += btnPage1Next_Click;
+
+            btnPage2Next.btnClick += btnPage2Next_Click;
+            btnPage2Back.btnClick += btnPage2Back_Click;
+
+            btnPage3Next.btnClick += btnPage3Next_Click;
+            btnPage3Back.btnClick += btnPage3Back_Click;
+
+            btnPage4Next.btnClick += btnPage4Next_Click;
+            btnPage4Back.btnClick += btnPage4Back_Click;
+
+            btnPage5Next.btnClick += btnPage5Next_Click;
+            btnPage5Back.btnClick += btnPage5Back_Click;
+
+            btnPage6Next.btnClick += btnPage6Next_Click;
+            btnPage6Back.btnClick += btnPage6Back_Click;
+
+            btnPage7Back.btnClick += btnPage7Back_Click;
+            btnPage7Next.btnClick += btnPage7Next_Click;
+
+            btnPage8Back.btnClick += btnPage8Back_Click;
+            //btnPage8Save.btnClick += btnPage8Next_Click;
+            btnPage8Save.Visibility = Visibility.Hidden;
+            btnPage8SaveChanges.btnClick += btnPage8Save_Changes;
+            btnPage8SaveChanges.Visibility = Visibility.Visible;
+
+
+            #region Put fields into fields
+            tbLastName.tbSearchText.Text = newPatient._colLastName;
+            tbFirstName.tbSearchText.Text = newPatient._colFirstName;
+            tbMiddleName.tbSearchText.Text = newPatient._colMiddleName;
+            datePickerBirthday.customDatePicker.SelectedDate = newPatient._colBirthDay;
+            tbLivingAddress.tbSearchText.Text = newPatient._colAddress;
+            tbWorkAddress.tbSearchText.Text = newPatient._colProfession;
+            datePickerHospitalStart.customDatePicker.SelectedDate = newPatient._colHospitalDate;
+            datePickerHospitalEnd.customDatePicker.SelectedDate = newPatient._colLeaveDate;
+            tbClaims.Text = newPatient._fieldClaims != null ? string.Join(", ", newPatient._fieldClaims) : "";
+            tbEntrDiagnosis.Text = newPatient._fieldEntrDiagnosis != null ? newPatient._fieldEntrDiagnosis : "";
+            tbFinalDiagnosis.Text = newPatient._fieldFinalDiagnosis != null ? newPatient._fieldFinalDiagnosis : "";
+            tbComplications.Text = newPatient._fieldComplication != null ? newPatient._fieldComplication : "";
+            tbAdditionDiagnosis.Text = newPatient._fieldAdditionalDiagnosis != null ? newPatient._fieldAdditionalDiagnosis : "";
+            tbMKX.tbSearchText.Text = newPatient._fieldMKX != null ? newPatient._fieldMKX : "";
+            tbOperationName.tbSearchText.Text = newPatient._fieldOperationName != null ? newPatient._fieldOperationName : "";
+            dateOperation.customDatePicker.SelectedDate = newPatient._fieldOperationDate;
+            tbChemotherapyName.tbSearchText.Text = newPatient._fieldChemotherapy != null ? newPatient._fieldChemotherapy : "";
+            dateChemotherapy.customDatePicker.SelectedDate = newPatient._fieldChemotherapyDate;
+            tbHistology.tbSearchText.Text = newPatient._fieldHistology != null ? newPatient._fieldHistology : "";
+            comboBoxDoctorName.SelectedIndex = comboBoxDoctorName.Items.IndexOf(newPatient._fieldDoctor);
+            tbDepartmentHead.Text = newPatient._fieldDepartmentHead != null ? newPatient._fieldDepartmentHead : "";
+            tbDepartHeadAssistant.Text = newPatient._fieldDepartHeadAssistant != null ? newPatient._fieldDepartHeadAssistant : "";
+            LogicalTreeHelper.GetChildren(containerOverallItem1)
+                             .OfType<RadioButton>()
+                             .ToList()
+                             .Where(x => x.GroupName == "rbOverallItem1").ToList()[newPatient._fieldOverallItem1 != null ? (int)newPatient._fieldOverallItem1 : 0].IsChecked = true;
+            LogicalTreeHelper.GetChildren(containerOverallItem2)
+                             .OfType<RadioButton>()
+                             .ToList()
+                             .Where(x => x.GroupName == "rbOverallItem2").ToList()[newPatient._fieldOverallItem2 != null ? (int)newPatient._fieldOverallItem2 : 0].IsChecked = true;
+            LogicalTreeHelper.GetChildren(containerOverallItem3)
+                             .OfType<RadioButton>()
+                             .ToList()
+                             .Where(x => x.GroupName == "rbOverallItem3").ToList()[newPatient._fieldOverallItem3 != null ? (int)newPatient._fieldOverallItem3 : 0].IsChecked = true;
+            LogicalTreeHelper.GetChildren(containerOverallItem4)
+                             .OfType<RadioButton>()
+                             .ToList()
+                             .Where(x => x.GroupName == "rbOverallItem4").ToList()[newPatient._fieldOverallItem4 != null ? (int)newPatient._fieldOverallItem4 : 0].IsChecked = true;
+            LogicalTreeHelper.GetChildren(containerOverallItem5)
+                             .OfType<RadioButton>()
+                             .ToList()
+                             .Where(x => x.GroupName == "rbOverallItem5").ToList()[newPatient._fieldOverallItem5 != null ? (int)newPatient._fieldOverallItem5 : 0].IsChecked = true;
+            LogicalTreeHelper.GetChildren(containerOverallItem6)
+                             .OfType<RadioButton>()
+                             .ToList()
+                             .Where(x => x.GroupName == "rbOverallItem6").ToList()[newPatient._fieldOverallItem6 != null ? (int)newPatient._fieldOverallItem6 : 0].IsChecked = true;
+            string liverExtend = newPatient._fieldOverallItem7 != null
+                                    ? newPatient._fieldOverallItem7.Contains("Збільшена")
+                                        ? newPatient._fieldOverallItem7.Split(" на ")[1].Trim().Split("см")[0].Trim()
+                                        : ""
+                                    : "";
+            tbOverallItem7.Text = liverExtend;
+            if (liverExtend == "")
+            {
+                LogicalTreeHelper.GetChildren(containerOverallItem7)
+                                 .OfType<RadioButton>()
+                                 .ToList()
+                                 .Where(x => x.GroupName == "rbOverallItem7").ToList()[0].IsChecked = true;
+            }
+            else
+            {
+                LogicalTreeHelper.GetChildren(containerOverallItem7)
+                                 .OfType<RadioButton>()
+                                 .ToList()
+                                 .Where(x => x.GroupName == "rbOverallItem7").ToList()[1].IsChecked = true;
+            }
+            LogicalTreeHelper.GetChildren(containerOverallItem8)
+                             .OfType<RadioButton>()
+                             .ToList()
+                             .Where(x => x.GroupName == "rbOverallItem8").ToList()[newPatient._fieldOverallItem8 != null ? (int)newPatient._fieldOverallItem8 : 0].IsChecked = true;
+            if (newPatient._fieldOverallItem9_1 != null && (bool)newPatient._fieldOverallItem9_1)
+            {
+                LogicalTreeHelper.GetChildren(containerOverallItem9)
+                             .OfType<RadioButton>()
+                             .ToList()
+                             .Where(x => x.GroupName == "rbOverallItem9_1").ToList()[1].IsChecked = true;
+            }
+            else
+            {
+                LogicalTreeHelper.GetChildren(containerOverallItem9)
+                                 .OfType<RadioButton>()
+                                 .ToList()
+                                 .Where(x => x.GroupName == "rbOverallItem9_1").ToList()[0].IsChecked = true;
+            }
+
+            if (newPatient._fieldOverallItem9_2 != null && (bool)newPatient._fieldOverallItem9_2)
+            {
+                LogicalTreeHelper.GetChildren(containerOverallItem9)
+                             .OfType<RadioButton>()
+                             .ToList()
+                             .Where(x => x.GroupName == "rbOverallItem9_2").ToList()[1].IsChecked = true;
+            }
+            else
+            {
+                LogicalTreeHelper.GetChildren(containerOverallItem9)
+                                 .OfType<RadioButton>()
+                                 .ToList()
+                                 .Where(x => x.GroupName == "rbOverallItem9_2").ToList()[0].IsChecked = true;
+            }
+
+            if (newPatient._fieldOverallItem10 != null)
+            {
+                List<CheckBox> cbOverallItem10List = new List<CheckBox>() {
+                    cbOverallItem10_1,
+                    cbOverallItem10_2,
+                    cbOverallItem10_3,
+                    cbOverallItem10_4,
+                    cbOverallItem10_5,
+                    cbOverallItem10_6
+                };
+
+                foreach (int i in newPatient._fieldOverallItem10)
+                {
+                    cbOverallItem10List[i].IsChecked = true;
+                }
+            }
+            tbOverallItem11.Text = newPatient._fieldOverallItem11 != null ? newPatient._fieldOverallItem11.ToString() : "";
+            tbOverallItem12.Text = newPatient._fieldOverallItem12 != null ? newPatient._fieldOverallItem12 : "";
+            LogicalTreeHelper.GetChildren(containerOverallItem13)
+                             .OfType<RadioButton>()
+                             .ToList()
+                             .Where(x => x.GroupName == "rbOverallItem13").ToList()[newPatient._fieldOverallItem13 != null ? (int)newPatient._fieldOverallItem13 : 0].IsChecked = true;
+            if (newPatient._fieldOverallItem14 != null)
+            {
+                List<CheckBox> cbOverallItem14List = new List<CheckBox>() {
+                    cbOverallItem14_1,
+                    cbOverallItem14_2,
+                    cbOverallItem14_3,
+                    cbOverallItem14_4,
+                    cbOverallItem14_5
+                };
+                foreach (int i in newPatient._fieldOverallItem14)
+                {
+                    cbOverallItem14List[i].IsChecked = true;
+                }
+            }
+            tbOverallItem15.Text = newPatient._fieldOverallItem15 != null ? newPatient._fieldOverallItem15.ToString() : "";
+            tbAnamnesisItem1.Text = newPatient._fieldAnamnesisItem1 != null ? newPatient._fieldAnamnesisItem1 : "";
+            tbAnamnesisItem2.Text = newPatient._fieldAnamnesisItem2 != null ? newPatient._fieldAnamnesisItem2 : "";
+            tbAnamnesisItem3.Text = newPatient._fieldAnamnesisItem3 != null ? newPatient._fieldAnamnesisItem3 : "";
+            tbAnamnesisItem4.Text = newPatient._fieldAnamnesisItem4 != null ? newPatient._fieldAnamnesisItem4 : "";
+            tbAnamnesisItem5.Text = newPatient._fieldAnamnesisItem5 != null ? newPatient._fieldAnamnesisItem5 : "";
+            tbAnamnesisItem6.Text = newPatient._fieldAnamnesisItem6 != null ? newPatient._fieldAnamnesisItem6 : "";
+            tbAnamnesisItem7.Text = newPatient._fieldAnamnesisItem7 != null ? newPatient._fieldAnamnesisItem7 : "";
+            tbAnamnesisItem8.Text = newPatient._fieldAnamnesisItem8 != null ? newPatient._fieldAnamnesisItem8 : "";
+            tbAnamnesisItem9.Text = newPatient._fieldAnamnesisItem9 != null ? newPatient._fieldAnamnesisItem9 : "";
+            tbAnamnesisItem10.Text = newPatient._fieldAnamnesisItem10 != null ? newPatient._fieldAnamnesisItem10 : "";
+            tbAnamnesisItem11.Text = newPatient._fieldAnamnesisItem11 != null ? newPatient._fieldAnamnesisItem11 : "";
+            tbLifeAnamnesisItem1.Text = newPatient._fieldLifeAnamnesisItem1 != null ? newPatient._fieldLifeAnamnesisItem1 : "Не ховрів";
+            tbLifeAnamnesisItem2.Text = newPatient._fieldLifeAnamnesisItem2 != null ? newPatient._fieldLifeAnamnesisItem2 : "Не ховрів";
+            tbLifeAnamnesisItem3.Text = newPatient._fieldLifeAnamnesisItem3 != null ? newPatient._fieldLifeAnamnesisItem3 : "Не ховрів";
+            tbLifeAnamnesisItem4.Text = newPatient._fieldLifeAnamnesisItem4 != null ? newPatient._fieldLifeAnamnesisItem4 : "Не ховрів";
+            tbLifeAnamnesisItem5.Text = newPatient._fieldLifeAnamnesisItem5 != null ? newPatient._fieldLifeAnamnesisItem5 : "Не ховрів";
+            tbLifeAnamnesisItem6.Text = newPatient._fieldLifeAnamnesisItem6 != null ? newPatient._fieldLifeAnamnesisItem6 : "Не ховрів";
+            tbLifeAnamnesisItem7.Text = newPatient._fieldLifeAnamnesisItem7 != null ? newPatient._fieldLifeAnamnesisItem7 : "";
+            tbLifeAnamnesisItem8.Text = newPatient._fieldLifeAnamnesisItem8 != null ? newPatient._fieldLifeAnamnesisItem8.ToString() : "";
+            tbLifeAnamnesisItem9.Text = newPatient._fieldLifeAnamnesisItem9 != null ? newPatient._fieldLifeAnamnesisItem9.ToString() : ""; ;
+            tbLifeAnamnesisItem10.Text = newPatient._fieldLifeAnamnesisItem10 != null ? newPatient._fieldLifeAnamnesisItem10 : "";
+            tbLocusMorbiItem1.Text = newPatient._fieldLocusMorbiItem1 != null ? string.Join(", ", newPatient._fieldLocusMorbiItem1) : "";
+            tbLocusMorbiItem2.Text = newPatient._fieldLocusMorbiItem2 != null ? string.Join(", ", newPatient._fieldLocusMorbiItem2) : "";
+            if (newPatient._fieldLocusMorbiItem3 != null && (bool)newPatient._fieldLocusMorbiItem3)
+            {
+                LogicalTreeHelper.GetChildren(containerLocusMorbiItem3)
+                             .OfType<RadioButton>()
+                             .ToList()
+                             .Where(x => x.GroupName == "rbLocusMorbiItem3").ToList()[1].IsChecked = true;
+            }
+            else
+            {
+                LogicalTreeHelper.GetChildren(containerLocusMorbiItem3)
+                                 .OfType<RadioButton>()
+                                 .ToList()
+                                 .Where(x => x.GroupName == "rbLocusMorbiItem3").ToList()[0].IsChecked = true;
+            }
+            tbLocusMorbiItem4.Text = newPatient._fieldLocusMorbiItem4 != null ? string.Join(", ", newPatient._fieldLocusMorbiItem4) : "";
+            if (newPatient._fieldLocusMorbiItem5 != null && (bool)newPatient._fieldLocusMorbiItem5)
+            {
+                LogicalTreeHelper.GetChildren(containerLocusMorbiItem5)
+                             .OfType<RadioButton>()
+                             .ToList()
+                             .Where(x => x.GroupName == "rbLocusMorbiItem5").ToList()[1].IsChecked = true;
+            }
+            else
+            {
+                LogicalTreeHelper.GetChildren(containerLocusMorbiItem5)
+                                 .OfType<RadioButton>()
+                                 .ToList()
+                                 .Where(x => x.GroupName == "rbLocusMorbiItem5").ToList()[0].IsChecked = true;
+            }
+            tbLocusMorbiItem6.Text = newPatient._fieldLocusMorbiItem6 != null ? string.Join(", ", newPatient._fieldLocusMorbiItem6) : "";
+            tbLocusMorbiItem7.Text = newPatient._fieldLocusMorbiItem7 != null ? string.Join(", ", newPatient._fieldLocusMorbiItem7) : "";
+            #endregion
+        }
+        private void PreviewTextLastName(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+        private void PreviewTextFirstName(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+        private void PreviewTextMiddleName(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+        private void PreviewTextLivingAddress(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9/',. ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+        private void PreviewTextWork(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ'\- ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+        private void PreviewTextMKX(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[a-zA-ZА-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9\,\_\.\/ ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+        private void PreviewTextHistology(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9/', ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+        private void PreviewTextOperationName(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+        private void PreviewTextChemotherapyName(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+
+
+
 
         private void AddTextLastName(object sender, TextChangedEventArgs e)
-        {
-        }
+        { }
 
         private void AddTextFirstName(object sender, TextChangedEventArgs e)
-        {
-        }
+        { }
 
         private void AddTextMiddleName(object sender, TextChangedEventArgs e)
-        {
-        }
+        { }
 
         private void AddTextLivingAddress(object sender, TextChangedEventArgs e)
-        {
-        }
+        {}
         private void AddTextWorkAddress(object sender, TextChangedEventArgs e)
-        {
-        }
+        {}
         private void AddTextMKX(object sender, TextChangedEventArgs e)
-        {
-        }
+        {}
         private void AddTextOperationName(object sender, TextChangedEventArgs e)
-        {
-        }
+        {}
         private void AddTextChemotherapyName(object sender, TextChangedEventArgs e)
-        {
-        }
+        {}
         private void AddTextHistology(object sender, TextChangedEventArgs e)
-        {
-        }
+        {}
 
 
 
@@ -428,15 +765,82 @@ namespace MedProject_UI
 
             if (dialogResult == MessageBoxResult.OK)
             {
-                ((App)Application.Current).AddDateToStorage(newPatient);
-                //MainWindow mainWindow = new MainWindow();
+                try
+                {
+                    string fileName = "..\\..\\..\\database.json";
+                    string jsonString = JsonSerializer.Serialize<DataItem>(newPatient);
+                    File.AppendAllText(fileName, jsonString + Environment.NewLine);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Виникла помилка при записі в базу даних!", "Помилка запису в базу", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                }
+
+                ((App)Application.Current).AddDataToStorage(newPatient);
                 this.Close();
-                //mainWindow.Show();
+            }
+
+
+        }
+
+        private void btnPage8Save_Changes(object sender, RoutedEventArgs e)
+        {
+            newPatient._fieldLocusMorbiItem1 = tbLocusMorbiItem1.Text.Trim().TrimEnd(',').Split(", ");
+            newPatient._fieldLocusMorbiItem2 = tbLocusMorbiItem2.Text.Trim().TrimEnd(',').Split(", ");
+
+            var contentHolder = LogicalTreeHelper.GetChildren(containerLocusMorbiItem3)
+                                                             .OfType<RadioButton>()
+                                                             .ToList()
+                                                             .Where(x => x.GroupName == "rbLocusMorbiItem3")
+                                                             .FirstOrDefault(x => (bool)x.IsChecked);
+            newPatient._fieldLocusMorbiItem3 = contentHolder != null
+                                                ? contentHolder.Content.ToString() == "Везикулярне" ? false : true
+                                                : false;
+
+            newPatient._fieldLocusMorbiItem4 = tbLocusMorbiItem4.Text.Trim().TrimEnd(',').Split(", ");
+
+            contentHolder = LogicalTreeHelper.GetChildren(containerLocusMorbiItem5)
+                                                             .OfType<RadioButton>()
+                                                             .ToList()
+                                                             .Where(x => x.GroupName == "rbLocusMorbiItem5")
+                                                             .FirstOrDefault(x => (bool)x.IsChecked);
+            newPatient._fieldLocusMorbiItem5 = contentHolder != null
+                                                ? contentHolder.Content.ToString() == "Легеневий звук" ? false : true
+                                                : false;
+            newPatient._fieldLocusMorbiItem6 = tbLocusMorbiItem6.Text.Trim().TrimEnd(',').Split(", ");
+            newPatient._fieldLocusMorbiItem7 = tbLocusMorbiItem7.Text.Trim().TrimEnd(',').Split(", ");
+
+            MessageBoxResult dialogResult = MessageBox.Show($"Додати зміни до даних паціента {newPatient._colLastName} {newPatient._colFirstName}?", "Перевірка", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+
+            if (dialogResult == MessageBoxResult.OK)
+            {
+                string fileName = "..\\..\\..\\database.json";
+                if (File.Exists(fileName))
+                {
+                    try
+                    {
+                        var oldLines = File.ReadAllLines(fileName);
+                        var newLines = oldLines.Where(line => !line.Contains($"{newPatient._colCardNumber}"));
+                        File.WriteAllLines(fileName, newLines);
+
+                        string jsonString = JsonSerializer.Serialize<DataItem>(newPatient);
+                        File.AppendAllText(fileName, jsonString + Environment.NewLine);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Виникла помилка при читанні з бази даних!", "Помилка читання з бази", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                    }
+                }
+
+                ((App)Application.Current).EditDataInStorage(newPatient);
+                this.Close();
             }
 
         }
 
-            private void comboBoxClaims_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+
+        private void comboBoxClaims_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox? newClaims = sender as ComboBox;
             tbClaims.Text += newClaims.SelectedValue.ToString().Split(": ")[1] + ", ";
@@ -450,13 +854,8 @@ namespace MedProject_UI
         private void RadioButton_Unchecked(object sender, RoutedEventArgs e)
         {
             gridOverallItem7.Visibility = Visibility.Hidden;
-            
         }
 
-        private void comboBoxDoctorName_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
 
         private void cbLocusMorbiItem1_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -488,5 +887,300 @@ namespace MedProject_UI
             tbLocusMorbiItem7.Text += locusMorbiItem7.SelectedValue.ToString().Split(": ")[1] + ", ";
         }
 
+        private void tbClaims_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbEntrDiagnosis_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbFinalDiagnosis_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbComplications_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbAdditionDiagnosis_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbDepartmentHead_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ'. ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbDepartHeadAssistant_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ'. ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbOverallItem7_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[0-9\,\.]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbOverallItem11_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[0-9]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbOverallItem12_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[0-9\/]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbOverallItem15_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[0-9]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbAnamnesisItem1_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbAnamnesisItem2_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbAnamnesisItem3_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbAnamnesisItem4_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbAnamnesisItem5_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbAnamnesisItem6_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbAnamnesisItem7_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbAnamnesisItem8_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbAnamnesisItem9_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbAnamnesisItem10_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbAnamnesisItem11_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbLifeAnamnesisItem1_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbLifeAnamnesisItem2_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbLifeAnamnesisItem3_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbLifeAnamnesisItem4_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbLifeAnamnesisItem5_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbLifeAnamnesisItem6_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbLifeAnamnesisItem7_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbLifeAnamnesisItem8_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[0-9/ ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbLifeAnamnesisItem9_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[0-9/ ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbLifeAnamnesisItem10_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbLocusMorbiItem1_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbLocusMorbiItem2_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbLocusMorbiItem4_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbLocusMorbiItem6_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
+        private void tbLocusMorbiItem7_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
     }
 }

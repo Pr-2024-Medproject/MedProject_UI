@@ -22,6 +22,7 @@ namespace MedProject_UI.View.UserControls
     public partial class ClearableSearchBar : UserControl
     {
         public event TextChangedEventHandler TextChanged;
+        public event TextCompositionEventHandler PreviewTextInput;
 
         public ClearableSearchBar()
         {
@@ -65,10 +66,7 @@ namespace MedProject_UI.View.UserControls
 
         private void tbSearchText_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9/' ]+$");
-            if (!regex.IsMatch(e.Text))
-                e.Handled = true;
-            base.OnPreviewTextInput(e);
+            PreviewTextInput.Invoke(this, e);
         }
     }
 }

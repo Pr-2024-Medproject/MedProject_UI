@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -32,6 +33,7 @@ namespace MedProject_UI
             InitializeComponent();
 
             SearchBar.TextChanged += RouteViewerOpened;
+            SearchBar.PreviewTextInput += PreviewTextSearch;
 
             btnAddNewPatient.btnClick += AddPatientBtnClick;
         }
@@ -111,6 +113,14 @@ namespace MedProject_UI
             collectionViewSource.View.Refresh();
         }
 
+        private void PreviewTextSearch(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ' ]+$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+
         private void WIndow_Main_Activated(object sender, EventArgs e)
         {
             data = new ObservableCollection<DataItem>(((App)Application.Current).GetDataItems());
@@ -118,5 +128,33 @@ namespace MedProject_UI
             collectionViewSource = new CollectionViewSource { Source = data };
             MainGrid.ItemsSource = collectionViewSource.View;
         }
+
+        private void BTN_DeleteRecord_Click(object sender, RoutedEventArgs e)
+        {
+            Button? button = sender as Button;
+            if (button == null)
+                return;
+
+            // Get the DataContext of the clicked button
+            DataItem? dataItem = button.DataContext as DataItem;
+            if (dataItem == null)
+                return;
+
+            var dialogResult = MessageBox.Show($"Ви точно хочете видалити {dataItem._colLastName} {dataItem._colFirstName} {dataItem._colMiddleName} з бази", "Підтвердіть", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            if (dialogResult == MessageBoxResult.OK)
+            {
+                try
+                {
+                    ((App)Application.Current).RemoveDataFromStorage(dataItem);
+                    WIndow_Main_Activated(sender, e);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Виникла помилка при видаленні користувача з БД!", "Помилка", MessageBoxButton.OKCancel, MessageBoxImage.Exclamation);
+                }
+            }
+        }
+
+
     }
 }

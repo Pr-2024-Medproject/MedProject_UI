@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MedProject_UI"
         xmlns:UserControls="clr-namespace:MedProject_UI.View.UserControls"
         mc:Ignorable="d"
-        Title="AddPatient" Height="756" Width="1200" MinHeight="750" MinWidth="1200"  WindowStartupLocation="CenterScreen">
+        Title="Add Patient" Height="756" Width="1200" MinHeight="750" MinWidth="1200"  WindowStartupLocation="CenterScreen">
     <Window.Resources>
 
 
@@ -19,7 +19,7 @@
 
 
 
-        <Grid x:Name="mainGridPage1" Visibility="Visible">
+        <Grid x:Name="mainGridPage1" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.8*"/>
                 <RowDefinition Height="3*"/>
@@ -142,21 +142,21 @@
                         <ComboBoxItem FontSize="23" Content="Зниження апетиту" />
                     </ComboBox>
                     <Border Grid.Column="1" Grid.Row="1" Margin="5,5,10,5" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                        <TextBox x:Name="tbClaims" TextWrapping="Wrap" FontSize="20"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                        <TextBox x:Name="tbClaims" TextWrapping="Wrap" FontSize="20"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0" PreviewTextInput="tbClaims_PreviewTextInput"/>
                     </Border>
                 </Grid>
 
                 <Border Grid.Column="1" Grid.Row="1" Margin="5,5,10,5" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbEntrDiagnosis" TextWrapping="Wrap" FontSize="20" VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                    <TextBox x:Name="tbEntrDiagnosis" TextWrapping="Wrap" FontSize="20" VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0" PreviewTextInput="tbEntrDiagnosis_PreviewTextInput"/>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="2" Margin="5,5,10,5" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbFinalDiagnosis" TextWrapping="Wrap" FontSize="20" VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                    <TextBox x:Name="tbFinalDiagnosis" TextWrapping="Wrap" FontSize="20" VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0" PreviewTextInput="tbFinalDiagnosis_PreviewTextInput"/>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="3" Margin="5,5,10,5" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbComplications" TextWrapping="Wrap" FontSize="20" VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                    <TextBox x:Name="tbComplications" TextWrapping="Wrap" FontSize="20" VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0" PreviewTextInput="tbComplications_PreviewTextInput"/>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="4" Margin="5,5,10,5" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbAdditionDiagnosis" TextWrapping="Wrap" FontSize="20" VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                    <TextBox x:Name="tbAdditionDiagnosis" TextWrapping="Wrap" FontSize="20" VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0" PreviewTextInput="tbAdditionDiagnosis_PreviewTextInput"/>
                 </Border>
 
                 <UserControls:ClearableSearchBar x:Name="tbMKX" Grid.Column="1" Grid.Row="5" Margin="5,0,10,0" MyLabel="МКХ шифр" FontSize="20" VerticalAlignment="Center" Height="40"/>
@@ -228,7 +228,7 @@
                 <UserControls:DatePickerTemplate x:Name="dateChemotherapy"      Grid.Column="1" Margin="5,3,10,3" Grid.Row="3" FontSize="25" Height="40"/>
                 <UserControls:ClearableSearchBar x:Name="tbHistology"           Grid.Column="1" Grid.Row="4" Margin="5,5,10,5" VerticalAlignment="Center"  MyLabel=""  Height="40"/>
 
-                <ComboBox x:Name="comboBoxDoctorName" Grid.Column="1" Grid.Row="5" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="5,0,10,0" SelectionChanged="comboBoxDoctorName_SelectionChanged" SelectedIndex="0">
+                <ComboBox x:Name="comboBoxDoctorName" Grid.Column="1" Grid.Row="5" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="5,0,10,0" SelectedIndex="0">
                     <ComboBoxItem Content="Г.В. Трунов"     FontSize="25" FontFamily="Roboto"/>
                     <ComboBoxItem Content="А.Ю. Гаврилов"   FontSize="25" FontFamily="Roboto"/>
                     <ComboBoxItem Content="С.Р. Петриченко" FontSize="25" FontFamily="Roboto"/>
@@ -237,10 +237,10 @@
                 </ComboBox>
 
                 <Border Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Margin="5,0,5,0" Width="400" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5"  ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbDepartmentHead" VerticalAlignment="Center" Text="Г.В. Трунов"  FontSize="25" FontFamily="Roboto" Background="#F0F0F0" BorderBrush="{x:Null}"/>
+                    <TextBox x:Name="tbDepartmentHead" VerticalAlignment="Center" Text="Г.В. Трунов"  FontSize="25" FontFamily="Roboto" Background="#F0F0F0" BorderBrush="{x:Null}" PreviewTextInput="tbDepartmentHead_PreviewTextInput"/>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" Margin="5,0,5,0" Height="40" Width="400" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5"  ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbDepartHeadAssistant" VerticalAlignment="Center"  FontSize="25" FontFamily="Roboto" Background="#F0F0F0" BorderBrush="{x:Null}"/>
+                    <TextBox x:Name="tbDepartHeadAssistant" VerticalAlignment="Center"  FontSize="25" FontFamily="Roboto" Background="#F0F0F0" BorderBrush="{x:Null}" PreviewTextInput="tbDepartHeadAssistant_PreviewTextInput"/>
                 </Border>
 
 
@@ -415,8 +415,8 @@
                         <RowDefinition/>
                         <RowDefinition Height="0.2*"/>
                     </Grid.RowDefinitions>
-                    <RadioButton Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0" FontFamily="Roboto" FontSize="18" GroupName="rbOverallItem7">Не збільшина</RadioButton>
-                    <RadioButton Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0" FontFamily="Roboto" FontSize="18" GroupName="rbOverallItem7" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked">Збільшина</RadioButton>
+                    <RadioButton Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0" FontFamily="Roboto" FontSize="18" GroupName="rbOverallItem7">Не збільшена</RadioButton>
+                    <RadioButton Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0" FontFamily="Roboto" FontSize="18" GroupName="rbOverallItem7" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked">Збільшена</RadioButton>
 
                     <Grid x:Name="gridOverallItem7" Margin="10,0,25,0" Grid.Row="3" Visibility="Hidden">
                         <Grid.ColumnDefinitions>
@@ -425,7 +425,9 @@
                             <ColumnDefinition Width="0.2*"/>
                         </Grid.ColumnDefinitions>
                         <Label HorizontalAlignment="Left" Grid.Column="0" FontFamily="Roboto" FontSize="18" Content="На"/>
-                        <TextBox Grid.Column="1" x:Name="tbOverallItem7"   Height="30" FontFamily="Roboto" FontSize="18" Margin="5,0"/>
+                        <Border Grid.Column="1" Margin="5,0" Height="30" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
+                            <TextBox x:Name="tbOverallItem7"  VerticalContentAlignment="Center"    FontSize="18" FontFamily="Roboto" Background="#F0F0F0" BorderBrush="{x:Null}" PreviewTextInput="tbOverallItem7_PreviewTextInput"/>
+                        </Border>
                         <Label HorizontalAlignment="Center" Grid.Column="2" FontFamily="Roboto" FontSize="18" Content="см."/>
                     </Grid>
 
@@ -602,7 +604,7 @@
 
 
                     <Border Grid.Column="0" Margin="5,0,5,0" Height="33" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                        <TextBox x:Name="tbOverallItem11"    FontSize="19" FontFamily="Roboto" Background="#F0F0F0" BorderBrush="{x:Null}" SelectionBrush="#FF56B1A9"/>
+                        <TextBox x:Name="tbOverallItem11"    FontSize="19" FontFamily="Roboto" Background="#F0F0F0" BorderBrush="{x:Null}" SelectionBrush="#FF56B1A9" PreviewTextInput="tbOverallItem11_PreviewTextInput"/>
                     </Border>
 
                     <Label x:Name="OverallItem11_1Label" Content="уд. на 1 хв."   Grid.Column="1" VerticalAlignment="Center" FontSize="19" Margin="5,0,5,0" />
@@ -614,7 +616,7 @@
                         <ColumnDefinition Width="0.7*"/>
                     </Grid.ColumnDefinitions>
                     <Border Grid.Column="0" Margin="5,0,5,0" Height="33" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                        <TextBox x:Name="tbOverallItem12"    FontSize="19" FontFamily="Roboto" Background="#F0F0F0" BorderBrush="{x:Null}" SelectionBrush="#FF56B1A9"/>
+                        <TextBox x:Name="tbOverallItem12"    FontSize="19" FontFamily="Roboto" Background="#F0F0F0" BorderBrush="{x:Null}" SelectionBrush="#FF56B1A9" PreviewTextInput="tbOverallItem12_PreviewTextInput"/>
 
                     </Border>
 
@@ -628,7 +630,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Border Grid.Column="0" Margin="5,0,5,0" Height="33" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                        <TextBox x:Name="tbOverallItem15"    FontSize="19" FontFamily="Roboto" Background="#F0F0F0" BorderBrush="{x:Null}" SelectionBrush="#FF56B1A9"/>
+                        <TextBox x:Name="tbOverallItem15"    FontSize="19" FontFamily="Roboto" Background="#F0F0F0" BorderBrush="{x:Null}" SelectionBrush="#FF56B1A9" PreviewTextInput="tbOverallItem15_PreviewTextInput"/>
 
                     </Border>
 
@@ -706,38 +708,38 @@
                 <Label x:Name="AnamnesisItem11Label" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" Content="ФЕГДС" />
 
                 <Border Grid.Column="1" Grid.Row="0" Margin="5,3,10,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbAnamnesisItem1" BorderThickness="0" TextWrapping="Wrap"  FontSize="19"  VerticalScrollBarVisibility="Visible" Background="#F0F0F0"/>
+                    <TextBox x:Name="tbAnamnesisItem1" BorderThickness="0" TextWrapping="Wrap"  FontSize="19"  VerticalScrollBarVisibility="Visible" Background="#F0F0F0" PreviewTextInput="tbAnamnesisItem1_PreviewTextInput"/>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="1" Margin="5,3,10,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbAnamnesisItem2" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                    <TextBox x:Name="tbAnamnesisItem2" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0" PreviewTextInput="tbAnamnesisItem2_PreviewTextInput"/>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="2" Margin="5,3,10,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbAnamnesisItem3" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                    <TextBox x:Name="tbAnamnesisItem3" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0" PreviewTextInput="tbAnamnesisItem3_PreviewTextInput"/>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="3" Margin="5,3,10,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbAnamnesisItem4" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible"  BorderThickness="0" Background="#F0F0F0"/>
+                    <TextBox x:Name="tbAnamnesisItem4" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible"  BorderThickness="0" Background="#F0F0F0" PreviewTextInput="tbAnamnesisItem4_PreviewTextInput"/>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="4" Margin="5,3,10,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbAnamnesisItem5" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                    <TextBox x:Name="tbAnamnesisItem5" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0" PreviewTextInput="tbAnamnesisItem5_PreviewTextInput"/>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="5" Margin="5,3,10,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbAnamnesisItem6" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                    <TextBox x:Name="tbAnamnesisItem6" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0" PreviewTextInput="tbAnamnesisItem6_PreviewTextInput"/>
                 </Border>
 
                 <Border Grid.Column="3" Grid.Row="0" Margin="5,3,40,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbAnamnesisItem7" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                    <TextBox x:Name="tbAnamnesisItem7" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0" PreviewTextInput="tbAnamnesisItem7_PreviewTextInput"/>
                 </Border>
                 <Border Grid.Column="3" Grid.Row="1" Margin="5,3,40,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbAnamnesisItem8" TextWrapping="Wrap"  FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                    <TextBox x:Name="tbAnamnesisItem8" TextWrapping="Wrap"  FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0" PreviewTextInput="tbAnamnesisItem8_PreviewTextInput"/>
                 </Border>
                 <Border Grid.Column="3" Grid.Row="2" Margin="5,3,40,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbAnamnesisItem9" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                    <TextBox x:Name="tbAnamnesisItem9" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0" PreviewTextInput="tbAnamnesisItem9_PreviewTextInput"/>
                 </Border>
                 <Border Grid.Column="3" Grid.Row="3" Margin="5,3,40,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbAnamnesisItem10" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                    <TextBox x:Name="tbAnamnesisItem10" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0" PreviewTextInput="tbAnamnesisItem10_PreviewTextInput"/>
                 </Border>
                 <Border Grid.Column="3" Grid.Row="4" Margin="5,3,40,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbAnamnesisItem11" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                    <TextBox x:Name="tbAnamnesisItem11" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0" PreviewTextInput="tbAnamnesisItem11_PreviewTextInput"/>
                 </Border>
 
 
@@ -817,37 +819,37 @@
 
 
                 <Border Grid.Column="2" Grid.Row="0" Margin="5,0,5,0" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbLifeAnamnesisItem1"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" Text="Не хворів"/>
+                    <TextBox x:Name="tbLifeAnamnesisItem1"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" Text="Не хворів" PreviewTextInput="tbLifeAnamnesisItem1_PreviewTextInput"/>
                 </Border>
                 <Border Grid.Column="2" Grid.Row="1" Margin="5,0,5,0" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbLifeAnamnesisItem2"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" Text="Не хворів"/>
+                    <TextBox x:Name="tbLifeAnamnesisItem2"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" Text="Не хворів" PreviewTextInput="tbLifeAnamnesisItem2_PreviewTextInput"/>
                 </Border>
                 <Border Grid.Column="2" Grid.Row="2" Margin="5,0,5,0" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbLifeAnamnesisItem3"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" Text="Не хворів"/>
+                    <TextBox x:Name="tbLifeAnamnesisItem3"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" Text="Не хворів" PreviewTextInput="tbLifeAnamnesisItem3_PreviewTextInput"/>
                 </Border>
                 <Border Grid.Column="2" Grid.Row="3" Margin="5,0,5,0" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbLifeAnamnesisItem4"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" Text="Не хворів"/>
+                    <TextBox x:Name="tbLifeAnamnesisItem4"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" Text="Не хворів" PreviewTextInput="tbLifeAnamnesisItem4_PreviewTextInput"/>
                 </Border>
                 <Border Grid.Column="2" Grid.Row="4" Margin="5,0,5,0" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbLifeAnamnesisItem5"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" Text="Не хворів"/>
+                    <TextBox x:Name="tbLifeAnamnesisItem5"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" Text="Не хворів" PreviewTextInput="tbLifeAnamnesisItem5_PreviewTextInput"/>
                 </Border>
 
 
                 <Border Grid.Column="5" Grid.Row="0" Margin="5,0,5,0" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbLifeAnamnesisItem6"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" Text="Не хворів"/>
+                    <TextBox x:Name="tbLifeAnamnesisItem6"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" Text="Не хворів" PreviewTextInput="tbLifeAnamnesisItem6_PreviewTextInput"/>
                 </Border>
                 <Border Grid.Column="5" Grid.Row="1" Margin="5,0,5,0" Height="70" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbLifeAnamnesisItem7"    FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"/>
+                    <TextBox x:Name="tbLifeAnamnesisItem7"    FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" PreviewTextInput="tbLifeAnamnesisItem7_PreviewTextInput"/>
                 </Border>
                 <Border Grid.Column="5" Grid.Row="2" Margin="5,0,5,0" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbLifeAnamnesisItem8"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" />
+                    <TextBox x:Name="tbLifeAnamnesisItem8"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" PreviewTextInput="tbLifeAnamnesisItem8_PreviewTextInput" />
                 </Border>
                 <Border Grid.Column="5" Grid.Row="3" Margin="5,0,5,0" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbLifeAnamnesisItem9"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0"/>
+                    <TextBox x:Name="tbLifeAnamnesisItem9"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" PreviewTextInput="tbLifeAnamnesisItem9_PreviewTextInput"/>
                 </Border>
 
                 <Border Grid.Column="5" Grid.Row="4" Margin="5,0,5,0" Height="70" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                    <TextBox x:Name="tbLifeAnamnesisItem10"    FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"/>
+                    <TextBox x:Name="tbLifeAnamnesisItem10"    FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" PreviewTextInput="tbLifeAnamnesisItem10_PreviewTextInput"/>
                 </Border>
 
             </Grid>
@@ -942,7 +944,7 @@
                     </ComboBox>
 
                     <Border Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0" Margin="5,2,5,2">
-                        <TextBox x:Name="tbLocusMorbiItem1" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0"  VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"/>
+                        <TextBox x:Name="tbLocusMorbiItem1" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0"  VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" PreviewTextInput="tbLocusMorbiItem1_PreviewTextInput"/>
                     </Border>
                     
 
@@ -964,7 +966,7 @@
                     </ComboBox>
 
                     <Border Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0" Margin="5,2,5,2">
-                        <TextBox x:Name="tbLocusMorbiItem2" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"/>
+                        <TextBox x:Name="tbLocusMorbiItem2" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" PreviewTextInput="tbLocusMorbiItem2_PreviewTextInput"/>
                     </Border>
 
                 </Grid>
@@ -1000,7 +1002,7 @@
                     </ComboBox>
 
                     <Border Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0" Margin="5,2,5,2">
-                        <TextBox x:Name="tbLocusMorbiItem4" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"/>
+                        <TextBox x:Name="tbLocusMorbiItem4" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" PreviewTextInput="tbLocusMorbiItem4_PreviewTextInput"/>
                     </Border>
 
                 </Grid>
@@ -1034,7 +1036,7 @@
                     </ComboBox>
 
                     <Border Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0" Margin="5,2,5,2">
-                        <TextBox x:Name="tbLocusMorbiItem6" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"/>
+                        <TextBox x:Name="tbLocusMorbiItem6" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" PreviewTextInput="tbLocusMorbiItem6_PreviewTextInput"/>
                     </Border>
 
                 </Grid>
@@ -1063,7 +1065,7 @@
                     </ComboBox>
 
                     <Border Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0" Margin="5,2,5,2">
-                        <TextBox x:Name="tbLocusMorbiItem7" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"/>
+                        <TextBox x:Name="tbLocusMorbiItem7" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" PreviewTextInput="tbLocusMorbiItem7_PreviewTextInput"/>
                     </Border>
 
                 </Grid>
@@ -1072,7 +1074,8 @@
 
 
             <UserControls:btnTemplate x:Name="btnPage8Back" HorizontalAlignment="Left" Grid.Row="2" MyBtnText="&lt;&lt;&lt; Повернутись" Margin="30,0,0,0" />
-            <UserControls:btnTemplate x:Name="btnPage8Save" HorizontalAlignment="Right" Grid.Row="2" MyBtnText="Далі &gt;&gt;&gt;" Margin="0,0,30,0" />
+            <UserControls:btnTemplate x:Name="btnPage8Save" HorizontalAlignment="Right" Grid.Row="2" MyBtnText="Додати пацієнта" Margin="0,0,30,0" />
+            <UserControls:btnTemplate x:Name="btnPage8SaveChanges" HorizontalAlignment="Right" Grid.Row="2" MyBtnText="Зберегти зміни" Visibility="Hidden" Margin="0,0,30,0" />
 
 
 

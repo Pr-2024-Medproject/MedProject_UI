@@ -39,16 +39,24 @@
                 <DataGridTextColumn Binding="{Binding _colLastName}" Header="Прізвище"   Width="150"/>
                 <DataGridTextColumn Binding="{Binding _colFirstName}" Header="Ім'я"   Width="150"/>
                 <DataGridTextColumn Binding="{Binding _colMiddleName}" Header="По-батькові"   Width="150"/>
-                <DataGridTextColumn Binding="{Binding _colBirthDay, StringFormat=\{0:dd.MM.yyyy HH:mm:ss\}}" Header="Дата народження"   Width="200"/>
+                <DataGridTextColumn Binding="{Binding _colBirthDay, StringFormat=\{0:dd.MM.yyyy\}}" Header="Дата народження"   Width="200"/>
                 <DataGridTextColumn Binding="{Binding _colAge}" Header="Вік"   Width="40"/>
-                
-                <DataGridTemplateColumn Header="Документи">
+
+                <DataGridTemplateColumn Header="Інформація">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="BTN_GetDocs" Click="GetListDocument">Show/Hide</Button>
+                            <Button x:Name="BTN_GetDocs" Click="GetListDocument"> Деталі </Button>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                <DataGridTemplateColumn Header="Видалення">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="BTN_DeleteRecord" Click="BTN_DeleteRecord_Click"> Видалити </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
             </DataGrid.Columns>
         </DataGrid>
         <UserControls:ClearableSearchBar x:Name="SearchBar"   Grid.Column="1" Margin="34,0,34,0" VerticalAlignment="Center"  MyLabel="Введіть ім'я та прізвище"  Height="45"/>
