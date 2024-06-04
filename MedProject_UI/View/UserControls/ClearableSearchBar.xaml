@@ -5,30 +5,36 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MedProject_UI.View.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="35" d:DesignWidth="456">
+             d:DesignHeight="35" d:DesignWidth="450">
 
     <Border CornerRadius="7"
-            BorderBrush="#e6e6e6"
-            BorderThickness="3">
+            BorderBrush="#AAAAAA"
+            BorderThickness="1.5"
+            Background="#F0F0F0"
+            Padding="2,2,2,2">
 
-        <Grid x:Name="SearchBarGrid" Background="#e6e6e6" >
-            <Grid x:Name="textArea" Margin="0,0,30,0">
+        <Grid x:Name="SearchBarGrid" Background="#F0F0F0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="0.07*"/>
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="textArea" Grid.Column="0" >
                 <TextBox x:Name="tbSearchText"  
                     FontFamily="Roboto"
                     VerticalContentAlignment="Center" 
-                    FontSize="25" 
+                    FontSize="23" 
                     Background="Transparent"
                     FontWeight ="Normal"
                     TextChanged="tbSearchText_TextChanged"
                     BorderThickness ="0"
-                    HorizontalAlignment="Left"
-                    MinWidth="410" PreviewTextInput="tbSearchText_PreviewTextInput"  
-                         
+                    HorizontalAlignment="Stretch"
+                    PreviewTextInput="tbSearchText_PreviewTextInput"  
+                    Margin="5,0,0,0"
                  />
 
                 <TextBlock x:Name="tbLabel" 
                     FontFamily="Roboto"
-                    FontSize="25" 
+                    FontSize="23" 
                     Text="{Binding MyLabel}"
                     FontWeight ="Normal"
                     Foreground="#666666"
@@ -37,14 +43,14 @@
                     Panel.ZIndex="-1" />
 
             </Grid>
-            <Button x:Name="btnClear" 
+            <Button Grid.Column="1" x:Name="btnClear" 
                 FontSize="20" 
-                HorizontalAlignment="Right" 
+                VerticalAlignment="Center"
                 Content="X"
                 Foreground="#595959" 
                 BorderThickness="0"
-                  
-                Click="btnClearClick" Width="30">
+                Width="30" 
+                Click="btnClearClick" >
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
 

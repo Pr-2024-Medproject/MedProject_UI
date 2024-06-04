@@ -11,25 +11,83 @@ namespace MedProject_UI
     {
         public sealed class DataItem
         {
-            //public bool? _colCheckBox { get; set; }
+            public bool? _colCheckBox { get; set; }
             public string _colCardNumber { get; private set; }
             public string? _colLastName { get; set; }
             public string? _colFirstName { get; set; }
             public string _colMiddleName { get; set; }
-            public DateTime _colBirthDay { get; set; }
+            public DateTime? _colBirthDay { get; set; }
             public int _colAge
             {
                 get
                 {
-                    return _colBirthDay.Date > DateTime.Today.AddYears(-(DateTime.Today.Year - _colBirthDay.Year))
-                        ? DateTime.Today.Year - _colBirthDay.Year - 1
-                        : DateTime.Today.Year - _colBirthDay.Year;
+                    return _colBirthDay.Value.Date > DateTime.Today.AddYears(-(DateTime.Today.Year - _colBirthDay.Value.Year))
+                        ? DateTime.Today.Year - _colBirthDay.Value.Year - 1
+                        : DateTime.Today.Year - _colBirthDay.Value.Year;
                 }
             }
             public string? _colAddress { get; set; }
             public string? _colProfession { get; set; }
-            public DateTime _colHospitalDate { get; set; }
-            public DateTime _colLeaveDate { get; set; }
+            public DateTime? _colHospitalDate { get; set; }
+            public DateTime? _colLeaveDate { get; set; }
+            public string[]? _fieldClaims { get; set; } //Скарги
+            public string? _fieldEntrDiagnosis { get; set; } //Діагноз при госпіталізації
+            public string? _fieldFinalDiagnosis { get; set; } //Заключний діагноз
+            public string? _fieldComplication { get; set; } //Ускладнення
+            public string? _fieldAdditionalDiagnosis { get; set; } //Супутній діагноз
+            public string? _fieldMKX { get; set; } //МКХ Шифр
+            public string? _fieldOperationName { get; set; } //Назва Операції
+            public DateTime? _fieldOperationDate { get; set; } //Дата операції
+            public string? _fieldChemotherapy { get; set; } //Схема ПХТ
+            public DateTime? _fieldChemotherapyDate { get; set; } //Дата ЛТ/ПХТ
+            public string? _fieldHistology { get; set; } //Гістологія/Цистологія
+            public string? _fieldDoctor { get; set; } //Лікуючий лікар
+            public string? _fieldDepartmentHead { get; set; } //Завідувач відділенням
+            public string? _fieldDepartHeadAssistant { get; set; } //В.о. завідувача відділенням
+            public int? _fieldOverallItem1 { get; set; } //Загальний стан
+            public int? _fieldOverallItem2 { get; set; } //Конституція
+            public int? _fieldOverallItem3 { get; set; } //Харчування
+            public int? _fieldOverallItem4 { get; set; } //Задишка
+            public int? _fieldOverallItem5 { get; set; } //Шкіра
+            public int? _fieldOverallItem6 { get; set; } //Язик
+            public string? _fieldOverallItem7 { get; set; } //Печінка
+            public int? _fieldOverallItem8 { get; set; } //Стілець
+            public bool? _fieldOverallItem9_1 { get; set; } //Симптом Пастернацького (статус)
+            public bool? _fieldOverallItem9_2 { get; set; } //Симптом Пастернацького (місце)
+            public int[]? _fieldOverallItem10 { get; set; } //Живіт
+            public int? _fieldOverallItem11 { get; set; } //Пульс
+            public string? _fieldOverallItem12 { get; set; } //Артеріальний тиск
+            public int? _fieldOverallItem13 { get; set; } //Діурез
+            public int[]? _fieldOverallItem14 { get; set; } //Тони серця
+            public int? _fieldOverallItem15 { get; set; } //Частота дихальних рухів (ЧДР)
+            public string? _fieldAnamnesisItem1 { get; set; } //Хворіє з
+            public string? _fieldAnamnesisItem2 { get; set; } //Зміни виявлені при профогляді
+            public string? _fieldAnamnesisItem3 { get; set; } //Звернувся в
+            public string? _fieldAnamnesisItem4 { get; set; } //Виставлено діагноз
+            public string? _fieldAnamnesisItem5 { get; set; } //Проведено дообстеження
+            public string? _fieldAnamnesisItem6 { get; set; } //Лікування
+            public string? _fieldAnamnesisItem7 { get; set; } //Попередня ХЛТ
+            public string? _fieldAnamnesisItem8 { get; set; } //КТ ОГК, ОБП, ОМТ, ГМ
+            public string? _fieldAnamnesisItem9 { get; set; } //МРТ ГМ
+            public string? _fieldAnamnesisItem10 { get; set; } //ФБС
+            public string? _fieldAnamnesisItem11 { get; set; } //ФЕГДС
+            public string? _fieldLifeAnamnesisItem1 { get; set; } //Туберкульоз
+            public string? _fieldLifeAnamnesisItem2 { get; set; } //Венеричні захворювання
+            public string? _fieldLifeAnamnesisItem3 { get; set; } //Цукровий діабет
+            public string? _fieldLifeAnamnesisItem4 { get; set; } //Гіпертонічна хвороба
+            public string? _fieldLifeAnamnesisItem5 { get; set; } //Ішемічна хвороба серця
+            public string? _fieldLifeAnamnesisItem6 { get; set; } //ХОЗЛ
+            public string? _fieldLifeAnamnesisItem7 { get; set; } //Інші хвороби
+            public int? _fieldLifeAnamnesisItem8 { get; set; } //На л/л з
+            public int? _fieldLifeAnamnesisItem9 { get; set; } //Всього л/л
+            public string? _fieldLifeAnamnesisItem10 { get; set; } //Постійно приймає
+            public string[]? _fieldLocusMorbiItem1 { get; set; } //Надключні л/в
+            public string[]? _fieldLocusMorbiItem2 { get; set; } //Пахові л/в
+            public bool? _fieldLocusMorbiItem3 { get; set; } //Над легенями дихання
+            public string[]? _fieldLocusMorbiItem4 { get; set; } //Ослаблення дихання
+            public bool? _fieldLocusMorbiItem5 { get; set; } //Перкуторно
+            public string[]? _fieldLocusMorbiItem6 { get; set; } //Притуплення
+            public string[]? _fieldLocusMorbiItem7 { get; set; } //Хрипи
 
             public DataItem()
             {
@@ -44,6 +102,75 @@ namespace MedProject_UI
         }
 
         private List<DataItem> dataItems = new List<DataItem>();
+
+        public Dictionary<int, string> dictOverallItem1 = new Dictionary<int, string>() {
+            { 0, "Задовільний" },
+            { 1, "Відносно задовільний" },
+            { 2, "Середньої важкості"},
+            { 3, "Важкий" }
+        };
+
+        public Dictionary<int, string> dictOverallItem2 = new Dictionary<int, string>() {
+            { 0, "Нормостенік" },
+            { 1, "Астенік" },
+            { 2, "Гиперстенік"}
+        };
+
+        public Dictionary<int, string> dictOverallItem3 = new Dictionary<int, string>() {
+            { 0, "Підвищене" },
+            { 1, "Помірне" },
+            { 2, "Знижене"},
+            { 3, "Кахексія" }
+        };
+
+        public Dictionary<int, string> dictOverallItem4 = new Dictionary<int, string>() {
+            { 0, "Немає" },
+            { 1, "При фізичному навантаженні" },
+            { 2, "При розмові"},
+            { 3, "В спокої" }
+        };
+
+        public Dictionary<int, string> dictOverallItem5 = new Dictionary<int, string>() {
+            { 0, "Звичайного кольору" },
+            { 1, "Бліда" },
+            { 2, "Акроцианоз"},
+            { 3, "Центральний цианоз" }
+        };
+
+        public Dictionary<int, string> dictOverallItem6 = new Dictionary<int, string>() {
+            { 0, "Вологий, чистий" },
+            { 1, "Обкладений" },
+            { 2, "Сухий"}
+        };
+
+        public Dictionary<int, string> dictOverallItem8 = new Dictionary<int, string>() {
+            { 0, "В нормі" },
+            { 1, "Закрепи" },
+            { 2, "Проноси"}
+        };
+
+        public Dictionary<int, string> dictOverallItem10 = new Dictionary<int, string>() {
+            { 0, "Звичайної форми" },
+            { 1, "Не збільшений у розмірах" },
+            { 2, "Не роздутий"},
+            { 3, "Бере участь у дихані" },
+            { 4, "При пальпації м'який, безболісний" },
+            { 5, "Перитонеальні симптоми негативні" }
+        };
+
+        public Dictionary<int, string> dictOverallItem13 = new Dictionary<int, string>() {
+            { 0, "В нормі" },
+            { 1, "Знижений" },
+            { 2, "Дізурія"}
+        };
+
+        public Dictionary<int, string> dictOverallItem14 = new Dictionary<int, string>() {
+            { 0, "Чисті" },
+            { 1, "Приглушені" },
+            { 2, "Ритмічні"},
+            { 3, "Екстрасистолія" },
+            { 4, "Мерцальна аритмія" }
+        };
 
         private static string GetRandomLastName()
         {
@@ -77,7 +204,7 @@ namespace MedProject_UI
         {
             base.OnStartup(e);
 
-            for (int i = 0; i < 100000; i++)
+            for (int i = 0; i < 100; i++)
             {
                 dataItems.Add(new DataItem
                 {
@@ -108,6 +235,11 @@ namespace MedProject_UI
         public List<DataItem> GetDataItems()
         {
             return dataItems;
+        }
+
+        public void AddDateToStorage(DataItem data)
+        {
+            dataItems.Add(data);
         }
     }
 

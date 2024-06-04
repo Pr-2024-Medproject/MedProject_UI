@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MedProject_UI"
         xmlns:UserControls="clr-namespace:MedProject_UI.View.UserControls"
         mc:Ignorable="d"
-        Title="Med Project" Height="600" Width="1300" MinHeight="500" MinWidth="1035" WindowStartupLocation="Manual" >
+        Title="Med Project" Height="600" Width="1300" MinHeight="500" MinWidth="1035" WindowStartupLocation="Manual" Activated="WIndow_Main_Activated" >
     <Grid x:Name="Main">
         <Grid.Background>
             <ImageBrush ImageSource="/c516ff9163fefeaa5974fc7c8855cd02.jpg" Stretch="UniformToFill" TileMode="Tile" Opacity="0.35" AlignmentX="Left"/>
@@ -51,7 +51,7 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <UserControls:ClearableSearchBar x:Name="SearchBar"   Grid.Column="1" Margin="34,0,34,0" VerticalAlignment="Center"  MyLabel="Введіть ім'я та прізвище"  Height="50"/>
+        <UserControls:ClearableSearchBar x:Name="SearchBar"   Grid.Column="1" Margin="34,0,34,0" VerticalAlignment="Center"  MyLabel="Введіть ім'я та прізвище"  Height="45"/>
         <UserControls:btnTemplate x:Name="btnAddNewPatient" Grid.Column="2" VerticalAlignment="Center"  MyBtnText="Додати пацієнта" HorizontalAlignment="Center"/>
        
 

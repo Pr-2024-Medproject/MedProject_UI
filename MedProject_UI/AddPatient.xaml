@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MedProject_UI"
         xmlns:UserControls="clr-namespace:MedProject_UI.View.UserControls"
         mc:Ignorable="d"
-        Title="AddPatient" Height="750" Width="1200" MinHeight="750" MinWidth="1200"  WindowStartupLocation="CenterOwner">
+        Title="AddPatient" Height="756" Width="1200" MinHeight="750" MinWidth="1200"  WindowStartupLocation="CenterScreen">
     <Window.Resources>
 
 
@@ -19,7 +19,7 @@
 
 
 
-        <Grid x:Name="mainGridPage1" Visibility="Hidden">
+        <Grid x:Name="mainGridPage1" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.8*"/>
                 <RowDefinition Height="3*"/>
@@ -49,26 +49,26 @@
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="LastNameLabel" Content="Прізвище" HorizontalAlignment="Right" Grid.Row="0" VerticalAlignment="Center" FontSize="20" Margin="0,0,15,0"/>
-                <Label x:Name="FirstNameLabel" Content="Ім'я" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" FontSize="20" Margin="0,0,15,0"/>
-                <Label x:Name="MiddleNameLabel" Content="По-батькові" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center" FontSize="20" Margin="0,0,15,0"/>
-                <Label x:Name="BirthdayLabel" Content="Дата народження" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontSize="20" Margin="0,0,15,0"/>
-                <Label x:Name="LivingAddressLabel" Content="Адреса проживання" HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Center" FontSize="20" Margin="0,0,15,0"/>
-                <Label x:Name="WorkDescriptorLabel" Content="Місце роботи" HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center" FontSize="20" Margin="0,0,15,0"/>
-                <Label x:Name="HospitalEntrDateLabel" Content="Дата госпіталізації" HorizontalAlignment="Right" Grid.Row="6" VerticalAlignment="Center" FontSize="20" Margin="0,0,15,0"/>
-                <Label x:Name="HospitalEndDateLabel" Content="Дата вибуття зі стаціонару" HorizontalAlignment="Right" Grid.Row="7" VerticalAlignment="Center" FontSize="20" Margin="0,0,15,0"/>
+                <Label x:Name="LastNameLabel" Content="Прізвище"                          HorizontalAlignment="Right" Grid.Row="0" VerticalAlignment="Center" FontSize="25" Margin="0,0,15,0"/>
+                <Label x:Name="FirstNameLabel" Content="Ім'я"                             HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" FontSize="25" Margin="0,0,15,0"/>
+                <Label x:Name="MiddleNameLabel" Content="По-батькові"                     HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center" FontSize="25" Margin="0,0,15,0"/>
+                <Label x:Name="BirthdayLabel" Content="Дата народження"                   HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontSize="25" Margin="0,0,15,0"/>
+                <Label x:Name="LivingAddressLabel" Content="Адреса проживання"            HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Center" FontSize="25" Margin="0,0,15,0"/>
+                <Label x:Name="WorkDescriptorLabel" Content="Професія"                    HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center" FontSize="25" Margin="0,0,15,0"/>
+                <Label x:Name="HospitalEntrDateLabel" Content="Дата госпіталізації"       HorizontalAlignment="Right" Grid.Row="6" VerticalAlignment="Center" FontSize="25" Margin="0,0,15,0"/>
+                <Label x:Name="HospitalEndDateLabel" Content="Дата вибуття зі стаціонару" HorizontalAlignment="Right" Grid.Row="7" VerticalAlignment="Center" FontSize="25" Margin="0,0,15,0"/>
 
 
-                <UserControls:ClearableSearchBar x:Name="tbLastName" Grid.Column="1" Grid.Row="0" Margin="15,0,15,0" VerticalAlignment="Center"  MyLabel="Павленко"  Height="40"/>
-                <UserControls:ClearableSearchBar x:Name="tbFirstName" Grid.Column="1" Grid.Row="1" Margin="15,0,15,0" VerticalAlignment="Center"  MyLabel="Павел"  Height="40"/>
-                <UserControls:ClearableSearchBar x:Name="tbMiddleName" Grid.Column="1" Grid.Row="2" Margin="15,0,15,0" VerticalAlignment="Center"  MyLabel="Павлович"  Height="40"/>
-                <UserControls:DatePickerTemplate x:Name="datePickerBirthday" Grid.Column="1" Margin="15,3,15,3" Grid.Row="3" FontSize="25"/>
+                <UserControls:ClearableSearchBar x:Name="tbLastName"         Grid.Column="1" Grid.Row="0" Margin="15,0,15,0" VerticalAlignment="Center"  MyLabel="Павленко"  Height="40"/>
+                <UserControls:ClearableSearchBar x:Name="tbFirstName"        Grid.Column="1" Grid.Row="1" Margin="15,0,15,0" VerticalAlignment="Center"  MyLabel="Павел"  Height="40"/>
+                <UserControls:ClearableSearchBar x:Name="tbMiddleName"       Grid.Column="1" Grid.Row="2" Margin="15,0,15,0" VerticalAlignment="Center"  MyLabel="Павлович"  Height="40"/>
+                <UserControls:DatePickerTemplate x:Name="datePickerBirthday" Grid.Column="1" Grid.Row="3" Margin="15,3,15,3" FontSize="25" Height="40"/>
 
 
-                <UserControls:ClearableSearchBar x:Name="tbLivingAddress" Grid.Column="1" Grid.Row="4" Margin="15,0,15,5" VerticalAlignment="Center"  MyLabel="Сумська 7б"  Height="40"/>
-                <UserControls:ClearableSearchBar x:Name="tbWorkAddress" Grid.Column="1" Grid.Row="5" Margin="15,0,15,5" VerticalAlignment="Center"  MyLabel="Сумська 7б"  Height="40"/>
-                <UserControls:DatePickerTemplate x:Name="datePickerHospitalStart" Grid.Column="1" Margin="15,3,15,3" Grid.Row="6" FontSize="25"/>
-                <UserControls:DatePickerTemplate x:Name="datePickerHospitalEnd" Grid.Column="1" Margin="15,3,15,3" Grid.Row="7" FontSize="25"/>
+                <UserControls:ClearableSearchBar x:Name="tbLivingAddress"         Grid.Column="1" Grid.Row="4" Margin="15,0,15,5" VerticalAlignment="Center"  MyLabel="Сумська 7б"  Height="40"/>
+                <UserControls:ClearableSearchBar x:Name="tbWorkAddress"           Grid.Column="1" Grid.Row="5" Margin="15,0,15,5" VerticalAlignment="Center"  MyLabel="Сумська 7б"  Height="40"/>
+                <UserControls:DatePickerTemplate x:Name="datePickerHospitalStart" Grid.Column="1" Margin="15,3,15,3" Grid.Row="6" FontSize="25" Height="40"/>
+                <UserControls:DatePickerTemplate x:Name="datePickerHospitalEnd"   Grid.Column="1" Margin="15,3,15,3" Grid.Row="7" FontSize="25" Height="40"/>
 
 
             </Grid>
@@ -128,27 +128,38 @@
                         <ColumnDefinition/>
                         <ColumnDefinition Width="1.5*"/>
                     </Grid.ColumnDefinitions>
-                    <ComboBox x:Name="comboBoxClaims" VerticalAlignment="Center" Margin="5,0,5,0" SelectionChanged="comboBoxClaims_SelectionChanged">
-                        <ComboBoxItem Content="Кашель з слизовою, гнійною мокротою, сухий" FontSize="18"/>
-                        <ComboBoxItem Content="Кровохаркання" FontSize="18"/>
-                        <ComboBoxItem Content="Задишку при фізичному навантаженні, розмові, в спокої" FontSize="18"/>
-                        <ComboBoxItem Content="Біль у грудній клітці справа, зліва, за грудиною" FontSize="18"/>
-                        <ComboBoxItem Content="Гіпертермію до °С" FontSize="18"/>
-                        <ComboBoxItem Content="Субфебрилітет вечорами" FontSize="18"/>
-                        <ComboBoxItem Content="Осиплість голосу" FontSize="18"/>
-                        <ComboBoxItem Content="Набряк обличчя" FontSize="18"/>
-                        <ComboBoxItem Content="Утруднення проходження їжі по стравоходу" FontSize="18"/>
-                        <ComboBoxItem Content="Загальна слабкість" FontSize="18"/>
-                        <ComboBoxItem Content="Зниження апетиту" FontSize="18"/>
+                    <ComboBox x:Name="comboBoxClaims" VerticalAlignment="Center" HorizontalAlignment="Stretch" Height="32" FontSize="20" Margin="5,0,5,0" SelectionChanged="comboBoxClaims_SelectionChanged">
+                        <ComboBoxItem FontSize="23" Content="Кашель з слизовою, гнійною мокротою, сухий" />
+                        <ComboBoxItem FontSize="23" Content="Кровохаркання" />
+                        <ComboBoxItem FontSize="23" Content="Задишку при фізичному навантаженні, розмові, в спокої" />
+                        <ComboBoxItem FontSize="23" Content="Біль у грудній клітці справа, зліва, за грудиною" />
+                        <ComboBoxItem FontSize="23" Content="Гіпертермію до °С" />
+                        <ComboBoxItem FontSize="23" Content="Субфебрилітет вечорами" />
+                        <ComboBoxItem FontSize="23" Content="Осиплість голосу" />
+                        <ComboBoxItem FontSize="23" Content="Набряк обличчя" />
+                        <ComboBoxItem FontSize="23" Content="Утруднення проходження їжі по стравоходу" />
+                        <ComboBoxItem FontSize="23" Content="Загальна слабкість" />
+                        <ComboBoxItem FontSize="23" Content="Зниження апетиту" />
                     </ComboBox>
-                    <TextBox x:Name="tbClims" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Margin="5,5,10,5" FontSize="18"  VerticalScrollBarVisibility="Visible"/>
+                    <Border Grid.Column="1" Grid.Row="1" Margin="5,5,10,5" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                        <TextBox x:Name="tbClaims" TextWrapping="Wrap" FontSize="20"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                    </Border>
                 </Grid>
 
-                <TextBox x:Name="tbEntrDiagnosis" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Margin="5,5,10,5" FontSize="20" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"/>
-                <TextBox x:Name="tbSiblingDiagnosis" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" Margin="5,5,10,5" FontSize="20" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"/>
-                <TextBox x:Name="tbComplications" Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" Margin="5,5,10,5" FontSize="20" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"/>
-                <TextBox x:Name="tbAdditionDiagnosis" Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" Margin="5,5,10,5" FontSize="20" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"/>
-                <UserControls:ClearableSearchBar x:Name="tbMKX" Grid.Column="1" Grid.Row="5" Margin="5,0,10,0" MyLabel="МКХ шифр" FontSize="20" VerticalAlignment="Center"/>
+                <Border Grid.Column="1" Grid.Row="1" Margin="5,5,10,5" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbEntrDiagnosis" TextWrapping="Wrap" FontSize="20" VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                </Border>
+                <Border Grid.Column="1" Grid.Row="2" Margin="5,5,10,5" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbFinalDiagnosis" TextWrapping="Wrap" FontSize="20" VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                </Border>
+                <Border Grid.Column="1" Grid.Row="3" Margin="5,5,10,5" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbComplications" TextWrapping="Wrap" FontSize="20" VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                </Border>
+                <Border Grid.Column="1" Grid.Row="4" Margin="5,5,10,5" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbAdditionDiagnosis" TextWrapping="Wrap" FontSize="20" VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                </Border>
+
+                <UserControls:ClearableSearchBar x:Name="tbMKX" Grid.Column="1" Grid.Row="5" Margin="5,0,10,0" MyLabel="МКХ шифр" FontSize="20" VerticalAlignment="Center" Height="40"/>
                 
 
 
@@ -162,7 +173,7 @@
 
 
 
-        <Grid x:Name="mainGridPage3" Visibility="Visible">
+        <Grid x:Name="mainGridPage3" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.8*"/>
                 <RowDefinition Height="3*"/>
@@ -200,40 +211,37 @@
 
 
 
-                <Label x:Name="OperationNameLabel" Content="Назва операції" HorizontalAlignment="Right" Grid.Row="0" VerticalAlignment="Center" FontSize="25" Margin="10,0,10,0" />
-                <Label x:Name="OperationDateLabel" Content="Дата операції" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" FontSize="25" Margin="10,0,10,0"/>
-                <Label x:Name="ChemotherapyNameLabel" Content="Схема ПХТ" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center" FontSize="25" Margin="10,0,10,0" />
-                <Label x:Name="ChemotherapyDateLabel" Content="Дата ЛТ / ПХТ" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontSize="25" Margin="10,0,10,0"/>
-                <Label x:Name="HistologyLabel" Content="Гістологія/цитологія" HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Center" FontSize="25" Margin="10,0,10,0" />
-                <Label x:Name="DoctorLabel" Content="Лікуючий лікар" HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center" FontSize="25" Margin="10,0,10,0"/>
+                <Label x:Name="OperationNameLabel" Content="Назва операції"     HorizontalAlignment="Right" Grid.Row="0" VerticalAlignment="Center" FontSize="25" Margin="10,0,10,0" />
+                <Label x:Name="OperationDateLabel" Content="Дата операції"      HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" FontSize="25" Margin="10,0,10,0"/>
+                <Label x:Name="ChemotherapyNameLabel" Content="Схема ПХТ"       HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center" FontSize="25" Margin="10,0,10,0" />
+                <Label x:Name="ChemotherapyDateLabel" Content="Дата ЛТ / ПХТ"   HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontSize="25" Margin="10,0,10,0"/>
+                <Label x:Name="HistologyLabel" Content="Гістологія/цитологія"   HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Center" FontSize="25" Margin="10,0,10,0" />
+                <Label x:Name="DoctorLabel" Content="Лікуючий лікар"            HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center" FontSize="25" Margin="10,0,10,0"/>
                 <Label x:Name="DepartmentHeadLabel" Content="Завідувач відділення" HorizontalAlignment="Right" Grid.Row="6" VerticalAlignment="Center" FontSize="25" Margin="10,0,10,0" />
                 <Label x:Name="DepartHeadAssistantLabel" Content="В.о. зав. відділення" HorizontalAlignment="Right" Grid.Row="7" VerticalAlignment="Center" FontSize="25" Margin="10,0,10,0"/>
 
 
 
-                <UserControls:ClearableSearchBar x:Name="tbOperationName" Grid.Column="1" Grid.Row="0" Margin="5,5,10,5" VerticalAlignment="Center"  MyLabel=""  Height="40"/>
-                <UserControls:DatePickerTemplate x:Name="dateOperation" Grid.Column="1" Margin="5,3,10,3" Grid.Row="1" FontSize="25" Height="50"/>
-                <UserControls:ClearableSearchBar x:Name="tbChemotherapyName" Grid.Column="1" Grid.Row="2" Margin="5,5,10,5" VerticalAlignment="Center"  MyLabel=""  Height="40"/>
-                <UserControls:DatePickerTemplate x:Name="dateChemotherapy" Grid.Column="1" Margin="5,3,10,3" Grid.Row="3" FontSize="25" Height="50"/>
-                <UserControls:ClearableSearchBar x:Name="tbHistology" Grid.Column="1" Grid.Row="4" Margin="5,5,10,5" VerticalAlignment="Center"  MyLabel=""  Height="40"/>
+                <UserControls:ClearableSearchBar x:Name="tbOperationName"       Grid.Column="1" Grid.Row="0" Margin="5,5,10,5" VerticalAlignment="Center"  MyLabel=""  Height="40"/>
+                <UserControls:DatePickerTemplate x:Name="dateOperation"         Grid.Column="1" Margin="5,3,10,3" Grid.Row="1" FontSize="25" Height="40"/>
+                <UserControls:ClearableSearchBar x:Name="tbChemotherapyName"    Grid.Column="1" Grid.Row="2" Margin="5,5,10,5" VerticalAlignment="Center"  MyLabel=""  Height="40"/>
+                <UserControls:DatePickerTemplate x:Name="dateChemotherapy"      Grid.Column="1" Margin="5,3,10,3" Grid.Row="3" FontSize="25" Height="40"/>
+                <UserControls:ClearableSearchBar x:Name="tbHistology"           Grid.Column="1" Grid.Row="4" Margin="5,5,10,5" VerticalAlignment="Center"  MyLabel=""  Height="40"/>
 
                 <ComboBox x:Name="comboBoxDoctorName" Grid.Column="1" Grid.Row="5" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="5,0,10,0" SelectionChanged="comboBoxDoctorName_SelectionChanged">
-                    <ComboBoxItem Content="Г.В. Трунов" FontSize="25" FontFamily="Roboto"/>
-                    <ComboBoxItem Content="А.Ю. Гаврилов" FontSize="25" FontFamily="Roboto"/>
+                    <ComboBoxItem Content="Г.В. Трунов"     FontSize="25" FontFamily="Roboto"/>
+                    <ComboBoxItem Content="А.Ю. Гаврилов"   FontSize="25" FontFamily="Roboto"/>
                     <ComboBoxItem Content="С.Р. Петриченко" FontSize="25" FontFamily="Roboto"/>
-                    <ComboBoxItem Content="Є.В. Ревков" FontSize="25" FontFamily="Roboto"/>
+                    <ComboBoxItem Content="Є.В. Ревков"     FontSize="25" FontFamily="Roboto"/>
                     <ComboBoxItem Content="А.В. Чернявська" FontSize="25" FontFamily="Roboto"/>
                 </ComboBox>
 
-                <Border Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Margin="5,0,5,0" Width="500" Height="40" CornerRadius="5" BorderBrush="#FFD9D9D9" BorderThickness="1"  ClipToBounds="True" Padding="2,2,2,2" Background="#FFD9D9D9">
-                    <TextBox x:Name="tbDepartmentHead" VerticalAlignment="Center" Text="Г.В. Трунов"  FontSize="25" FontFamily="Roboto" Background="#FFD9D9D9" BorderBrush="{x:Null}" SelectionBrush="#FF56B1A9"/>
+                <Border Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Margin="5,0,5,0" Width="400" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5"  ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbDepartmentHead" VerticalAlignment="Center" Text="Г.В. Трунов"  FontSize="25" FontFamily="Roboto" Background="#F0F0F0" BorderBrush="{x:Null}"/>
                 </Border>
-                <Border Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" Margin="5,0,5,0" Height="40" Width="500" CornerRadius="5" BorderBrush="#FFD9D9D9" BorderThickness="1"  ClipToBounds="True" Padding="2,2,2,2" Background="#FFD9D9D9">
-                    <TextBox x:Name="tbDepartHeadAssistant" VerticalAlignment="Center"  FontSize="25" FontFamily="Roboto" Background="#FFD9D9D9" BorderBrush="{x:Null}" SelectionBrush="#FF56B1A9"/>
+                <Border Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" Margin="5,0,5,0" Height="40" Width="400" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5"  ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbDepartHeadAssistant" VerticalAlignment="Center"  FontSize="25" FontFamily="Roboto" Background="#F0F0F0" BorderBrush="{x:Null}"/>
                 </Border>
-
-
-
 
 
             </Grid>
@@ -293,14 +301,14 @@
                 <Label x:Name="OverallItem3Label" Content="Харчування" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" FontSize="20" Margin="10,0,20,0" />
                 <Label x:Name="OverallItem4Label" Content="Задишка" HorizontalAlignment="Right" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" FontSize="20" Margin="10,0,20,0" />
 
-                <GridSplitter Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="4"  HorizontalAlignment="Center" Background="#FF56B1A9" Height="1" Margin="0,0,0,0"  VerticalAlignment="Center" Width="500" IsEnabled="False"/>
-                <GridSplitter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"  HorizontalAlignment="Center" Background="#FF56B1A9" Height="1" Margin="0,0,0,0"  VerticalAlignment="Center" Width="500" IsEnabled="False"/>
-
-                <GridSplitter Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="4"  HorizontalAlignment="Center" Background="#FF56B1A9" Height="1" Margin="0,0,0,0"  VerticalAlignment="Center" Width="500" IsEnabled="False"/>
-                <GridSplitter Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"  HorizontalAlignment="Center" Background="#FF56B1A9" Height="1" Margin="0,0,0,0"  VerticalAlignment="Center" Width="500" IsEnabled="False"/>
-
-                <GridSplitter Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="4"  HorizontalAlignment="Center" Background="#FF56B1A9" Height="1" Margin="0,0,0,0"  VerticalAlignment="Center" Width="500" IsEnabled="False"/>
-                <GridSplitter Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4"  HorizontalAlignment="Center" Background="#FF56B1A9" Height="1" Margin="0,0,0,0"  VerticalAlignment="Center" Width="500" IsEnabled="False"/>
+                <GridSplitter Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="4"  HorizontalAlignment="Stretch" Background="#FF56B1A9" Height="1" Margin="30,0,30,0"  VerticalAlignment="Center" IsEnabled="False"/>
+                <GridSplitter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"  HorizontalAlignment="Stretch" Background="#FF56B1A9" Height="1" Margin="30,0,30,0"  VerticalAlignment="Center" IsEnabled="False"/>
+                                                                                                                                                     
+                <GridSplitter Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="4"  HorizontalAlignment="Stretch" Background="#FF56B1A9" Height="1" Margin="30,0,30,0"  VerticalAlignment="Center" IsEnabled="False"/>
+                <GridSplitter Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4"  HorizontalAlignment="Stretch" Background="#FF56B1A9" Height="1" Margin="30,0,30,0"  VerticalAlignment="Center" IsEnabled="False"/>
+                                                                                                                                                     
+                <GridSplitter Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="4"  HorizontalAlignment="Stretch" Background="#FF56B1A9" Height="1" Margin="30,0,30,0"  VerticalAlignment="Center" IsEnabled="False"/>
+                <GridSplitter Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4"  HorizontalAlignment="Stretch" Background="#FF56B1A9" Height="1" Margin="30,0,30,0"  VerticalAlignment="Center" IsEnabled="False"/>
 
 
                 <Label x:Name="OverallItem5Label" Content="Шкіра" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="4" VerticalAlignment="Center" FontSize="20" Margin="10,0,20,0" />
@@ -313,7 +321,7 @@
 
 
 
-                <Grid Grid.Row="0" Grid.Column="2">
+                <Grid x:Name="containerOverallItem1" Grid.Row="0" Grid.Column="2">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -327,7 +335,7 @@
                 </Grid>
 
 
-                <Grid Grid.Row="2" Grid.Column="2">
+                <Grid x:Name="containerOverallItem2" Grid.Row="2" Grid.Column="2">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.3*"/>
                         <RowDefinition/>
@@ -341,7 +349,7 @@
                 </Grid>
 
 
-                <Grid Grid.Row="4" Grid.Column="2">
+                <Grid x:Name="containerOverallItem3" Grid.Row="4" Grid.Column="2">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -355,7 +363,7 @@
                 </Grid>
 
 
-                <Grid Grid.Row="6" Grid.Column="2">
+                <Grid x:Name="containerOverallItem4" Grid.Row="6" Grid.Column="2">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -372,7 +380,7 @@
 
 
 
-                <Grid Grid.Row="0" Grid.Column="5">
+                <Grid x:Name="containerOverallItem5" Grid.Row="0" Grid.Column="5">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -386,7 +394,7 @@
                 </Grid>
 
 
-                <Grid Grid.Row="2" Grid.Column="5">
+                <Grid x:Name="containerOverallItem6" Grid.Row="2" Grid.Column="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.3*"/>
                         <RowDefinition/>
@@ -399,12 +407,12 @@
                     <RadioButton Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0" FontFamily="Roboto" FontSize="18" GroupName="rbOverallItem6">Сухий</RadioButton>
                 </Grid>
 
-                <Grid Grid.Row="4" Grid.Column="5">
+                <Grid x:Name="containerOverallItem7" Grid.Row="4" Grid.Column="5">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="0.2*"/>
                         <RowDefinition/>
                         <RowDefinition/>
-                        <RowDefinition Height="0.8*"/>
+                        <RowDefinition/>
                         <RowDefinition Height="0.2*"/>
                     </Grid.RowDefinitions>
                     <RadioButton Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="15,0,0,0" FontFamily="Roboto" FontSize="18" GroupName="rbOverallItem7">Не збільшина</RadioButton>
@@ -417,13 +425,13 @@
                             <ColumnDefinition Width="0.2*"/>
                         </Grid.ColumnDefinitions>
                         <Label HorizontalAlignment="Left" Grid.Column="0" FontFamily="Roboto" FontSize="18" Content="На"/>
-                        <TextBox Grid.Column="1" x:Name="tbOverallItem7"    FontFamily="Roboto" FontSize="18" Margin="5,0"/>
+                        <TextBox Grid.Column="1" x:Name="tbOverallItem7"   Height="30" FontFamily="Roboto" FontSize="18" Margin="5,0"/>
                         <Label HorizontalAlignment="Center" Grid.Column="2" FontFamily="Roboto" FontSize="18" Content="см."/>
                     </Grid>
 
                 </Grid>
 
-                <Grid Grid.Row="6" Grid.Column="5">
+                <Grid x:Name="containerOverallItem8" Grid.Row="6" Grid.Column="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.3*"/>
                         <RowDefinition/>
@@ -498,25 +506,25 @@
                 <Label x:Name="OverallItem11Label" Content="Пульс" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" />
                 <Label x:Name="OverallItem12Label" Content="Артеріальний тиск" HorizontalAlignment="Right" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" />
 
-                <GridSplitter Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3"  HorizontalAlignment="Center" Background="#FF56B1A9" Height="1" Margin="0,0,0,0"  VerticalAlignment="Center" Width="600" IsEnabled="False"/>
-                <GridSplitter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"  HorizontalAlignment="Center" Background="#FF56B1A9" Height="1" Margin="0,0,0,0"  VerticalAlignment="Center" Width="600" IsEnabled="False"/>
+                <GridSplitter Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3"  HorizontalAlignment="Stretch" Background="#FF56B1A9" Height="1" Margin="30,0,30,0"  VerticalAlignment="Center" IsEnabled="False"/>
+                <GridSplitter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"  HorizontalAlignment="Stretch" Background="#FF56B1A9" Height="1" Margin="30,0,30,0"  VerticalAlignment="Center" IsEnabled="False"/>
 
-                <GridSplitter Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3"  HorizontalAlignment="Center" Background="#FF56B1A9" Height="1" Margin="0,0,0,0"  VerticalAlignment="Center" Width="600" IsEnabled="False"/>
-                <GridSplitter Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"  HorizontalAlignment="Center" Background="#FF56B1A9" Height="1" Margin="0,0,0,0"  VerticalAlignment="Center" Width="600" IsEnabled="False"/>
+                <GridSplitter Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="3"  HorizontalAlignment="Stretch" Background="#FF56B1A9" Height="1" Margin="30,0,30,0"  VerticalAlignment="Center" IsEnabled="False"/>
+                <GridSplitter Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"  HorizontalAlignment="Stretch" Background="#FF56B1A9" Height="1" Margin="30,0,30,0"  VerticalAlignment="Center" IsEnabled="False"/>
 
-                <GridSplitter Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"  HorizontalAlignment="Center" Background="#FF56B1A9" Height="1" Margin="0,0,0,0"  VerticalAlignment="Center" Width="600" IsEnabled="False"/>
+                <GridSplitter Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"  HorizontalAlignment="Stretch" Background="#FF56B1A9" Height="1" Margin="30,0,30,0"  VerticalAlignment="Center" IsEnabled="False"/>
 
 
                 <Label x:Name="OverallItem13Label" Content="Діурез" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" />
                 <Label x:Name="OverallItem14Label" Content="Тони серця" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="3" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" />
-                <Label x:Name="OverallItem15Label" Content="ЧДТ" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" />
+                <Label x:Name="OverallItem15Label" Content="ЧДР" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="3" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" />
 
                 <GridSplitter Grid.Column="2" Grid.RowSpan="7" HorizontalAlignment="Center" Background="#FF56B1A9" Height="470" Margin="0,0,0,0"  VerticalAlignment="Center" Width="1" IsEnabled="False"/>
 
 
 
 
-                <Grid Grid.Row="0" Grid.Column="1">
+                <Grid x:Name="containerOverallItem9" Grid.Row="0" Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition/>
                         <RowDefinition/>
@@ -528,7 +536,7 @@
                     <RadioButton Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="18" GroupName="rbOverallItem9_1">Позитичний</RadioButton>
                     <GridSplitter Grid.Row="2" HorizontalAlignment="Left" Background="#FF56B1A9" Height="1" Margin="0,0,0,0"  VerticalAlignment="Center" Width="250" IsEnabled="False"/>
                     <RadioButton Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="18" GroupName="rbOverallItem9_2">Справа</RadioButton>
-                    <RadioButton Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="18" GroupName="rbOverallItem9_2">Зміва</RadioButton>
+                    <RadioButton Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="18" GroupName="rbOverallItem9_2">Зліва</RadioButton>
                 </Grid>
 
                 <Grid Grid.Row="2" Grid.Column="1">
@@ -545,14 +553,14 @@
                     <CheckBox Name="cbOverallItem10_1" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="17.5">Звичайної форми</CheckBox>
                     <CheckBox Name="cbOverallItem10_2" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="17.5">Не збільшений у розмірах</CheckBox>
                     <CheckBox Name="cbOverallItem10_3" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="17.5">Не роздутий</CheckBox>
-                    <CheckBox Name="cbOverallItem10_4" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="17.5">Бере участь у динанні</CheckBox>
+                    <CheckBox Name="cbOverallItem10_4" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="17.5">Бере участь у диханні</CheckBox>
                     <CheckBox Name="cbOverallItem10_5" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="17.5">При пальпації м'який, безболісний</CheckBox>
-                    <CheckBox Name="cbOverallItem10_6" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="17.5">Перитореальні симптоми негативні</CheckBox>
+                    <CheckBox Name="cbOverallItem10_6" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="17.5">Перитонеальні симптоми негативні</CheckBox>
 
                 </Grid>
 
 
-                <Grid Grid.Row="0" Grid.Column="4">
+                <Grid x:Name="containerOverallItem13" Grid.Row="0" Grid.Column="4">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.3*"/>
                         <RowDefinition/>
@@ -577,10 +585,10 @@
                         <RowDefinition Height="0.3*"/>
 
                     </Grid.RowDefinitions>
-                    <CheckBox Name="cbOverallItem14_1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="18">Чисто</CheckBox>
+                    <CheckBox Name="cbOverallItem14_1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="18">Чисті</CheckBox>
                     <CheckBox Name="cbOverallItem14_2" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="18">Приглушені</CheckBox>
                     <CheckBox Name="cbOverallItem14_3" Grid.Row="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="18">Ритмічні</CheckBox>
-                    <CheckBox Name="cbOverallItem14_4" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="18">Екстрасистологія</CheckBox>
+                    <CheckBox Name="cbOverallItem14_4" Grid.Row="4" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="18">Екстрасистолія</CheckBox>
                     <CheckBox Name="cbOverallItem14_5" Grid.Row="5" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="18">Мерцальна аритмія</CheckBox>
 
                 </Grid>
@@ -593,8 +601,8 @@
                     </Grid.ColumnDefinitions>
 
 
-                    <Border Grid.Column="0" Margin="5,0,5,0" Height="33" CornerRadius="5" BorderBrush="#FFD9D9D9" BorderThickness="1" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#FFD9D9D9">
-                        <TextBox x:Name="tbOverallItem11"    FontSize="19" FontFamily="Roboto" Background="#FFD9D9D9" BorderBrush="{x:Null}" SelectionBrush="#FF56B1A9"/>
+                    <Border Grid.Column="0" Margin="5,0,5,0" Height="33" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                        <TextBox x:Name="tbOverallItem11"    FontSize="19" FontFamily="Roboto" Background="#F0F0F0" BorderBrush="{x:Null}" SelectionBrush="#FF56B1A9"/>
                     </Border>
 
                     <Label x:Name="OverallItem11_1Label" Content="уд. на 1 хв."   Grid.Column="1" VerticalAlignment="Center" FontSize="19" Margin="5,0,5,0" />
@@ -605,8 +613,8 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="0.7*"/>
                     </Grid.ColumnDefinitions>
-                    <Border Grid.Column="0" Margin="5,0,5,0" Height="33" CornerRadius="5" BorderBrush="#FFD9D9D9" BorderThickness="1" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#FFD9D9D9">
-                        <TextBox x:Name="tbOverallItem12"    FontSize="19" FontFamily="Roboto" Background="#FFD9D9D9" BorderBrush="{x:Null}" SelectionBrush="#FF56B1A9"/>
+                    <Border Grid.Column="0" Margin="5,0,5,0" Height="33" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                        <TextBox x:Name="tbOverallItem12"    FontSize="19" FontFamily="Roboto" Background="#F0F0F0" BorderBrush="{x:Null}" SelectionBrush="#FF56B1A9"/>
 
                     </Border>
 
@@ -619,8 +627,8 @@
                         <ColumnDefinition Width="0.7*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Border Grid.Column="0" Margin="5,0,5,0" Height="33" CornerRadius="5" BorderBrush="#FFD9D9D9" BorderThickness="1" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#FFD9D9D9">
-                        <TextBox x:Name="tbOverallItem15"    FontSize="19" FontFamily="Roboto" Background="#FFD9D9D9" BorderBrush="{x:Null}" SelectionBrush="#FF56B1A9"/>
+                    <Border Grid.Column="0" Margin="5,0,5,0" Height="33" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                        <TextBox x:Name="tbOverallItem15"    FontSize="19" FontFamily="Roboto" Background="#F0F0F0" BorderBrush="{x:Null}" SelectionBrush="#FF56B1A9"/>
 
                     </Border>
 
@@ -678,37 +686,61 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="2.5*"/>
-                    <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="2.5*"/>
+                    <ColumnDefinition Width="3*"/>
                 </Grid.ColumnDefinitions>
 
 
 
-                <Label x:Name="AnamnesisItem1Label" Content="Хворіє з" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" FontSize="18" Margin="10,0,10,0" />
-                <Label x:Name="AnamnesisItem2Label" Content="Зміни виявлені при профогляді" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" FontSize="18" Margin="10,0,10,0" />
-                <Label x:Name="AnamnesisItem3Label" Content="Звернувся в" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" FontSize="18" Margin="10,0,10,0" />
-                <Label x:Name="AnamnesisItem4Label" Content="Виставлено діагноз" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" FontSize="18" Margin="10,0,10,0" />
-                <Label x:Name="AnamnesisItem5Label" Content="Проведено дообстеження" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" FontSize="18" Margin="10,0,10,0" />
-                <Label x:Name="AnamnesisItem6Label" Content="Лікування" HorizontalAlignment="Right" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" FontSize="18" Margin="10,0,10,0" />
+                <Label x:Name="AnamnesisItem1Label" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" Content="Хворіє з" />
+                <Label x:Name="AnamnesisItem2Label" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" Content="Зміни виявлені при профогляді" />
+                <Label x:Name="AnamnesisItem3Label" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" Content="Звернувся в" />
+                <Label x:Name="AnamnesisItem4Label" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" Content="Виставлено діагноз" />
+                <Label x:Name="AnamnesisItem5Label" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" Content="Проведено дообстеження" />
+                <Label x:Name="AnamnesisItem6Label" HorizontalAlignment="Right" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" Content="Лікування" />
 
-                <Label x:Name="AnamnesisItem7Label" Content="Попередня ХЛТ" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" FontSize="18" Margin="10,0,10,0" />
-                <Label x:Name="AnamnesisItem8Label" Content="КТ ОГК, ОБП, ОМТ, ГМ" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" FontSize="18" Margin="10,0,10,0" />
-                <Label x:Name="AnamnesisItem9Label" Content="МРТ ГМ" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" FontSize="18" Margin="10,0,10,0" />
-                <Label x:Name="AnamnesisItem10Label" Content="ФБС" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" FontSize="18" Margin="10,0,10,0" />
-                <Label x:Name="AnamnesisItem11Label" Content="ФЕГДС" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" FontSize="18" Margin="10,0,10,0" />
+                <Label x:Name="AnamnesisItem7Label" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" Content="Попередня ХЛТ" />
+                <Label x:Name="AnamnesisItem8Label" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" Content="КТ ОГК, ОБП, ОМТ, ГМ" />
+                <Label x:Name="AnamnesisItem9Label" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" Content="МРТ ГМ" />
+                <Label x:Name="AnamnesisItem10Label" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="2" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" Content="ФБС" />
+                <Label x:Name="AnamnesisItem11Label" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="2" VerticalAlignment="Center" FontSize="20" Margin="10,0,10,0" Content="ФЕГДС" />
 
-                <TextBox x:Name="tbAnamnesisItem1" Grid.Column="1" Grid.Row="0" TextWrapping="Wrap" Margin="5,5,10,5" FontSize="18"  VerticalScrollBarVisibility="Visible"/>
-                <TextBox x:Name="tbAnamnesisItem2" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Margin="5,5,10,5" FontSize="18"  VerticalScrollBarVisibility="Visible"/>
-                <TextBox x:Name="tbAnamnesisItem3" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" Margin="5,5,10,5" FontSize="18"  VerticalScrollBarVisibility="Visible"/>
-                <TextBox x:Name="tbAnamnesisItem4" Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" Margin="5,5,10,5" FontSize="18"  VerticalScrollBarVisibility="Visible"/>
-                <TextBox x:Name="tbAnamnesisItem5" Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" Margin="5,5,10,5" FontSize="18"  VerticalScrollBarVisibility="Visible"/>
-                <TextBox x:Name="tbAnamnesisItem6" Grid.Column="1" Grid.Row="5" TextWrapping="Wrap" Margin="5,5,10,5" FontSize="18"  VerticalScrollBarVisibility="Visible"/>
+                <Border Grid.Column="1" Grid.Row="0" Margin="5,3,10,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbAnamnesisItem1" BorderThickness="0" TextWrapping="Wrap"  FontSize="19"  VerticalScrollBarVisibility="Visible" Background="#F0F0F0"/>
+                </Border>
+                <Border Grid.Column="1" Grid.Row="1" Margin="5,3,10,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbAnamnesisItem2" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                </Border>
+                <Border Grid.Column="1" Grid.Row="2" Margin="5,3,10,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbAnamnesisItem3" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                </Border>
+                <Border Grid.Column="1" Grid.Row="3" Margin="5,3,10,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbAnamnesisItem4" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible"  BorderThickness="0" Background="#F0F0F0"/>
+                </Border>
+                <Border Grid.Column="1" Grid.Row="4" Margin="5,3,10,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbAnamnesisItem5" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                </Border>
+                <Border Grid.Column="1" Grid.Row="5" Margin="5,3,10,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbAnamnesisItem6" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                </Border>
 
-                <TextBox x:Name="tbAnamnesisItem7" Grid.Column="3" Grid.Row="0" TextWrapping="Wrap" Margin="5,5,10,5" FontSize="18"  VerticalScrollBarVisibility="Visible"/>
-                <TextBox x:Name="tbAnamnesisItem8" Grid.Column="3" Grid.Row="1" TextWrapping="Wrap" Margin="5,5,10,5" FontSize="18"  VerticalScrollBarVisibility="Visible"/>
-                <TextBox x:Name="tbAnamnesisItem9" Grid.Column="3" Grid.Row="2" TextWrapping="Wrap" Margin="5,5,10,5" FontSize="18"  VerticalScrollBarVisibility="Visible"/>
-                <TextBox x:Name="tbAnamnesisItem10" Grid.Column="3" Grid.Row="3" TextWrapping="Wrap" Margin="5,5,10,5" FontSize="18"  VerticalScrollBarVisibility="Visible"/>
-                <TextBox x:Name="tbAnamnesisItem11" Grid.Column="3" Grid.Row="4" TextWrapping="Wrap" Margin="5,5,10,5" FontSize="18"  VerticalScrollBarVisibility="Visible"/>
+                <Border Grid.Column="3" Grid.Row="0" Margin="5,3,40,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbAnamnesisItem7" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                </Border>
+                <Border Grid.Column="3" Grid.Row="1" Margin="5,3,40,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbAnamnesisItem8" TextWrapping="Wrap"  FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                </Border>
+                <Border Grid.Column="3" Grid.Row="2" Margin="5,3,40,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbAnamnesisItem9" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                </Border>
+                <Border Grid.Column="3" Grid.Row="3" Margin="5,3,40,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbAnamnesisItem10" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                </Border>
+                <Border Grid.Column="3" Grid.Row="4" Margin="5,3,40,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbAnamnesisItem11" TextWrapping="Wrap" FontSize="19"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0"/>
+                </Border>
+
+
 
 
             </Grid>
@@ -749,17 +781,302 @@
 
 
             <Grid x:Name="inputItemsGrid7" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.02*"/>
+                    <ColumnDefinition Width="0.8*"/>
+                    <ColumnDefinition Width="1.2*"/>
+                    <ColumnDefinition Width="0.2*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label x:Name="LifeAnamnesisItem1Label"   HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" FontSize="22" Margin="10,0,10,0" Content="Туберкульоз" />
+                <Label x:Name="LifeAnamnesisItem2Label"   HorizontalAlignment="Right" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" FontSize="22" Margin="10,0,10,0" Content="Венеричні захворення" />
+                <Label x:Name="LifeAnamnesisItem3Label"   HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" FontSize="22" Margin="10,0,10,0" Content="Цукровий діабет" />
+                <Label x:Name="LifeAnamnesisItem4Label"   HorizontalAlignment="Right" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" FontSize="22" Margin="10,0,10,0" Content="Гіпертонічна хвороба" />
+                <Label x:Name="LifeAnamnesisItem5Label"   HorizontalAlignment="Right" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" FontSize="22" Margin="2,0,5,0" Content="Ішемічна хвороба серця" />
+
+                <Label x:Name="LifeAnamnesisItem6Label"   HorizontalAlignment="Right" Grid.Row="0" Grid.Column="4" VerticalAlignment="Center" FontSize="22" Margin="10,0,10,0" Content="ХОЗЛ" />
+                <Label x:Name="LifeAnamnesisItem7Label"   HorizontalAlignment="Right" Grid.Row="1" Grid.Column="4" VerticalAlignment="Center" FontSize="22" Margin="10,0,10,0" Content="Інщі хвороби" />
+                <Label x:Name="LifeAnamnesisItem8Label"   HorizontalAlignment="Right" Grid.Row="2" Grid.Column="4" VerticalAlignment="Center" FontSize="22" Margin="10,0,10,0" Content="На л/л з" />
+                <Label x:Name="LifeAnamnesisItem9Label"   HorizontalAlignment="Right" Grid.Row="3" Grid.Column="4" VerticalAlignment="Center" FontSize="22" Margin="10,0,10,0" Content="Всього л/л" />
+                <Label x:Name="LifeAnamnesisItem10Label"  HorizontalAlignment="Right" Grid.Row="4" Grid.Column="4" VerticalAlignment="Center" FontSize="22" Margin="10,0,10,0" Content="Постійно приймає" />
+
+
+                <GridSplitter Grid.Column="3" Grid.RowSpan="7" HorizontalAlignment="Center" Background="#FF56B1A9" Height="470" Margin="0,0,0,0"  VerticalAlignment="Center" Width="1" IsEnabled="False"/>
+
+
+
+
+                <Border Grid.Column="2" Grid.Row="0" Margin="5,0,5,0" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbLifeAnamnesisItem1"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" Text="Не хворів"/>
+                </Border>
+                <Border Grid.Column="2" Grid.Row="1" Margin="5,0,5,0" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbLifeAnamnesisItem2"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" Text="Не хворів"/>
+                </Border>
+                <Border Grid.Column="2" Grid.Row="2" Margin="5,0,5,0" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbLifeAnamnesisItem3"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" Text="Не хворів"/>
+                </Border>
+                <Border Grid.Column="2" Grid.Row="3" Margin="5,0,5,0" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbLifeAnamnesisItem4"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" Text="Не хворів"/>
+                </Border>
+                <Border Grid.Column="2" Grid.Row="4" Margin="5,0,5,0" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbLifeAnamnesisItem5"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" Text="Не хворів"/>
+                </Border>
+
+
+                <Border Grid.Column="5" Grid.Row="0" Margin="5,0,5,0" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbLifeAnamnesisItem6"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" Text="Не хворів"/>
+                </Border>
+                <Border Grid.Column="5" Grid.Row="1" Margin="5,0,5,0" Height="70" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbLifeAnamnesisItem7"    FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"/>
+                </Border>
+                <Border Grid.Column="5" Grid.Row="2" Margin="5,0,5,0" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbLifeAnamnesisItem8"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" />
+                </Border>
+                <Border Grid.Column="5" Grid.Row="3" Margin="5,0,5,0" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbLifeAnamnesisItem9"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0"/>
+                </Border>
+
+                <Border Grid.Column="5" Grid.Row="4" Margin="5,0,5,0" Height="70" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <TextBox x:Name="tbLifeAnamnesisItem10"    FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"/>
+                </Border>
 
             </Grid>
 
-
             <UserControls:btnTemplate x:Name="btnPage7Back" HorizontalAlignment="Left" Grid.Row="2" MyBtnText="&lt;&lt;&lt; Повернутись" Margin="30,0,0,0" />
-
-
+            <UserControls:btnTemplate x:Name="btnPage7Next" HorizontalAlignment="Right" Grid.Row="2" MyBtnText="Далі &gt;&gt;&gt;" Margin="0,0,30,0" />
 
         </Grid>
 
 
+
+
+
+
+
+
+
+        <Grid x:Name="mainGridPage8" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.8*"/>
+                <RowDefinition Height="3.5*"/>
+                <RowDefinition Height="0.8*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Заповніть Locus morbi" HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Center" Grid.ColumnSpan="2" FontSize="25">
+                <Label.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF56B1A9" Offset="1"/>
+                        <GradientStop Color="Transparent" Offset="0.667"/>
+
+                    </LinearGradientBrush>
+                </Label.Background>
+            </Label>
+
+
+            <Grid x:Name="inputItemsGrid8" Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="0.03*"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="0.03*"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="0.03*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.05*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.02*"/>
+                    <ColumnDefinition Width="0.9*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.1*"/>
+                </Grid.ColumnDefinitions>
+
+                <GridSplitter Grid.Column="3" Grid.RowSpan="7" HorizontalAlignment="Center" Background="#FF56B1A9" Margin="0,20,0,20"  VerticalAlignment="Stretch" Width="1" IsEnabled="False"/>
+
+                <GridSplitter Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Background="#FF56B1A9"  Margin="30,0,30,0"  VerticalAlignment="Center" Height="1" IsEnabled="False"/>
+                <GridSplitter Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Background="#FF56B1A9"  Margin="30,0,30,0"  VerticalAlignment="Center" Height="1" IsEnabled="False"/>
+
+                <GridSplitter Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Background="#FF56B1A9"  Margin="30,0,30,0"  VerticalAlignment="Center" Height="1" IsEnabled="False"/>
+                <GridSplitter Grid.Row="3" Grid.Column="3" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Background="#FF56B1A9"  Margin="30,0,30,0"  VerticalAlignment="Center" Height="1" IsEnabled="False"/>
+
+                <GridSplitter Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Background="#FF56B1A9"  Margin="30,0,30,0"  VerticalAlignment="Center" Height="1" IsEnabled="False"/>
+                <!--<GridSplitter Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="4" HorizontalAlignment="Stretch" Background="#FF56B1A9"  Margin="30,0,30,0"  VerticalAlignment="Center" Height="1" IsEnabled="False"/>-->
+
+                <Label x:Name="LocusMorbiItem1Label" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" FontSize="22" Margin="10,0,10,0" Content="Надключичні л/в" />
+                <Label x:Name="LocusMorbiItem2Label" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" FontSize="22" Margin="10,0,10,0" Content="Пахвові л/в" />
+                <Label x:Name="LocusMorbiItem3Label" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" FontSize="22" Margin="10,0,10,0" Content="Над легенями дихання" />
+                <Label x:Name="LocusMorbiItem4Label" HorizontalAlignment="Right" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" FontSize="22" Margin="10,0,10,0" Content="Ослаблення дихання" />
+                                
+                <Label x:Name="LocusMorbiItem5Label" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="4" VerticalAlignment="Center" FontSize="22" Margin="2,0,5,0" Content="Перкуторно" />
+                <Label x:Name="LocusMorbiItem6Label" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="4" VerticalAlignment="Center" FontSize="22" Margin="10,0,10,0" Content="Притуплення" />
+                <Label x:Name="LocusMorbiItem7Label" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="4" Grid.RowSpan="3" VerticalAlignment="Center" FontSize="23" Margin="10,0,10,0" Content="Хрипи" />
+
+
+                <Grid Grid.Row="0" Grid.Column="2" Margin="0,2,0,2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="2.5*"/>
+                    </Grid.RowDefinitions>
+
+                    <ComboBox x:Name="cbLocusMorbiItem1" Grid.Row="0"  Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="20" Margin="5,2,5,2" BorderThickness="0" SelectionChanged="cbLocusMorbiItem1_SelectionChanged">
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Справа"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Зліва"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Не збільшені"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Збільшені до  см"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Рухомі"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Нерухомі"/>
+                    </ComboBox>
+
+                    <Border Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0" Margin="5,2,5,2">
+                        <TextBox x:Name="tbLocusMorbiItem1" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0"  VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"/>
+                    </Border>
+                    
+
+                </Grid>
+
+                <Grid Grid.Row="2" Grid.Column="2" Margin="0,2,0,2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="2.5*"/>
+                    </Grid.RowDefinitions>
+
+                    <ComboBox x:Name="cbLocusMorbiItem2" Grid.Row="0"  Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="20" Margin="5,2,5,2" BorderThickness="0" SelectionChanged="cbLocusMorbiItem2_SelectionChanged">
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Справа"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Зліва"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Не збільшені"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Збільшені до  см"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Рухомі"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Нерухомі"/>
+                    </ComboBox>
+
+                    <Border Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0" Margin="5,2,5,2">
+                        <TextBox x:Name="tbLocusMorbiItem2" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"/>
+                    </Border>
+
+                </Grid>
+
+
+                <Grid x:Name="containerLocusMorbiItem3" Grid.Row="4" Grid.Column="2" Margin="0,2,0,2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="0.5*"/>
+                    </Grid.RowDefinitions>
+
+                    <RadioButton Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="22" GroupName="rbLocusMorbiItem3">Везикулярне</RadioButton>
+                    <RadioButton Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="22" GroupName="rbLocusMorbiItem3">Жорстке</RadioButton>
+
+                </Grid>
+
+
+                <Grid Grid.Row="6" Grid.Column="2" Margin="0,2,0,2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="2.5*"/>
+                    </Grid.RowDefinitions>
+
+                    <ComboBox x:Name="cbLocusMorbiItem4" Grid.Row="0"  Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="20" Margin="5,2,5,2" BorderThickness="0" SelectionChanged="cbLocusMorbiItem4_SelectionChanged">
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Справа"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Зліва"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="В верхній частці"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="В середній частці"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="В нижній частці"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Нерухомі"/>
+                    </ComboBox>
+
+                    <Border Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0" Margin="5,2,5,2">
+                        <TextBox x:Name="tbLocusMorbiItem4" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"/>
+                    </Border>
+
+                </Grid>
+
+                <Grid x:Name="containerLocusMorbiItem5" Grid.Row="0" Grid.Column="5" Margin="0,2,0,2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition Height="0.5*"/>
+                    </Grid.RowDefinitions>
+
+                    <RadioButton Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="22" GroupName="rbLocusMorbiItem5">Легеневий звук</RadioButton>
+                    <RadioButton Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0" FontFamily="Roboto" FontSize="22" GroupName="rbLocusMorbiItem5">Коробчатий звук</RadioButton>
+
+                </Grid>
+
+                <Grid Grid.Row="2" Grid.Column="5" Margin="0,2,0,2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="2.5*"/>
+                    </Grid.RowDefinitions>
+
+                    <ComboBox x:Name="cbLocusMorbiItem6" Grid.Row="0"  Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="20" Margin="5,2,5,2" BorderThickness="0" SelectionChanged="cbLocusMorbiItem6_SelectionChanged">
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Справа"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Зліва"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="В верхній частці"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="В середній частці"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="В нижній частці"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Нерухомі"/>
+                    </ComboBox>
+
+                    <Border Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0" Margin="5,2,5,2">
+                        <TextBox x:Name="tbLocusMorbiItem6" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"/>
+                    </Border>
+
+                </Grid>
+                
+                
+                <Grid Grid.Row="4" Grid.Column="5" Grid.RowSpan="3" Margin="0,2,0,2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="45"/>
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+
+                    <ComboBox x:Name="cbLocusMorbiItem7" Grid.Row="0"  Height="35" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="20" Margin="5,2,5,2" BorderThickness="0" SelectionChanged="cbLocusMorbiItem7_SelectionChanged">
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Відсутні"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Сухі"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Вологі"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Крепітуючи"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Поодинокі"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Множинні"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Розсіянні"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Справа"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="Зліва"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="В верхній частці"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="В середній частці"/>
+                        <ComboBoxItem FontSize="20" FontFamily="Roboto" Content="В нижній частці"/>
+                        
+                    </ComboBox>
+
+                    <Border Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0" Margin="5,2,5,2">
+                        <TextBox x:Name="tbLocusMorbiItem7" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" TextWrapping="Wrap"/>
+                    </Border>
+
+                </Grid>
+
+            </Grid>
+
+
+            <UserControls:btnTemplate x:Name="btnPage8Back" HorizontalAlignment="Left" Grid.Row="2" MyBtnText="&lt;&lt;&lt; Повернутись" Margin="30,0,0,0" />
+            <UserControls:btnTemplate x:Name="btnPage8Save" HorizontalAlignment="Right" Grid.Row="2" MyBtnText="Далі &gt;&gt;&gt;" Margin="0,0,30,0" />
+
+
+
+        </Grid>
 
 
 

@@ -7,8 +7,19 @@
   "targets": {
     ".NETCoreApp,Version=v8.0": {
       "MedProject_UI/1.0.0": {
+        "dependencies": {
+          "EasyDox": "2.0.39"
+        },
         "runtime": {
           "MedProject_UI.dll": {}
+        }
+      },
+      "EasyDox/2.0.39": {
+        "runtime": {
+          "lib/EasyDox.dll": {
+            "assemblyVersion": "2.0.39.0",
+            "fileVersion": "2.0.39.0"
+          }
         }
       }
     }
@@ -18,6 +29,13 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "EasyDox/2.0.39": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-qTXHHRpREBJrpBMGHghlxPV96TveHY2k1R5dkNS/vHAvQg2ub65LY7OJDwQKjcmvLbRkpX0o7ckGid1pM3ym4A==",
+      "path": "easydox/2.0.39",
+      "hashPath": "easydox.2.0.39.nupkg.sha512"
     }
   }
 }

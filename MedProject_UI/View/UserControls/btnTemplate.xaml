@@ -15,8 +15,8 @@
             FontSize="24"
             FontFamily="Roboto" 
             Height="40" 
-            Width="220" 
-                
+            HorizontalAlignment="Stretch"
+            MinWidth="220"
             Foreground="#022A24" Click="btnAdd_Click">
             <Button.Style>
                 <Style TargetType="{x:Type Button}">

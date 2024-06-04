@@ -31,12 +31,6 @@ namespace MedProject_UI
         {
             InitializeComponent();
 
-
-            data = new ObservableCollection<DataItem>(((App)Application.Current).GetDataItems());
-
-            collectionViewSource = new CollectionViewSource { Source = data };
-            MainGrid.ItemsSource = collectionViewSource.View;
-
             SearchBar.TextChanged += RouteViewerOpened;
 
             btnAddNewPatient.btnClick += AddPatientBtnClick;
@@ -55,8 +49,10 @@ namespace MedProject_UI
             if (dataItem == null)
                 return;
 
-            // Show the message box with the correct card number
-            MessageBox.Show($"Номер картки: {dataItem._colCardNumber}");
+            //// Show the message box with the correct card number
+            //MessageBox.Show($"Номер картки: {dataItem._colCardNumber}");
+            PatientDescription patientDescription = new PatientDescription(dataItem);
+            patientDescription.ShowDialog();
 
         }
 
@@ -115,6 +111,12 @@ namespace MedProject_UI
             collectionViewSource.View.Refresh();
         }
 
-       
+        private void WIndow_Main_Activated(object sender, EventArgs e)
+        {
+            data = new ObservableCollection<DataItem>(((App)Application.Current).GetDataItems());
+
+            collectionViewSource = new CollectionViewSource { Source = data };
+            MainGrid.ItemsSource = collectionViewSource.View;
+        }
     }
 }

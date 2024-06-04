@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="EasyDox" Version="2.0.39" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="c516ff9163fefeaa5974fc7c8855cd02.jpg" />
   </ItemGroup>
 
