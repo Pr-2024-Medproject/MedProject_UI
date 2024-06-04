@@ -3,20 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|c:\\users\\administrator\\source\\repos\\medproject_ui\\medproject_ui\\patientdescription.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|solutionrelative:medproject_ui\\patientdescription.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|c:\\users\\administrator\\source\\repos\\medproject_ui\\medproject_ui\\addpatient.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|solutionrelative:medproject_ui\\addpatient.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|c:\\users\\administrator\\source\\repos\\medproject_ui\\medproject_ui\\patientdescription.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|solutionrelative:medproject_ui\\patientdescription.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|c:\\users\\administrator\\source\\repos\\medproject_ui\\medproject_ui\\view\\usercontrols\\btntemplate.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|solutionrelative:medproject_ui\\view\\usercontrols\\btntemplate.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|c:\\users\\administrator\\source\\repos\\medproject_ui\\medproject_ui\\patientdescription.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|solutionrelative:medproject_ui\\patientdescription.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|c:\\users\\administrator\\source\\repos\\medproject_ui\\medproject_ui\\addpatient.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|solutionrelative:medproject_ui\\addpatient.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|c:\\users\\administrator\\source\\repos\\medproject_ui\\medproject_ui\\addpatient.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -30,35 +30,36 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "PatientDescription.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\PatientDescription.xaml.cs",
               "RelativeDocumentMoniker": "MedProject_UI\\PatientDescription.xaml.cs",
               "ToolTip": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\PatientDescription.xaml.cs",
               "RelativeToolTip": "MedProject_UI\\PatientDescription.xaml.cs",
-              "ViewState": "AQIAADMBAAAAAAAAAAAYwAAAAAAAAAAA",
+              "ViewState": "AQIAACkAAAAAAAAAAAAqwDIAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-04T00:44:37.817Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "btnTemplate.xaml",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\View\\UserControls\\btnTemplate.xaml",
               "RelativeDocumentMoniker": "MedProject_UI\\View\\UserControls\\btnTemplate.xaml",
               "ToolTip": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\View\\UserControls\\btnTemplate.xaml",
               "RelativeToolTip": "MedProject_UI\\View\\UserControls\\btnTemplate.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-06-03T23:43:22.869Z"
+              "WhenOpened": "2024-06-03T23:43:22.869Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "AddPatient.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\AddPatient.xaml.cs",
               "RelativeDocumentMoniker": "MedProject_UI\\AddPatient.xaml.cs",
@@ -71,7 +72,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "PatientDescription.xaml",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\PatientDescription.xaml",
               "RelativeDocumentMoniker": "MedProject_UI\\PatientDescription.xaml",
