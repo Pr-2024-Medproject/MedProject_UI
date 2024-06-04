@@ -228,7 +228,7 @@
                 <UserControls:DatePickerTemplate x:Name="dateChemotherapy"      Grid.Column="1" Margin="5,3,10,3" Grid.Row="3" FontSize="25" Height="40"/>
                 <UserControls:ClearableSearchBar x:Name="tbHistology"           Grid.Column="1" Grid.Row="4" Margin="5,5,10,5" VerticalAlignment="Center"  MyLabel=""  Height="40"/>
 
-                <ComboBox x:Name="comboBoxDoctorName" Grid.Column="1" Grid.Row="5" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="5,0,10,0" SelectionChanged="comboBoxDoctorName_SelectionChanged">
+                <ComboBox x:Name="comboBoxDoctorName" Grid.Column="1" Grid.Row="5" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="5,0,10,0" SelectionChanged="comboBoxDoctorName_SelectionChanged" SelectedIndex="0">
                     <ComboBoxItem Content="Г.В. Трунов"     FontSize="25" FontFamily="Roboto"/>
                     <ComboBoxItem Content="А.Ю. Гаврилов"   FontSize="25" FontFamily="Roboto"/>
                     <ComboBoxItem Content="С.Р. Петриченко" FontSize="25" FontFamily="Roboto"/>

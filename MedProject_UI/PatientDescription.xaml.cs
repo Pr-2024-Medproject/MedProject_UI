@@ -21,7 +21,7 @@ namespace MedProject_UI
     /// <summary>
     /// Interaction logic for PatientDescription.xaml
     /// </summary>
-    public partial class PatientDescription : System.Windows.Window
+    public partial class PatientDescription : Window
     {
         DataItem sourceData = new DataItem();
         public PatientDescription()
@@ -135,32 +135,32 @@ namespace MedProject_UI
 
 
             tbOverallItem1.Text = dataObject._fieldOverallItem1 != null
-                ? ((App)System.Windows.Application.Current).dictOverallItem1[(int)dataObject._fieldOverallItem1]
+                ? ((App)Application.Current).dictOverallItem1[(int)dataObject._fieldOverallItem1]
                 : "--------";
             tbOverallItem2.Text = dataObject._fieldOverallItem2 != null
-                ? ((App)System.Windows.Application.Current).dictOverallItem2[(int)dataObject._fieldOverallItem2]
+                ? ((App)Application.Current).dictOverallItem2[(int)dataObject._fieldOverallItem2]
                 : "--------";
             tbOverallItem3.Text = dataObject._fieldOverallItem3 != null
-                ? ((App)System.Windows.Application.Current).dictOverallItem3[(int)dataObject._fieldOverallItem3]
+                ? ((App)Application.Current).dictOverallItem3[(int)dataObject._fieldOverallItem3]
                 : "--------";
             tbOverallItem4.Text = dataObject._fieldOverallItem4 != null
-                ? ((App)System.Windows.Application.Current).dictOverallItem4[(int)dataObject._fieldOverallItem4]
+                ? ((App)Application.Current).dictOverallItem4[(int)dataObject._fieldOverallItem4]
                 : "--------";
             tbOverallItem5.Text = dataObject._fieldOverallItem5 != null
-                ? ((App)System.Windows.Application.Current).dictOverallItem5[(int)dataObject._fieldOverallItem5]
+                ? ((App)Application.Current).dictOverallItem5[(int)dataObject._fieldOverallItem5]
                 : "--------";
             tbOverallItem6.Text = dataObject._fieldOverallItem6 != null
-                ? ((App)System.Windows.Application.Current).dictOverallItem6[(int)dataObject._fieldOverallItem6]
+                ? ((App)Application.Current).dictOverallItem6[(int)dataObject._fieldOverallItem6]
                 : "--------";
             tbOverallItem7.Text = dataObject._fieldOverallItem7 != null
                 ? dataObject._fieldOverallItem7
                 : "--------";
             tbOverallItem8.Text = dataObject._fieldOverallItem8 != null
-                ? ((App)System.Windows.Application.Current).dictOverallItem1[(int)dataObject._fieldOverallItem8]
+                ? ((App)Application.Current).dictOverallItem8[(int)dataObject._fieldOverallItem8]
                 : "--------";
 
             
-                tbOverallItem9_1.Text = dataObject._fieldOverallItem9_1 == true
+            tbOverallItem9_1.Text = dataObject._fieldOverallItem9_1 == true
                 ? "Позитивний"
                 : "Негативний";
             
@@ -175,7 +175,7 @@ namespace MedProject_UI
 
             tbOverallItem10.Text = dataObject._fieldOverallItem10 != null
                 ? string.Join(", ", dataObject._fieldOverallItem10.ToList()
-                                                                  .Select(x => ((App)System.Windows.Application.Current).dictOverallItem10[x]).ToArray())
+                                                                  .Select(x => ((App)Application.Current).dictOverallItem10[x]).ToArray())
                 : "--------";
             tbOverallItem11.Text = dataObject._fieldOverallItem11 != null
                 ? dataObject._fieldOverallItem11.ToString()
@@ -184,11 +184,11 @@ namespace MedProject_UI
                 ? dataObject._fieldOverallItem12
                 : "--------";
             tbOverallItem13.Text = dataObject._fieldOverallItem13 != null
-                ? dataObject._fieldOverallItem13.ToString()
+                ? ((App)Application.Current).dictOverallItem13[(int)dataObject._fieldOverallItem13]
                 : "--------";
             tbOverallItem14.Text = dataObject._fieldOverallItem14 != null
                 ? string.Join(", ", dataObject._fieldOverallItem14.ToList()
-                                                                  .Select(x => ((App)System.Windows.Application.Current).dictOverallItem14[x]).ToArray())
+                                                                  .Select(x => ((App)Application.Current).dictOverallItem14[x]).ToArray())
                 : "--------";
             tbOverallItem15.Text = dataObject._fieldOverallItem15 != null
                 ? dataObject._fieldOverallItem15.ToString()
