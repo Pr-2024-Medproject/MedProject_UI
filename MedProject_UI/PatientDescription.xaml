@@ -108,28 +108,28 @@
                                 <ColumnDefinition Width="1.4*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Label x:Name="LastNameLabel" Content="Прізвище"                          HorizontalAlignment="Right" Grid.Row="0" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" />
-                            <Label x:Name="FirstNameLabel" Content="Ім'я"                             HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" />
-                            <Label x:Name="MiddleNameLabel" Content="По-батькові"                     HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" />
-                            <Label x:Name="BirthdayLabel" Content="Дата народження"                   HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" />
-                            <Label x:Name="LivingAddressLabel" Content="Адреса проживання"            HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" />
-                            <Label x:Name="WorkDescriptorLabel" Content="Професія"                    HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" />
-                            <Label x:Name="HospitalEntrDateLabel" Content="Дата госпіталізації"       HorizontalAlignment="Right" Grid.Row="6" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" />
-                            <Label x:Name="HospitalEndDateLabel" Content="Дата виписки"               HorizontalAlignment="Right" Grid.Row="7" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" />
-                            <Label x:Name="ClaimsLabel" Content="Скарги"                              HorizontalAlignment="Right" Grid.Row="8" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" />
-                            <Label x:Name="EntrDiagnosisLabel" Content="Діагноз при госпіталізації"   HorizontalAlignment="Right" Grid.Row="9" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto"/>
-                            <Label x:Name="FinalDiagnosisLabel" Content="Заключний діагноз"           HorizontalAlignment="Right" Grid.Row="10" VerticalAlignment="Center" FontSize="23" Margin="0,0,10,0" FontFamily="Roboto"/>
-                            <Label x:Name="ComplicationsLabel" Content="Ускладнення"                  HorizontalAlignment="Right" Grid.Row="11" VerticalAlignment="Center" FontSize="23" Margin="0,0,10,0" FontFamily="Roboto"/>
-                            <Label x:Name="AdditionalDiagnosisLabel" Content="Супутній"               HorizontalAlignment="Right" Grid.Row="12" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto"/>
-                            <Label x:Name="MKXLabel" Content="МКХ шифр"                               HorizontalAlignment="Right" Grid.Row="13" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto"/>
-                            <Label x:Name="OperationNameLabel" Content="Назва операції"               HorizontalAlignment="Right" Grid.Row="14" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" />
-                            <Label x:Name="OperationDateLabel" Content="Дата операції"                HorizontalAlignment="Right" Grid.Row="15" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto"/>
-                            <Label x:Name="ChemotherapyNameLabel" Content="Схема ПХТ"                 HorizontalAlignment="Right" Grid.Row="16" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" />
-                            <Label x:Name="ChemotherapyDateLabel" Content="Дата ЛТ / ПХТ"             HorizontalAlignment="Right" Grid.Row="17" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto"/>
-                            <Label x:Name="HistologyLabel" Content="Гістологія/цитологія"             HorizontalAlignment="Right" Grid.Row="18" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" />
-                            <Label x:Name="DoctorLabel" Content="Лікуючий лікар"                      HorizontalAlignment="Right" Grid.Row="19" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto"/>
-                            <Label x:Name="DepartmentHeadLabel" Content="Завідувач відділення"        HorizontalAlignment="Right" Grid.Row="20" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" />
-                            <Label x:Name="DepartHeadAssistantLabel" Content="В.о. зав. відділення"   HorizontalAlignment="Right" Grid.Row="21" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto"/>
+                            <Label x:Name="LastNameLabel" Content="Прізвище"                          HorizontalAlignment="Right" Grid.Row="0" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" />
+                            <Label x:Name="FirstNameLabel" Content="Ім'я"                             HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" />
+                            <Label x:Name="MiddleNameLabel" Content="По-батькові"                     HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" />
+                            <Label x:Name="BirthdayLabel" Content="Дата народження"                   HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" />
+                            <Label x:Name="LivingAddressLabel" Content="Адреса проживання"            HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" />
+                            <Label x:Name="WorkDescriptorLabel" Content="Професія"                    HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" />
+                            <Label x:Name="HospitalEntrDateLabel" Content="Дата госпіталізації"       HorizontalAlignment="Right" Grid.Row="6" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" />
+                            <Label x:Name="HospitalEndDateLabel" Content="Дата виписки"               HorizontalAlignment="Right" Grid.Row="7" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" />
+                            <Label x:Name="ClaimsLabel" Content="Скарги"                              HorizontalAlignment="Right" Grid.Row="8" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" />
+                            <Label x:Name="EntrDiagnosisLabel" Content="Діагноз при госпіталізації"   HorizontalAlignment="Right" Grid.Row="9" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto"/>
+                            <Label x:Name="FinalDiagnosisLabel" Content="Заключний діагноз"           HorizontalAlignment="Right" Grid.Row="10" VerticalAlignment="Center" FontSize="21" Margin="0,0,10,0" FontFamily="Roboto"/>
+                            <Label x:Name="ComplicationsLabel" Content="Ускладнення"                  HorizontalAlignment="Right" Grid.Row="11" VerticalAlignment="Center" FontSize="21" Margin="0,0,10,0" FontFamily="Roboto"/>
+                            <Label x:Name="AdditionalDiagnosisLabel" Content="Супутній"               HorizontalAlignment="Right" Grid.Row="12" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto"/>
+                            <Label x:Name="MKXLabel" Content="МКХ шифр"                               HorizontalAlignment="Right" Grid.Row="13" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto"/>
+                            <Label x:Name="OperationNameLabel" Content="Назва операції"               HorizontalAlignment="Right" Grid.Row="14" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" />
+                            <Label x:Name="OperationDateLabel" Content="Дата операції"                HorizontalAlignment="Right" Grid.Row="15" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto"/>
+                            <Label x:Name="ChemotherapyNameLabel" Content="Схема ПХТ"                 HorizontalAlignment="Right" Grid.Row="16" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" />
+                            <Label x:Name="ChemotherapyDateLabel" Content="Дата ЛТ / ПХТ"             HorizontalAlignment="Right" Grid.Row="17" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto"/>
+                            <Label x:Name="HistologyLabel" Content="Гістологія/цитологія"             HorizontalAlignment="Right" Grid.Row="18" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" />
+                            <Label x:Name="DoctorLabel" Content="Лікуючий лікар"                      HorizontalAlignment="Right" Grid.Row="19" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto"/>
+                            <Label x:Name="DepartmentHeadLabel" Content="Завідувач відділення"        HorizontalAlignment="Right" Grid.Row="20" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" />
+                            <Label x:Name="DepartHeadAssistantLabel" Content="В.о. зав. відділення"   HorizontalAlignment="Right" Grid.Row="21" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto"/>
 
 
                             <Border Grid.Column="1" Grid.Row="0" Margin="15,0,15,0" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
@@ -232,21 +232,21 @@
                                 <ColumnDefinition Width="1.5*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Label x:Name="OverallItem1Label"  HorizontalAlignment="Right" Grid.Row="0" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" Content="Загальний стан" />
-                            <Label x:Name="OverallItem2Label"  HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" Content="Коституція"     />
-                            <Label x:Name="OverallItem3Label"  HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" Content="Харчування"     />
-                            <Label x:Name="OverallItem4Label"  HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" Content="Задишка"        />
-                            <Label x:Name="OverallItem5Label"  HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" Content="Шкіра"          />
-                            <Label x:Name="OverallItem6Label"  HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" Content="Язик"           />
-                            <Label x:Name="OverallItem7Label"  HorizontalAlignment="Right" Grid.Row="6" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" Content="Печінка"        />
-                            <Label x:Name="OverallItem8Label"  HorizontalAlignment="Right" Grid.Row="7" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" Content="Стілець"        />
-                            <Label x:Name="OverallItem9Label"  HorizontalAlignment="Right" Grid.Row="8" VerticalAlignment="Center" FontSize="22" Margin="0,0,5,0"  FontFamily="Roboto" Content="Симптом Пастернацького"  />
-                            <Label x:Name="OverallItem10Label" HorizontalAlignment="Right" Grid.Row="9" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" Content="Живіт"                  />
-                            <Label x:Name="OverallItem11Label" HorizontalAlignment="Right" Grid.Row="10" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" Content="Пульс"                  />
-                            <Label x:Name="OverallItem12Label" HorizontalAlignment="Right" Grid.Row="11" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" Content="Артеріальний тиск"      />
-                            <Label x:Name="OverallItem13Label" HorizontalAlignment="Right" Grid.Row="12" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" Content="Діурез"                 />
-                            <Label x:Name="OverallItem14Label" HorizontalAlignment="Right" Grid.Row="13" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" Content="Тони серця"             />
-                            <Label x:Name="OverallItem15Label" HorizontalAlignment="Right" Grid.Row="14" VerticalAlignment="Center" FontSize="23" Margin="0,0,5,0" FontFamily="Roboto" Content="ЧДР"                    />
+                            <Label x:Name="OverallItem1Label"  HorizontalAlignment="Right" Grid.Row="0" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" Content="Загальний стан" />
+                            <Label x:Name="OverallItem2Label"  HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" Content="Коституція"     />
+                            <Label x:Name="OverallItem3Label"  HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" Content="Харчування"     />
+                            <Label x:Name="OverallItem4Label"  HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" Content="Задишка"        />
+                            <Label x:Name="OverallItem5Label"  HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" Content="Шкіра"          />
+                            <Label x:Name="OverallItem6Label"  HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" Content="Язик"           />
+                            <Label x:Name="OverallItem7Label"  HorizontalAlignment="Right" Grid.Row="6" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" Content="Печінка"        />
+                            <Label x:Name="OverallItem8Label"  HorizontalAlignment="Right" Grid.Row="7" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" Content="Стілець"        />
+                            <Label x:Name="OverallItem9Label"  HorizontalAlignment="Right" Grid.Row="8" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0"  FontFamily="Roboto" Content="Симптом Пастернацького"  />
+                            <Label x:Name="OverallItem10Label" HorizontalAlignment="Right" Grid.Row="9" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" Content="Живіт"                  />
+                            <Label x:Name="OverallItem11Label" HorizontalAlignment="Right" Grid.Row="10" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" Content="Пульс"                  />
+                            <Label x:Name="OverallItem12Label" HorizontalAlignment="Right" Grid.Row="11" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" Content="Артеріальний тиск"      />
+                            <Label x:Name="OverallItem13Label" HorizontalAlignment="Right" Grid.Row="12" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" Content="Діурез"                 />
+                            <Label x:Name="OverallItem14Label" HorizontalAlignment="Right" Grid.Row="13" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" Content="Тони серця"             />
+                            <Label x:Name="OverallItem15Label" HorizontalAlignment="Right" Grid.Row="14" VerticalAlignment="Center" FontSize="21" Margin="0,0,5,0" FontFamily="Roboto" Content="ЧДР"                    />
 
                             <Border Grid.Column="1" Grid.Row="0" Margin="15,0,15,0" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
                                 <TextBox x:Name="tbOverallItem1"  VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="22" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" IsReadOnly="True" Text="Задовільний"/>
@@ -354,59 +354,59 @@
                                 <Label x:Name="AnamnesisItem2Label"  HorizontalAlignment="Right" Grid.Row="1"  VerticalAlignment="Center" FontSize="23" Margin="5,0,7,0" FontFamily="Roboto" Content="Зміни виявлені при"  />
                                 <Label x:Name="AnamnesisItem2_1Label"  HorizontalAlignment="Right" Grid.Row="2"  VerticalAlignment="Center" FontSize="23" Margin="5,0,7,0" FontFamily="Roboto" Content="профогляді"  />
                             </Grid>
-                            <Label x:Name="AnamnesisItem3Label"  HorizontalAlignment="Right" Grid.Row="2"  VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="Звернувся в" />
-                            <Label x:Name="AnamnesisItem4Label"  HorizontalAlignment="Right" Grid.Row="3"  VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="Виставлено діагноз" />
-                            <Label x:Name="AnamnesisItem5Label"  HorizontalAlignment="Right" Grid.Row="4"  VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="Проведено дообстеження" />
-                            <Label x:Name="AnamnesisItem6Label"  HorizontalAlignment="Right" Grid.Row="5"  VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="Лікування" />
-                            <Label x:Name="AnamnesisItem7Label"  HorizontalAlignment="Right" Grid.Row="6"  VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="Попередня ХЛТ" />
-                            <Label x:Name="AnamnesisItem8Label"  HorizontalAlignment="Right" Grid.Row="7"  VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="КТ ОГК, ОБП, ОМТ, ГМ" />
-                            <Label x:Name="AnamnesisItem9Label"  HorizontalAlignment="Right" Grid.Row="8"  VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="МРТ ГМ" />
-                            <Label x:Name="AnamnesisItem10Label" HorizontalAlignment="Right" Grid.Row="9"  VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="ФБС" />
-                            <Label x:Name="AnamnesisItem11Label" HorizontalAlignment="Right" Grid.Row="10"  VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="ФЕГДС" />
+                            <Label x:Name="AnamnesisItem3Label"  HorizontalAlignment="Right" Grid.Row="2"  VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="Звернувся в" />
+                            <Label x:Name="AnamnesisItem4Label"  HorizontalAlignment="Right" Grid.Row="3"  VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="Виставлено діагноз" />
+                            <Label x:Name="AnamnesisItem5Label"  HorizontalAlignment="Right" Grid.Row="4"  VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="Проведено дообстеження" />
+                            <Label x:Name="AnamnesisItem6Label"  HorizontalAlignment="Right" Grid.Row="5"  VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="Лікування" />
+                            <Label x:Name="AnamnesisItem7Label"  HorizontalAlignment="Right" Grid.Row="6"  VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="Попередня ХЛТ" />
+                            <Label x:Name="AnamnesisItem8Label"  HorizontalAlignment="Right" Grid.Row="7"  VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="КТ ОГК, ОБП, ОМТ, ГМ" />
+                            <Label x:Name="AnamnesisItem9Label"  HorizontalAlignment="Right" Grid.Row="8"  VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="МРТ ГМ" />
+                            <Label x:Name="AnamnesisItem10Label" HorizontalAlignment="Right" Grid.Row="9"  VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="ФБС" />
+                            <Label x:Name="AnamnesisItem11Label" HorizontalAlignment="Right" Grid.Row="10"  VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="ФЕГДС" />
 
-                            <Label x:Name="LifeAnamnesisItem1Label"   HorizontalAlignment="Right" Grid.Row="11" VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="Туберкульоз" />
-                            <Label x:Name="LifeAnamnesisItem2Label"   HorizontalAlignment="Right" Grid.Row="12" VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="Венеричні захворення" />
-                            <Label x:Name="LifeAnamnesisItem3Label"   HorizontalAlignment="Right" Grid.Row="13" VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="Цукровий діабет" />
-                            <Label x:Name="LifeAnamnesisItem4Label"   HorizontalAlignment="Right" Grid.Row="14" VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="Гіпертонічна хвороба" />
-                            <Label x:Name="LifeAnamnesisItem5Label"   HorizontalAlignment="Right" Grid.Row="15" VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="Ішемічна хвороба серця" />
-                            <Label x:Name="LifeAnamnesisItem6Label"   HorizontalAlignment="Right" Grid.Row="16" VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="ХОЗЛ" />
-                            <Label x:Name="LifeAnamnesisItem7Label"   HorizontalAlignment="Right" Grid.Row="17" VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="Інщі хвороби" />
-                            <Label x:Name="LifeAnamnesisItem8Label"   HorizontalAlignment="Right" Grid.Row="18" VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="На л/л з" />
-                            <Label x:Name="LifeAnamnesisItem9Label"   HorizontalAlignment="Right" Grid.Row="19" VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="Всього л/л" />
-                            <Label x:Name="LifeAnamnesisItem10Label"  HorizontalAlignment="Right" Grid.Row="20" VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="Постійно приймає" />
+                            <Label x:Name="LifeAnamnesisItem1Label"   HorizontalAlignment="Right" Grid.Row="11" VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="Туберкульоз" />
+                            <Label x:Name="LifeAnamnesisItem2Label"   HorizontalAlignment="Right" Grid.Row="12" VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="Венеричні захворення" />
+                            <Label x:Name="LifeAnamnesisItem3Label"   HorizontalAlignment="Right" Grid.Row="13" VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="Цукровий діабет" />
+                            <Label x:Name="LifeAnamnesisItem4Label"   HorizontalAlignment="Right" Grid.Row="14" VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="Гіпертонічна хвороба" />
+                            <Label x:Name="LifeAnamnesisItem5Label"   HorizontalAlignment="Right" Grid.Row="15" VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="Ішемічна хвороба серця" />
+                            <Label x:Name="LifeAnamnesisItem6Label"   HorizontalAlignment="Right" Grid.Row="16" VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="ХОЗЛ" />
+                            <Label x:Name="LifeAnamnesisItem7Label"   HorizontalAlignment="Right" Grid.Row="17" VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="Інщі хвороби" />
+                            <Label x:Name="LifeAnamnesisItem8Label"   HorizontalAlignment="Right" Grid.Row="18" VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="На л/л з" />
+                            <Label x:Name="LifeAnamnesisItem9Label"   HorizontalAlignment="Right" Grid.Row="19" VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="Всього л/л" />
+                            <Label x:Name="LifeAnamnesisItem10Label"  HorizontalAlignment="Right" Grid.Row="20" VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="Постійно приймає" />
 
                             <Border Grid.Row="0" Grid.Column="1" Margin="15,3,15,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
-                                <TextBox x:Name="tbAnamnesisItem1" VerticalAlignment="Stretch" FontSize="23" VerticalScrollBarVisibility="Visible" BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
+                                <TextBox x:Name="tbAnamnesisItem1" TextWrapping="Wrap" VerticalAlignment="Stretch" FontSize="23" VerticalScrollBarVisibility="Visible" BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
                             </Border>
                             <Border Grid.Row="1" Grid.Column="1" Margin="15,3,15,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
-                                <TextBox x:Name="tbAnamnesisItem2" VerticalAlignment="Stretch" FontSize="23" VerticalScrollBarVisibility="Visible" BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
+                                <TextBox x:Name="tbAnamnesisItem2" TextWrapping="Wrap" VerticalAlignment="Stretch" FontSize="23" VerticalScrollBarVisibility="Visible" BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
                             </Border>
                             <Border Grid.Row="2" Grid.Column="1" Margin="15,3,15,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
-                                <TextBox x:Name="tbAnamnesisItem3" VerticalAlignment="Stretch" FontSize="23" VerticalScrollBarVisibility="Visible" BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
+                                <TextBox x:Name="tbAnamnesisItem3" TextWrapping="Wrap" VerticalAlignment="Stretch" FontSize="23" VerticalScrollBarVisibility="Visible" BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
                             </Border>
                             <Border Grid.Row="3" Grid.Column="1" Margin="15,3,15,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
-                                <TextBox x:Name="tbAnamnesisItem4" VerticalAlignment="Stretch" FontSize="23" VerticalScrollBarVisibility="Visible"  BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
+                                <TextBox x:Name="tbAnamnesisItem4" TextWrapping="Wrap" VerticalAlignment="Stretch" FontSize="23" VerticalScrollBarVisibility="Visible"  BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
                             </Border>
                             <Border Grid.Row="4" Grid.Column="1" Margin="15,3,15,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
-                                <TextBox x:Name="tbAnamnesisItem5" VerticalAlignment="Stretch" FontSize="23" VerticalScrollBarVisibility="Visible" BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
+                                <TextBox x:Name="tbAnamnesisItem5" TextWrapping="Wrap" VerticalAlignment="Stretch" FontSize="23" VerticalScrollBarVisibility="Visible" BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
                             </Border>
                             <Border Grid.Row="5" Grid.Column="1" Margin="15,3,15,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
-                                <TextBox x:Name="tbAnamnesisItem6" VerticalAlignment="Stretch" FontSize="23" VerticalScrollBarVisibility="Visible" BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
+                                <TextBox x:Name="tbAnamnesisItem6" TextWrapping="Wrap" VerticalAlignment="Stretch" FontSize="23" VerticalScrollBarVisibility="Visible" BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
                             </Border>
                             <Border Grid.Row="6" Grid.Column="1" Margin="15,3,15,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
-                                <TextBox x:Name="tbAnamnesisItem7" VerticalAlignment="Stretch" FontSize="23" VerticalScrollBarVisibility="Visible" BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
+                                <TextBox x:Name="tbAnamnesisItem7" TextWrapping="Wrap" VerticalAlignment="Stretch" FontSize="23" VerticalScrollBarVisibility="Visible" BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
                             </Border>
                             <Border Grid.Row="7" Grid.Column="1" Margin="15,3,15,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
-                                <TextBox x:Name="tbAnamnesisItem8" VerticalAlignment="Stretch"  FontSize="23" VerticalScrollBarVisibility="Visible" BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
+                                <TextBox x:Name="tbAnamnesisItem8" TextWrapping="Wrap" VerticalAlignment="Stretch"  FontSize="23" VerticalScrollBarVisibility="Visible" BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
                             </Border>
                             <Border Grid.Row="8" Grid.Column="1" Margin="15,3,15,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
-                                <TextBox x:Name="tbAnamnesisItem9" VerticalAlignment="Stretch" FontSize="23" VerticalScrollBarVisibility="Visible" BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
+                                <TextBox x:Name="tbAnamnesisItem9" TextWrapping="Wrap" VerticalAlignment="Stretch" FontSize="23" VerticalScrollBarVisibility="Visible" BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
                             </Border>
                             <Border Grid.Row="9" Grid.Column="1" Margin="15,3,15,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
-                                <TextBox x:Name="tbAnamnesisItem10" VerticalAlignment="Stretch" FontSize="23" VerticalScrollBarVisibility="Visible" BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
+                                <TextBox x:Name="tbAnamnesisItem10" TextWrapping="Wrap" VerticalAlignment="Stretch" FontSize="23" VerticalScrollBarVisibility="Visible" BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
                             </Border>
                             <Border Grid.Row="10" Grid.Column="1" Margin="15,3,15,3"  CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
-                                <TextBox x:Name="tbAnamnesisItem11" VerticalAlignment="Stretch" FontSize="23" VerticalScrollBarVisibility="Visible" BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
+                                <TextBox x:Name="tbAnamnesisItem11" TextWrapping="Wrap" VerticalAlignment="Stretch" FontSize="23" VerticalScrollBarVisibility="Visible" BorderThickness="0" FontFamily="Roboto" Background="#F0F0F0" IsReadOnly="True" Text="SomeText"/>
                             </Border>
 
 
@@ -429,7 +429,7 @@
                                 <TextBox x:Name="tbLifeAnamnesisItem6" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="23" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" IsReadOnly="True" Text="Не хворів"/>
                             </Border>
                             <Border Grid.Column="1" Grid.Row="17" Margin="15,3,15,3" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
-                                <TextBox x:Name="tbLifeAnamnesisItem7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="23" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" IsReadOnly="True" Text="SomeText"/>
+                                <TextBox x:Name="tbLifeAnamnesisItem7" TextWrapping="Wrap" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="23" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" IsReadOnly="True" Text="SomeText"/>
                             </Border>
                             <Border Grid.Column="1" Grid.Row="18" Margin="15,0,15,0" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
                                 <TextBox x:Name="tbLifeAnamnesisItem8" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="23" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" IsReadOnly="True" Text="SomeText"/>
@@ -439,7 +439,7 @@
                             </Border>
 
                             <Border Grid.Column="1" Grid.Row="20" Margin="15,3,15,3" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
-                                <TextBox x:Name="tbLifeAnamnesisItem10" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="23" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" IsReadOnly="True" Text="SomeText"/>
+                                <TextBox x:Name="tbLifeAnamnesisItem10" TextWrapping="Wrap" VerticalAlignment="Stretch" VerticalContentAlignment="Center" HorizontalAlignment="Stretch" FontSize="23" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" IsReadOnly="True" Text="SomeText"/>
                             </Border>
 
 
@@ -468,35 +468,35 @@
                                 <RowDefinition Height="90"/>
                             </Grid.RowDefinitions>
 
-                            <Label x:Name="LocusMorbiItem1Label" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="Надключичні л/в" />
-                            <Label x:Name="LocusMorbiItem2Label" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="Пахвові л/в" />
-                            <Label x:Name="LocusMorbiItem3Label" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="Над легенями дихання" />
-                            <Label x:Name="LocusMorbiItem4Label" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="Ослаблення дихання" />
-                            <Label x:Name="LocusMorbiItem5Label" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0"   FontFamily="Roboto" Content="Перкуторно" />
-                            <Label x:Name="LocusMorbiItem6Label" HorizontalAlignment="Right" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="Притуплення" />
-                            <Label x:Name="LocusMorbiItem7Label" HorizontalAlignment="Right" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" FontSize="23" Margin="5,0,5,0" FontFamily="Roboto" Content="Хрипи" />
+                            <Label x:Name="LocusMorbiItem1Label" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="Надключичні л/в" />
+                            <Label x:Name="LocusMorbiItem2Label" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="Пахвові л/в" />
+                            <Label x:Name="LocusMorbiItem3Label" HorizontalAlignment="Right" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="Над легенями дихання" />
+                            <Label x:Name="LocusMorbiItem4Label" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="Ослаблення дихання" />
+                            <Label x:Name="LocusMorbiItem5Label" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="Перкуторно" />
+                            <Label x:Name="LocusMorbiItem6Label" HorizontalAlignment="Right" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="Притуплення" />
+                            <Label x:Name="LocusMorbiItem7Label" HorizontalAlignment="Right" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" FontSize="21" Margin="5,0,5,0" FontFamily="Roboto" Content="Хрипи" />
 
 
                             <Border Grid.Column="1" Grid.Row="0" Margin="15,3,15,3" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
-                                <TextBox x:Name="tbLocusMorbiItem1" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="23" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" IsReadOnly="True" Text="SomeText"/>
+                                <TextBox x:Name="tbLocusMorbiItem1" TextWrapping="Wrap" VerticalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="23" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" IsReadOnly="True" Text="SomeText"/>
                             </Border>
                             <Border Grid.Column="1" Grid.Row="1" Margin="15,3,15,3" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
-                                <TextBox x:Name="tbLocusMorbiItem2" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="23" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" IsReadOnly="True" Text="SomeText"/>
+                                <TextBox x:Name="tbLocusMorbiItem2" TextWrapping="Wrap" VerticalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="23" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" IsReadOnly="True" Text="SomeText"/>
                             </Border>
                             <Border Grid.Column="1" Grid.Row="2" Margin="15,0,15,0" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
-                                <TextBox x:Name="tbLocusMorbiItem3" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="23" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" IsReadOnly="True" Text="SomeText"/>
+                                <TextBox x:Name="tbLocusMorbiItem3" VerticalAlignment="Stretch"  VerticalContentAlignment="Center" FontSize="23" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" IsReadOnly="True" Text="SomeText"/>
                             </Border>
                             <Border Grid.Column="1" Grid.Row="3" Margin="15,3,15,3" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
-                                <TextBox x:Name="tbLocusMorbiItem4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="23" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" IsReadOnly="True" Text="SomeText"/>
+                                <TextBox x:Name="tbLocusMorbiItem4" TextWrapping="Wrap" VerticalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="23" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" IsReadOnly="True" Text="SomeText"/>
                             </Border>
                             <Border Grid.Column="1" Grid.Row="4" Margin="15,0,15,0" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
                                 <TextBox x:Name="tbLocusMorbiItem5" VerticalAlignment="Stretch" VerticalContentAlignment="Center" FontSize="23" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" IsReadOnly="True" Text="SomeText"/>
                             </Border>
                             <Border Grid.Column="1" Grid.Row="5" Margin="15,3,15,3" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
-                                <TextBox x:Name="tbLocusMorbiItem6" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="23" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" IsReadOnly="True" Text="SomeText"/>
+                                <TextBox x:Name="tbLocusMorbiItem6" TextWrapping="Wrap" VerticalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="23" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" IsReadOnly="True" Text="SomeText"/>
                             </Border>
                             <Border Grid.Column="1" Grid.Row="6" Margin="15,3,15,3" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" Padding="2,2,2,2" Background="#F0F0F0">
-                                <TextBox x:Name="tbLocusMorbiItem7" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="23" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" IsReadOnly="True" Text="SomeText"/>
+                                <TextBox x:Name="tbLocusMorbiItem7" TextWrapping="Wrap" VerticalContentAlignment="Center" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="23" FontFamily="Roboto" Background="#F0F0F0" BorderThickness="0" VerticalScrollBarVisibility="Visible" IsReadOnly="True" Text="SomeText"/>
                             </Border>
 
                         </Grid>

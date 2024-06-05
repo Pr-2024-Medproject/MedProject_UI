@@ -20,9 +20,16 @@ namespace MedProject_UI.View.UserControls
     /// </summary>
     public partial class DatePickerTemplate : UserControl
     {
+        public event SelectionChangedEventHandler DateSelectionChange;
         public DatePickerTemplate()
         {
             InitializeComponent();
+        }
+
+        private void customDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            DateSelectionChange.Invoke(this, e);
         }
     }
 }

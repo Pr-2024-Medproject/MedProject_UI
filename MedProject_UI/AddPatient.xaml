@@ -66,7 +66,7 @@
 
 
                 <UserControls:ClearableSearchBar x:Name="tbLivingAddress"         Grid.Column="1" Grid.Row="4" Margin="15,0,15,5" VerticalAlignment="Center"  MyLabel="Сумська 7б"  Height="40"/>
-                <UserControls:ClearableSearchBar x:Name="tbWorkAddress"           Grid.Column="1" Grid.Row="5" Margin="15,0,15,5" VerticalAlignment="Center"  MyLabel="Сумська 7б"  Height="40"/>
+                <UserControls:ClearableSearchBar x:Name="tbWorkAddress"           Grid.Column="1" Grid.Row="5" Margin="15,0,15,5" VerticalAlignment="Center"  MyLabel="Лікар"  Height="40"/>
                 <UserControls:DatePickerTemplate x:Name="datePickerHospitalStart" Grid.Column="1" Margin="15,3,15,3" Grid.Row="6" FontSize="25" Height="40"/>
                 <UserControls:DatePickerTemplate x:Name="datePickerHospitalEnd"   Grid.Column="1" Margin="15,3,15,3" Grid.Row="7" FontSize="25" Height="40"/>
 
@@ -228,7 +228,7 @@
                 <UserControls:DatePickerTemplate x:Name="dateChemotherapy"      Grid.Column="1" Margin="5,3,10,3" Grid.Row="3" FontSize="25" Height="40"/>
                 <UserControls:ClearableSearchBar x:Name="tbHistology"           Grid.Column="1" Grid.Row="4" Margin="5,5,10,5" VerticalAlignment="Center"  MyLabel=""  Height="40"/>
 
-                <ComboBox x:Name="comboBoxDoctorName" Grid.Column="1" Grid.Row="5" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="18" Margin="5,0,10,0" SelectedIndex="0">
+                <ComboBox x:Name="comboBoxDoctorName" Grid.Column="1" Grid.Row="5" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="23" Margin="5,0,10,0" SelectedIndex="0">
                     <ComboBoxItem Content="Г.В. Трунов"     FontSize="25" FontFamily="Roboto"/>
                     <ComboBoxItem Content="А.Ю. Гаврилов"   FontSize="25" FontFamily="Roboto"/>
                     <ComboBoxItem Content="С.Р. Петриченко" FontSize="25" FontFamily="Roboto"/>

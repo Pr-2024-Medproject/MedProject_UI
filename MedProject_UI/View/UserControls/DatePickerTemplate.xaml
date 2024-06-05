@@ -30,7 +30,6 @@
                                 <Style TargetType="Button">
                                     <Setter Property="FontSize" Value="20" />
                                     <Setter Property="Margin" Value="5,10,5,10"/>
-                                    
                                 </Style>
                             </Setter.Value>
                         </Setter>
@@ -44,9 +43,9 @@
                         <Setter Property="CalendarDayButtonStyle">
                             <Setter.Value>
                                 <Style TargetType="CalendarDayButton">
-                                    <Setter Property="FontSize" Value="20" />
+                                    <Setter Property="FontSize" Value="18" />
                                     <Setter Property="Background" Value="white"/>
-                                    <Setter Property="BorderBrush" Value="#56b1a9"/>
+                                    <Setter Property="BorderBrush" Value="#cccccc"/>
                                     <Setter Property="BorderThickness" Value="1"/>
                                     <Setter Property="Foreground" Value="Black"/>
                                     <Setter Property="Margin" Value="2"/>
@@ -60,8 +59,8 @@
                                             <Setter Property="BorderBrush" Value="#2B5754"/>
                                         </Trigger>
                                         <Trigger Property="IsToday" Value="True">
-                                        <Setter Property="Background" Value="#2B5754"/>
-                                        <Setter Property="Foreground" Value="white"/>
+                                            <Setter Property="Background" Value="#2B5754"/>
+                                            <Setter Property="Foreground" Value="white"/>
                                         </Trigger>
                                     </Style.Triggers>
                                 </Style>
@@ -81,7 +80,7 @@
             BorderThickness="1.5"
             Background="White"
             Padding="2,2,2,2">
-            <DatePicker x:Name="customDatePicker" VerticalAlignment="Center" BorderThickness="0" Foreground="#282828" Background="White" Height="40"/>
+            <DatePicker x:Name="customDatePicker" VerticalAlignment="Center" BorderThickness="0" Foreground="#282828" Background="White" Height="40" DisplayDateStart="1900-01-01" DisplayDateEnd="2100-12-31" SelectedDateChanged="customDatePicker_SelectedDateChanged" SelectedDateFormat="Short" FontSize="22" />
         </Border>
 
 

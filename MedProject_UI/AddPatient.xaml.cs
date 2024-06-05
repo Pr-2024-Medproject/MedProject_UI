@@ -59,6 +59,12 @@ namespace MedProject_UI
             tbOperationName.PreviewTextInput += PreviewTextOperationName;
             tbChemotherapyName.PreviewTextInput += PreviewTextChemotherapyName;
 
+            datePickerBirthday.DateSelectionChange += DateSelectionChanged_Birthday;
+            datePickerHospitalStart.DateSelectionChange += DateSelectionChanged_HospitalStart;
+            datePickerHospitalEnd.DateSelectionChange += DateSelectionChanged_HospitalEnd;
+            dateOperation.DateSelectionChange += DateSelectionChanged_Operation;
+            dateChemotherapy.DateSelectionChange += DateSelectionChanged_Chemotherapy;
+
 
             btnPage1Next.btnClick += btnPage1Next_Click;
 
@@ -126,6 +132,12 @@ namespace MedProject_UI
             tbOperationName.PreviewTextInput += PreviewTextOperationName;
             tbChemotherapyName.PreviewTextInput += PreviewTextChemotherapyName;
 
+            datePickerBirthday.DateSelectionChange += DateSelectionChanged_Birthday;
+            datePickerHospitalStart.DateSelectionChange += DateSelectionChanged_HospitalStart;
+            datePickerHospitalEnd.DateSelectionChange += DateSelectionChanged_HospitalEnd;
+            dateOperation.DateSelectionChange += DateSelectionChanged_Operation;
+            dateChemotherapy.DateSelectionChange += DateSelectionChanged_Chemotherapy;
+
 
             btnPage1Next.btnClick += btnPage1Next_Click;
 
@@ -174,7 +186,12 @@ namespace MedProject_UI
             tbChemotherapyName.tbSearchText.Text = newPatient._fieldChemotherapy != null ? newPatient._fieldChemotherapy : "";
             dateChemotherapy.customDatePicker.SelectedDate = newPatient._fieldChemotherapyDate;
             tbHistology.tbSearchText.Text = newPatient._fieldHistology != null ? newPatient._fieldHistology : "";
-            comboBoxDoctorName.SelectedIndex = comboBoxDoctorName.Items.IndexOf(newPatient._fieldDoctor);
+            List<string> doctors = new List<string>();
+            foreach (var item in comboBoxDoctorName.Items)
+            {
+                doctors.Add((item as ComboBoxItem).Content.ToString());
+            }
+            comboBoxDoctorName.SelectedIndex = doctors.IndexOf(newPatient._fieldDoctor != null ? newPatient._fieldDoctor : "");
             tbDepartmentHead.Text = newPatient._fieldDepartmentHead != null ? newPatient._fieldDepartmentHead : "";
             tbDepartHeadAssistant.Text = newPatient._fieldDepartHeadAssistant != null ? newPatient._fieldDepartHeadAssistant : "";
             LogicalTreeHelper.GetChildren(containerOverallItem1)
@@ -411,32 +428,217 @@ namespace MedProject_UI
                 e.Handled = true;
             base.OnPreviewTextInput(e);
         }
+        
+
+        private void DateSelectionChanged_Birthday(object sender, SelectionChangedEventArgs e)
+        {
+            if (datePickerBirthday.customDatePicker.SelectedDate.HasValue)
+            {
+
+                try
+                {
+                    if (datePickerHospitalStart.customDatePicker.BlackoutDates.Count() > 0)
+                    {
+                        datePickerHospitalStart.customDatePicker.BlackoutDates.Clear();
+                    }
+                    datePickerHospitalStart.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date));
+
+                }
+                catch (Exception ex)
+                {
+
+                    if (ex.Message.Contains("Specified argument was out of the range of valid values."))
+                    {
+                        MessageBox.Show("Обрана дата госпіталізації не може бути раніше за дати народження!", "Заблокована дата!", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                        datePickerHospitalStart.customDatePicker.SelectedDate = null;
+                        datePickerHospitalStart.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date));
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Сталась помилка! Звреніться до технічної підтримки!", "Помилка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
 
 
+                try
+                {
+                    if (datePickerHospitalEnd.customDatePicker.BlackoutDates.Count() > 0)
+                    {
+                        datePickerHospitalEnd.customDatePicker.BlackoutDates.Clear();
+                    }
+                    datePickerHospitalEnd.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date));
+                }
+                catch (Exception ex)
+                {
+                    if (ex.Message.Contains("Specified argument was out of the range of valid values."))
+                    {
+                        MessageBox.Show("Обрана дата виписки не може бути раніше за дати народження!", "Заблокована дата!", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                        datePickerHospitalEnd.customDatePicker.SelectedDate = null;
+                        datePickerHospitalEnd.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date));
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Сталась помилка! Звреніться до технічної підтримки!", "Помилка!", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                    }
+                }
+
+
+                try
+                {
+                    if (dateOperation.customDatePicker.BlackoutDates.Count() > 0)
+                    {
+                        dateOperation.customDatePicker.BlackoutDates.Clear();
+                    }
+                    dateOperation.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date));
+                }
+                catch (Exception ex)
+                {
+                    if (ex.Message.Contains("Specified argument was out of the range of valid values."))
+                    {
+                        MessageBox.Show("Обрана дата операції не може бути раніше за дати народження!", "Заблокована дата!", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                        dateOperation.customDatePicker.SelectedDate = null;
+                        dateOperation.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date));
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Сталась помилка! Звреніться до технічної підтримки!", "Помилка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+
+
+                try
+                {
+                    if (dateChemotherapy.customDatePicker.BlackoutDates.Count() > 0)
+                    {
+                        dateChemotherapy.customDatePicker.BlackoutDates.Clear();
+                    }
+                    dateChemotherapy.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date));
+                }
+                catch (Exception ex)
+                {
+                    if (ex.Message.Contains("Specified argument was out of the range of valid values."))
+                    {
+                        MessageBox.Show("Обрана дата ПХТ не може бути раніше за дати народження!", "Заблокована дата!", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                        dateChemotherapy.customDatePicker.SelectedDate = null;
+                        dateChemotherapy.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date));
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Сталась помилка! Звреніться до технічної підтримки!", "Помилка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+        }
+        private void DateSelectionChanged_HospitalStart(object sender, SelectionChangedEventArgs e)
+        {
+            if (datePickerHospitalStart.customDatePicker.SelectedDate.HasValue)
+            {
+                try
+                {
+                    if (datePickerHospitalEnd.customDatePicker.BlackoutDates.Count() > 0)
+                    {
+                        datePickerHospitalEnd.customDatePicker.BlackoutDates.Clear();
+                    }
+                    datePickerHospitalEnd.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date));
+                }
+                catch (Exception ex)
+                {
+                    if (ex.Message.Contains("Specified argument was out of the range of valid values."))
+                    {
+                        MessageBox.Show("Обрана дата виписки не може бути раніше за дату госпіталізації!", "Заблокована дата!", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                        datePickerHospitalEnd.customDatePicker.SelectedDate = null;
+                        datePickerHospitalEnd.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date));
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Сталась помилка! Звреніться до технічної підтримки!", "Помилка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                }
+
+
+                try
+                {
+                    if (dateOperation.customDatePicker.BlackoutDates.Count() > 0)
+                    {
+                        dateOperation.customDatePicker.BlackoutDates.Clear();
+                    }
+                    dateOperation.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date));
+                }
+                catch (Exception ex)
+                {
+                    if (ex.Message.Contains("Specified argument was out of the range of valid values."))
+                    {
+                        MessageBox.Show("Обрана дата операції не може бути раніше за дату госпіталізації!", "Заблокована дата!", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                        dateOperation.customDatePicker.SelectedDate = null;
+                        dateOperation.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date));
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Сталась помилка! Звреніться до технічної підтримки!", "Помилка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+
+
+                try
+                {
+                    if (dateChemotherapy.customDatePicker.BlackoutDates.Count() > 0)
+                    {
+                        dateChemotherapy.customDatePicker.BlackoutDates.Clear();
+                    }
+                    dateChemotherapy.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date));
+                }
+                catch (Exception ex)
+                {
+                    if (ex.Message.Contains("Specified argument was out of the range of valid values."))
+                    {
+                        MessageBox.Show("Обрана дата ПХТ не може бути раніше за дату госпіталізації!", "Заблокована дата!", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                        dateChemotherapy.customDatePicker.SelectedDate = null;
+                        dateChemotherapy.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date));
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Сталась помилка! Звреніться до технічної підтримки!", "Помилка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+            }
+
+        }
+        private void DateSelectionChanged_HospitalEnd(object sender, SelectionChangedEventArgs e)
+        { }
+        private void DateSelectionChanged_Operation(object sender, SelectionChangedEventArgs e)
+        { }
+        private void DateSelectionChanged_Chemotherapy(object sender, SelectionChangedEventArgs e)
+        { }
 
 
 
         private void AddTextLastName(object sender, TextChangedEventArgs e)
         { }
-
         private void AddTextFirstName(object sender, TextChangedEventArgs e)
         { }
-
         private void AddTextMiddleName(object sender, TextChangedEventArgs e)
         { }
-
         private void AddTextLivingAddress(object sender, TextChangedEventArgs e)
-        {}
+        { }
         private void AddTextWorkAddress(object sender, TextChangedEventArgs e)
-        {}
+        { }
         private void AddTextMKX(object sender, TextChangedEventArgs e)
-        {}
+        { }
         private void AddTextOperationName(object sender, TextChangedEventArgs e)
-        {}
+        { }
         private void AddTextChemotherapyName(object sender, TextChangedEventArgs e)
-        {}
+        { }
         private void AddTextHistology(object sender, TextChangedEventArgs e)
-        {}
+        { }
 
 
 
@@ -506,7 +708,7 @@ namespace MedProject_UI
                                             ? dateChemotherapy.customDatePicker.SelectedDate
                                             : DateTime.Now;
             newPatient._fieldHistology = tbHistology.tbSearchText.Text;
-            newPatient._fieldDoctor = comboBoxDoctorName.Text;
+            newPatient._fieldDoctor = (comboBoxDoctorName.Items[comboBoxDoctorName.SelectedIndex] as ComboBoxItem).Content.ToString();
             newPatient._fieldDepartmentHead = tbDepartmentHead.Text;
             newPatient._fieldDepartHeadAssistant = tbDepartHeadAssistant.Text;
         }
