@@ -65,6 +65,12 @@ namespace MedProject_UI
             dateOperation.DateSelectionChange += DateSelectionChanged_Operation;
             dateChemotherapy.DateSelectionChange += DateSelectionChanged_Chemotherapy;
 
+            datePickerBirthday.DatePrewiewText += DatePrewiewText_Birthday;
+            datePickerHospitalStart.DatePrewiewText += DatePrewiewText_HospitalStart;
+            datePickerHospitalEnd.DatePrewiewText += DatePrewiewText_HospitalEnd;
+            dateOperation.DatePrewiewText += DatePrewiewText_Operation;
+            dateChemotherapy.DatePrewiewText += DatePrewiewText_Chemotherapy;
+
 
             btnPage1Next.btnClick += btnPage1Next_Click;
 
@@ -100,7 +106,7 @@ namespace MedProject_UI
 
             this.Title = "Edit Patient";
 
-          
+
 
             mainGridPage1.Visibility = Visibility.Visible;
             mainGridPage2.Visibility = Visibility.Hidden;
@@ -137,6 +143,12 @@ namespace MedProject_UI
             datePickerHospitalEnd.DateSelectionChange += DateSelectionChanged_HospitalEnd;
             dateOperation.DateSelectionChange += DateSelectionChanged_Operation;
             dateChemotherapy.DateSelectionChange += DateSelectionChanged_Chemotherapy;
+
+            datePickerBirthday.DatePrewiewText += DatePrewiewText_Birthday;
+            datePickerHospitalStart.DatePrewiewText += DatePrewiewText_HospitalStart;
+            datePickerHospitalEnd.DatePrewiewText += DatePrewiewText_HospitalEnd;
+            dateOperation.DatePrewiewText += DatePrewiewText_Operation;
+            dateChemotherapy.DatePrewiewText += DatePrewiewText_Chemotherapy;
 
 
             btnPage1Next.btnClick += btnPage1Next_Click;
@@ -192,7 +204,7 @@ namespace MedProject_UI
                 doctors.Add((item as ComboBoxItem).Content.ToString());
             }
             comboBoxDoctorName.SelectedIndex = doctors.IndexOf(newPatient._fieldDoctor != null ? newPatient._fieldDoctor : "");
-            tbDepartmentHead.Text = newPatient._fieldDepartmentHead != null ? newPatient._fieldDepartmentHead : "";
+            tbDepartmentHead.Text = newPatient._fieldDepartmentHead != null ? newPatient._fieldDepartmentHead : "Г.В. Трунов";
             tbDepartHeadAssistant.Text = newPatient._fieldDepartHeadAssistant != null ? newPatient._fieldDepartHeadAssistant : "";
             LogicalTreeHelper.GetChildren(containerOverallItem1)
                              .OfType<RadioButton>()
@@ -242,34 +254,39 @@ namespace MedProject_UI
                              .OfType<RadioButton>()
                              .ToList()
                              .Where(x => x.GroupName == "rbOverallItem8").ToList()[newPatient._fieldOverallItem8 != null ? (int)newPatient._fieldOverallItem8 : 0].IsChecked = true;
-            if (newPatient._fieldOverallItem9_1 != null && (bool)newPatient._fieldOverallItem9_1)
+            if (newPatient._fieldOverallItem9_1 != null)
             {
-                LogicalTreeHelper.GetChildren(containerOverallItem9)
-                             .OfType<RadioButton>()
-                             .ToList()
-                             .Where(x => x.GroupName == "rbOverallItem9_1").ToList()[1].IsChecked = true;
-            }
-            else
-            {
-                LogicalTreeHelper.GetChildren(containerOverallItem9)
+                if ((bool)newPatient._fieldOverallItem9_1)
+                {
+                    LogicalTreeHelper.GetChildren(containerOverallItem9)
                                  .OfType<RadioButton>()
                                  .ToList()
-                                 .Where(x => x.GroupName == "rbOverallItem9_1").ToList()[0].IsChecked = true;
+                                 .Where(x => x.GroupName == "rbOverallItem9_1").ToList()[1].IsChecked = true;
+                }
+                else
+                {
+                    LogicalTreeHelper.GetChildren(containerOverallItem9)
+                                     .OfType<RadioButton>()
+                                     .ToList()
+                                     .Where(x => x.GroupName == "rbOverallItem9_1").ToList()[0].IsChecked = true;
+                }
             }
-
-            if (newPatient._fieldOverallItem9_2 != null && (bool)newPatient._fieldOverallItem9_2)
+            if (newPatient._fieldOverallItem9_2 != null)
             {
-                LogicalTreeHelper.GetChildren(containerOverallItem9)
-                             .OfType<RadioButton>()
-                             .ToList()
-                             .Where(x => x.GroupName == "rbOverallItem9_2").ToList()[1].IsChecked = true;
-            }
-            else
-            {
-                LogicalTreeHelper.GetChildren(containerOverallItem9)
+                if ((bool)newPatient._fieldOverallItem9_2)
+                {
+                    LogicalTreeHelper.GetChildren(containerOverallItem9)
                                  .OfType<RadioButton>()
                                  .ToList()
-                                 .Where(x => x.GroupName == "rbOverallItem9_2").ToList()[0].IsChecked = true;
+                                 .Where(x => x.GroupName == "rbOverallItem9_2").ToList()[1].IsChecked = true;
+                }
+                else
+                {
+                    LogicalTreeHelper.GetChildren(containerOverallItem9)
+                                     .OfType<RadioButton>()
+                                     .ToList()
+                                     .Where(x => x.GroupName == "rbOverallItem9_2").ToList()[0].IsChecked = true;
+                }
             }
 
             if (newPatient._fieldOverallItem10 != null)
@@ -332,38 +349,82 @@ namespace MedProject_UI
             tbLifeAnamnesisItem10.Text = newPatient._fieldLifeAnamnesisItem10 != null ? newPatient._fieldLifeAnamnesisItem10 : "";
             tbLocusMorbiItem1.Text = newPatient._fieldLocusMorbiItem1 != null ? string.Join(", ", newPatient._fieldLocusMorbiItem1) : "";
             tbLocusMorbiItem2.Text = newPatient._fieldLocusMorbiItem2 != null ? string.Join(", ", newPatient._fieldLocusMorbiItem2) : "";
-            if (newPatient._fieldLocusMorbiItem3 != null && (bool)newPatient._fieldLocusMorbiItem3)
+            if (newPatient._fieldLocusMorbiItem3 != null)
             {
-                LogicalTreeHelper.GetChildren(containerLocusMorbiItem3)
-                             .OfType<RadioButton>()
-                             .ToList()
-                             .Where(x => x.GroupName == "rbLocusMorbiItem3").ToList()[1].IsChecked = true;
-            }
-            else
-            {
-                LogicalTreeHelper.GetChildren(containerLocusMorbiItem3)
+                if ((bool)newPatient._fieldLocusMorbiItem3)
+                {
+                    LogicalTreeHelper.GetChildren(containerLocusMorbiItem3)
                                  .OfType<RadioButton>()
                                  .ToList()
-                                 .Where(x => x.GroupName == "rbLocusMorbiItem3").ToList()[0].IsChecked = true;
+                                 .Where(x => x.GroupName == "rbLocusMorbiItem3").ToList()[1].IsChecked = true;
+                }
+                else
+                {
+                    LogicalTreeHelper.GetChildren(containerLocusMorbiItem3)
+                                     .OfType<RadioButton>()
+                                     .ToList()
+                                     .Where(x => x.GroupName == "rbLocusMorbiItem3").ToList()[0].IsChecked = true;
+                }
             }
             tbLocusMorbiItem4.Text = newPatient._fieldLocusMorbiItem4 != null ? string.Join(", ", newPatient._fieldLocusMorbiItem4) : "";
-            if (newPatient._fieldLocusMorbiItem5 != null && (bool)newPatient._fieldLocusMorbiItem5)
+            if (newPatient._fieldLocusMorbiItem5 != null)
             {
-                LogicalTreeHelper.GetChildren(containerLocusMorbiItem5)
-                             .OfType<RadioButton>()
-                             .ToList()
-                             .Where(x => x.GroupName == "rbLocusMorbiItem5").ToList()[1].IsChecked = true;
-            }
-            else
-            {
-                LogicalTreeHelper.GetChildren(containerLocusMorbiItem5)
+                if ((bool)newPatient._fieldLocusMorbiItem5)
+                {
+                    LogicalTreeHelper.GetChildren(containerLocusMorbiItem5)
                                  .OfType<RadioButton>()
                                  .ToList()
-                                 .Where(x => x.GroupName == "rbLocusMorbiItem5").ToList()[0].IsChecked = true;
+                                 .Where(x => x.GroupName == "rbLocusMorbiItem5").ToList()[1].IsChecked = true;
+                }
+                else
+                {
+                    LogicalTreeHelper.GetChildren(containerLocusMorbiItem5)
+                                     .OfType<RadioButton>()
+                                     .ToList()
+                                     .Where(x => x.GroupName == "rbLocusMorbiItem5").ToList()[0].IsChecked = true;
+                }
             }
             tbLocusMorbiItem6.Text = newPatient._fieldLocusMorbiItem6 != null ? string.Join(", ", newPatient._fieldLocusMorbiItem6) : "";
             tbLocusMorbiItem7.Text = newPatient._fieldLocusMorbiItem7 != null ? string.Join(", ", newPatient._fieldLocusMorbiItem7) : "";
             #endregion
+        }
+
+        
+        
+        private void DatePrewiewText_Birthday(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[ࢶ]$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+        private void DatePrewiewText_HospitalStart(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[ࢶ]$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+        private void DatePrewiewText_HospitalEnd(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[ࢶ]$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+        private void DatePrewiewText_Operation(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[ࢶ]$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
+        }
+        private void DatePrewiewText_Chemotherapy(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex(@"^[ࢶ]$");
+            if (!regex.IsMatch(e.Text))
+                e.Handled = true;
+            base.OnPreviewTextInput(e);
         }
         private void PreviewTextLastName(object sender, TextCompositionEventArgs e)
         {
@@ -402,7 +463,7 @@ namespace MedProject_UI
         }
         private void PreviewTextMKX(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex(@"^[a-zA-ZА-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9\,\_\.\/ ]+$");
+            Regex regex = new Regex(@"^[a-zA-ZА-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9\,\.\/ ]+$");
             if (!regex.IsMatch(e.Text))
                 e.Handled = true;
             base.OnPreviewTextInput(e);
@@ -428,10 +489,13 @@ namespace MedProject_UI
                 e.Handled = true;
             base.OnPreviewTextInput(e);
         }
-        
+
 
         private void DateSelectionChanged_Birthday(object sender, SelectionChangedEventArgs e)
         {
+            datePickerBirthday.customDatePicker.BlackoutDates.Clear();
+            datePickerBirthday.customDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.Now.Date.AddDays(1) , new DateTime(2100, 12, 31)));
+
             if (datePickerBirthday.customDatePicker.SelectedDate.HasValue)
             {
 
@@ -441,7 +505,7 @@ namespace MedProject_UI
                     {
                         datePickerHospitalStart.customDatePicker.BlackoutDates.Clear();
                     }
-                    datePickerHospitalStart.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date));
+                    datePickerHospitalStart.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
 
                 }
                 catch (Exception ex)
@@ -451,7 +515,7 @@ namespace MedProject_UI
                     {
                         MessageBox.Show("Обрана дата госпіталізації не може бути раніше за дати народження!", "Заблокована дата!", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
                         datePickerHospitalStart.customDatePicker.SelectedDate = null;
-                        datePickerHospitalStart.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date));
+                        datePickerHospitalStart.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
 
                     }
                     else
@@ -467,7 +531,7 @@ namespace MedProject_UI
                     {
                         datePickerHospitalEnd.customDatePicker.BlackoutDates.Clear();
                     }
-                    datePickerHospitalEnd.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date));
+                    datePickerHospitalEnd.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
                 }
                 catch (Exception ex)
                 {
@@ -475,7 +539,7 @@ namespace MedProject_UI
                     {
                         MessageBox.Show("Обрана дата виписки не може бути раніше за дати народження!", "Заблокована дата!", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
                         datePickerHospitalEnd.customDatePicker.SelectedDate = null;
-                        datePickerHospitalEnd.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date));
+                        datePickerHospitalEnd.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
 
                     }
                     else
@@ -492,7 +556,7 @@ namespace MedProject_UI
                     {
                         dateOperation.customDatePicker.BlackoutDates.Clear();
                     }
-                    dateOperation.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date));
+                    dateOperation.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
                 }
                 catch (Exception ex)
                 {
@@ -500,7 +564,7 @@ namespace MedProject_UI
                     {
                         MessageBox.Show("Обрана дата операції не може бути раніше за дати народження!", "Заблокована дата!", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
                         dateOperation.customDatePicker.SelectedDate = null;
-                        dateOperation.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date));
+                        dateOperation.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
 
                     }
                     else
@@ -516,7 +580,7 @@ namespace MedProject_UI
                     {
                         dateChemotherapy.customDatePicker.BlackoutDates.Clear();
                     }
-                    dateChemotherapy.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date));
+                    dateChemotherapy.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
                 }
                 catch (Exception ex)
                 {
@@ -524,7 +588,7 @@ namespace MedProject_UI
                     {
                         MessageBox.Show("Обрана дата ПХТ не може бути раніше за дати народження!", "Заблокована дата!", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
                         dateChemotherapy.customDatePicker.SelectedDate = null;
-                        dateChemotherapy.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date));
+                        dateChemotherapy.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerBirthday.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
 
                     }
                     else
@@ -544,7 +608,7 @@ namespace MedProject_UI
                     {
                         datePickerHospitalEnd.customDatePicker.BlackoutDates.Clear();
                     }
-                    datePickerHospitalEnd.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date));
+                    datePickerHospitalEnd.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
                 }
                 catch (Exception ex)
                 {
@@ -552,7 +616,7 @@ namespace MedProject_UI
                     {
                         MessageBox.Show("Обрана дата виписки не може бути раніше за дату госпіталізації!", "Заблокована дата!", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
                         datePickerHospitalEnd.customDatePicker.SelectedDate = null;
-                        datePickerHospitalEnd.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date));
+                        datePickerHospitalEnd.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
 
                     }
                     else
@@ -569,7 +633,7 @@ namespace MedProject_UI
                     {
                         dateOperation.customDatePicker.BlackoutDates.Clear();
                     }
-                    dateOperation.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date));
+                    dateOperation.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
                 }
                 catch (Exception ex)
                 {
@@ -577,7 +641,7 @@ namespace MedProject_UI
                     {
                         MessageBox.Show("Обрана дата операції не може бути раніше за дату госпіталізації!", "Заблокована дата!", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
                         dateOperation.customDatePicker.SelectedDate = null;
-                        dateOperation.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date));
+                        dateOperation.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
 
                     }
                     else
@@ -593,7 +657,7 @@ namespace MedProject_UI
                     {
                         dateChemotherapy.customDatePicker.BlackoutDates.Clear();
                     }
-                    dateChemotherapy.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date));
+                    dateChemotherapy.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
                 }
                 catch (Exception ex)
                 {
@@ -601,7 +665,7 @@ namespace MedProject_UI
                     {
                         MessageBox.Show("Обрана дата ПХТ не може бути раніше за дату госпіталізації!", "Заблокована дата!", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
                         dateChemotherapy.customDatePicker.SelectedDate = null;
-                        dateChemotherapy.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date));
+                        dateChemotherapy.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1), datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
 
                     }
                     else
@@ -646,8 +710,8 @@ namespace MedProject_UI
         private void btnPage1Next_Click(object sender, RoutedEventArgs e)
         {
 
-            List<UserControl> listInputs = new List<UserControl>() {tbLastName, tbFirstName, tbMiddleName, datePickerBirthday, tbLivingAddress, tbWorkAddress, datePickerHospitalStart };
-            foreach(UserControl input in listInputs)
+            List<UserControl> listInputs = new List<UserControl>() { tbLastName, tbFirstName, tbMiddleName, datePickerBirthday, tbLivingAddress, tbWorkAddress, datePickerHospitalStart };
+            foreach (UserControl input in listInputs)
             {
                 if (input is View.UserControls.ClearableSearchBar)
                 {
@@ -658,65 +722,17 @@ namespace MedProject_UI
                     (input as View.UserControls.DatePickerTemplate).borderCustom.BorderBrush = new SolidColorBrush(Color.FromRgb(170, 170, 170));
                 }
             }
-            List<bool> listBool = new List<bool>();
-            int boolTrueCount = 0;
+            listInputs.Where(x => x is View.UserControls.ClearableSearchBar && string.IsNullOrEmpty((x as View.UserControls.ClearableSearchBar).tbSearchText.Text))
+                      .ToList()
+                      .ForEach(x => (x as View.UserControls.ClearableSearchBar).borderCustom.BorderBrush = new SolidColorBrush(Colors.Red));
+            listInputs.Where(x => x is View.UserControls.DatePickerTemplate && (x as View.UserControls.DatePickerTemplate).customDatePicker.SelectedDate == null)
+                      .ToList()
+                      .ForEach(x => (x as View.UserControls.DatePickerTemplate).borderCustom.BorderBrush = new SolidColorBrush(Colors.Red));
 
-            foreach (var item in listInputs)
-            {
-                listBool.Add(false);
-            }
-            
-            if (string.IsNullOrEmpty(tbLastName.tbSearchText.Text) )
-            {
-                listBool[0] = true;
-            }
-            if (string.IsNullOrEmpty(tbFirstName.tbSearchText.Text))
-            {
-                listBool[1] = true;
-            }
-            if (string.IsNullOrEmpty(tbMiddleName.tbSearchText.Text))
-            {
-                listBool[2] = true;
-            }
-            if (datePickerBirthday.customDatePicker.SelectedDate == null)
-            {
-                listBool[3] = true;
-            }
-            if (string.IsNullOrEmpty(tbLivingAddress.tbSearchText.Text))
-            {
-                listBool[4] = true;
-            }
-            if (string.IsNullOrEmpty(tbWorkAddress.tbSearchText.Text))
-            {
-                listBool[5] = true;
-            }
-            if (datePickerHospitalStart.customDatePicker.SelectedDate == null)
-            {
-                listBool[6] = true;
-            }
 
-            for (int i = 0; i < listBool.Count; i++)
+            if (!listInputs.Where(x => x is View.UserControls.ClearableSearchBar && string.IsNullOrEmpty((x as View.UserControls.ClearableSearchBar).tbSearchText.Text)).Any()
+             || !listInputs.Where(x => x is View.UserControls.DatePickerTemplate && (x as View.UserControls.DatePickerTemplate).customDatePicker.SelectedDate == null).Any())
             {
-                
-                if (listBool[i]) 
-                {
-                    if (listInputs[i] is View.UserControls.ClearableSearchBar)
-                    {
-                        (listInputs[i] as View.UserControls.ClearableSearchBar).borderCustom.BorderBrush = new SolidColorBrush(Colors.Red);
-                    }
-                    else
-                    {
-                        (listInputs[i] as View.UserControls.DatePickerTemplate).borderCustom.BorderBrush = new SolidColorBrush(Colors.Red);
-                    }
-                        //listInputs[i].
-                }
-                else
-                {
-                    boolTrueCount++;
-                }
-            }
-
-            if (boolTrueCount == listInputs.Count) {
                 mainGridPage1.Visibility = Visibility.Hidden;
                 mainGridPage2.Visibility = Visibility.Visible;
 
@@ -724,75 +740,56 @@ namespace MedProject_UI
                 newPatient._colLastName = tbLastName.tbSearchText.Text;
                 newPatient._colFirstName = tbFirstName.tbSearchText.Text;
                 newPatient._colMiddleName = tbMiddleName.tbSearchText.Text;
-                newPatient._colBirthDay = datePickerBirthday.customDatePicker.SelectedDate != null
-                                                ? datePickerBirthday.customDatePicker.SelectedDate
-                                                : DateTime.Now.AddYears(-1);
+                newPatient._colBirthDay = datePickerBirthday.customDatePicker.SelectedDate;
                 newPatient._colAddress = tbLivingAddress.tbSearchText.Text;
                 newPatient._colProfession = tbWorkAddress.tbSearchText.Text;
-                newPatient._colHospitalDate = datePickerHospitalStart.customDatePicker.SelectedDate != null
-                                                ? datePickerHospitalStart.customDatePicker.SelectedDate
-                                                : DateTime.Now;
-                newPatient._colLeaveDate = datePickerHospitalEnd.customDatePicker.SelectedDate != null
-                                                ? datePickerHospitalEnd.customDatePicker.SelectedDate
-                                                : DateTime.Now;
+                newPatient._colHospitalDate = datePickerHospitalStart.customDatePicker.SelectedDate;
+                newPatient._colLeaveDate = datePickerHospitalEnd.customDatePicker.SelectedDate;
 
-            }                   
+            }
 
         }
 
 
         private void btnPage2Next_Click(object sender, RoutedEventArgs e)
         {
-            borderClaims.BorderBrush = new SolidColorBrush(Color.FromRgb(170, 170, 170));
-            if (string.IsNullOrEmpty(tbClaims.Text))
+            List<TextBox> checkMandatory = new List<TextBox>() 
             {
-                borderClaims.BorderBrush = new SolidColorBrush(Colors.Red);
+                tbClaims,
+                tbEntrDiagnosis
+            };
+            checkMandatory.ForEach(x => (x.Parent as Border).BorderBrush = new SolidColorBrush(Color.FromRgb(170, 170, 170)));
+            if (checkMandatory.Where(x => string.IsNullOrEmpty(x.Text)).Any())
+            {
+                checkMandatory.Where(x => string.IsNullOrEmpty(x.Text)).ToList()
+                    .ForEach(x => (x.Parent as Border).BorderBrush = new SolidColorBrush(Colors.Red));
+                return;
             }
-            else 
-            {
-                mainGridPage2.Visibility = Visibility.Hidden;
-                mainGridPage3.Visibility = Visibility.Visible;
 
-                newPatient._fieldClaims = tbClaims.Text.Trim().TrimEnd(',').Split(", ");
-                newPatient._fieldEntrDiagnosis = tbEntrDiagnosis.Text;
-                newPatient._fieldFinalDiagnosis = tbFinalDiagnosis.Text;
-                newPatient._fieldComplication = tbComplications.Text;
-                newPatient._fieldAdditionalDiagnosis = tbAdditionDiagnosis.Text;
-                newPatient._fieldMKX = tbMKX.tbSearchText.Text;
-            }
-            
+            mainGridPage2.Visibility = Visibility.Hidden;
+            mainGridPage3.Visibility = Visibility.Visible;
+
+            newPatient._fieldClaims = tbClaims.Text.Trim().TrimEnd(',').Split(", ");
+            newPatient._fieldEntrDiagnosis = tbEntrDiagnosis.Text;
+            newPatient._fieldFinalDiagnosis = tbFinalDiagnosis.Text;
+            newPatient._fieldComplication = tbComplications.Text;
+            newPatient._fieldAdditionalDiagnosis = tbAdditionDiagnosis.Text;
+            newPatient._fieldMKX = tbMKX.tbSearchText.Text;
         }
 
         private void btnPage2Back_Click(object sender, RoutedEventArgs e)
         {
-            borderClaims.BorderBrush = new SolidColorBrush(Color.FromRgb(170, 170, 170));
-            if (string.IsNullOrEmpty(tbClaims.Text))
-            {
-                borderClaims.BorderBrush = new SolidColorBrush(Colors.Red);
-            }
-            else
-            {
-                mainGridPage2.Visibility = Visibility.Hidden;
+            mainGridPage2.Visibility = Visibility.Hidden;
             mainGridPage1.Visibility = Visibility.Visible;
-            }
-
         }
 
 
         private void btnPage3Back_Click(object sender, RoutedEventArgs e)
         {
 
-            borderDepartmentHead.BorderBrush = new SolidColorBrush(Color.FromRgb(170, 170, 170));
-            if (string.IsNullOrEmpty(tbDepartmentHead.Text))
-            {
-                borderDepartmentHead.BorderBrush= new SolidColorBrush(Colors.Red);
-            }
-            else
-            {
-                mainGridPage3.Visibility = Visibility.Hidden;
-                mainGridPage2.Visibility = Visibility.Visible;
-            }
-            
+           mainGridPage3.Visibility = Visibility.Hidden;
+           mainGridPage2.Visibility = Visibility.Visible;
+
         }
 
         private void btnPage3Next_Click(object sender, RoutedEventArgs e)
@@ -800,7 +797,7 @@ namespace MedProject_UI
             borderDepartmentHead.BorderBrush = new SolidColorBrush(Color.FromRgb(170, 170, 170));
             if (string.IsNullOrEmpty(tbDepartmentHead.Text))
             {
-                
+
                 borderDepartmentHead.BorderBrush = new SolidColorBrush(Colors.Red);
             }
             else
@@ -810,13 +807,9 @@ namespace MedProject_UI
 
 
                 newPatient._fieldOperationName = tbOperationName.tbSearchText.Text;
-                newPatient._fieldOperationDate = dateOperation.customDatePicker.SelectedDate != null
-                                                ? dateOperation.customDatePicker.SelectedDate
-                                                : DateTime.Now;
+                newPatient._fieldOperationDate = dateOperation.customDatePicker.SelectedDate;
                 newPatient._fieldChemotherapy = tbChemotherapyName.tbSearchText.Text;
-                newPatient._fieldChemotherapyDate = dateChemotherapy.customDatePicker.SelectedDate != null
-                                                ? dateChemotherapy.customDatePicker.SelectedDate
-                                                : DateTime.Now;
+                newPatient._fieldChemotherapyDate = dateChemotherapy.customDatePicker.SelectedDate;
                 newPatient._fieldHistology = tbHistology.tbSearchText.Text;
                 newPatient._fieldDoctor = (comboBoxDoctorName.Items[comboBoxDoctorName.SelectedIndex] as ComboBoxItem).Content.ToString();
                 newPatient._fieldDepartmentHead = tbDepartmentHead.Text;
@@ -919,6 +912,40 @@ namespace MedProject_UI
         }
         private void btnPage5Next_Click(object sender, RoutedEventArgs e)
         {
+            List<CheckBox> cbOverallItem10List = new List<CheckBox>() {
+                cbOverallItem10_1,
+                cbOverallItem10_2,
+                cbOverallItem10_3,
+                cbOverallItem10_4,
+                cbOverallItem10_5,
+                cbOverallItem10_6
+            };
+            List<CheckBox> cbOverallItem14List = new List<CheckBox>() {
+                cbOverallItem14_1,
+                cbOverallItem14_2,
+                cbOverallItem14_3,
+                cbOverallItem14_4,
+                cbOverallItem14_5
+            };
+            borderOverallItem10.BorderBrush = new SolidColorBrush(Color.FromArgb(0, 170, 170, 170));
+            borderOverallItem11.BorderBrush = new SolidColorBrush(Color.FromRgb(170, 170, 170));
+            borderOverallItem12.BorderBrush = new SolidColorBrush(Color.FromRgb(170, 170, 170));
+            borderOverallItem14.BorderBrush = new SolidColorBrush(Color.FromArgb(0, 170, 170, 170));
+            borderOverallItem15.BorderBrush = new SolidColorBrush(Color.FromRgb(170, 170, 170));
+            if (string.IsNullOrEmpty(tbOverallItem11.Text)
+                || string.IsNullOrEmpty(tbOverallItem12.Text)
+                || string.IsNullOrEmpty(tbOverallItem15.Text)
+                || !cbOverallItem10List.Where(x => (bool)x.IsChecked).Any()
+                || !cbOverallItem14List.Where(x => (bool)x.IsChecked).Any())
+            {
+                if (string.IsNullOrEmpty(tbOverallItem11.Text)) borderOverallItem11.BorderBrush = new SolidColorBrush(Colors.Red);
+                if (string.IsNullOrEmpty(tbOverallItem12.Text)) borderOverallItem12.BorderBrush = new SolidColorBrush(Colors.Red);
+                if (string.IsNullOrEmpty(tbOverallItem15.Text)) borderOverallItem15.BorderBrush = new SolidColorBrush(Colors.Red);
+                if (!cbOverallItem10List.Where(x => (bool)x.IsChecked).Any()) borderOverallItem10.BorderBrush = new SolidColorBrush(Colors.Red);
+                if (!cbOverallItem14List.Where(x => (bool)x.IsChecked).Any()) borderOverallItem14.BorderBrush = new SolidColorBrush(Colors.Red);
+                return;
+            }
+
             mainGridPage5.Visibility = Visibility.Hidden;
             mainGridPage6.Visibility = Visibility.Visible;
 
@@ -929,7 +956,7 @@ namespace MedProject_UI
                                                  .FirstOrDefault(x => (bool)x.IsChecked);
             newPatient._fieldOverallItem9_1 = contentHolder != null
                                                 ? contentHolder.Content.ToString() == "Негативний" ? false : true
-                                                : false;
+                                                : null;
             contentHolder = LogicalTreeHelper.GetChildren(containerOverallItem9)
                                                              .OfType<RadioButton>()
                                                              .ToList()
@@ -937,15 +964,8 @@ namespace MedProject_UI
                                                              .FirstOrDefault(x => (bool)x.IsChecked);
             newPatient._fieldOverallItem9_2 = contentHolder != null
                                                 ? contentHolder.Content.ToString() == "Справа" ? false : true
-                                                : false;
-            List<CheckBox> cbOverallItem10List = new List<CheckBox>() {
-                cbOverallItem10_1,
-                cbOverallItem10_2,
-                cbOverallItem10_3,
-                cbOverallItem10_4,
-                cbOverallItem10_5,
-                cbOverallItem10_6
-            };
+                                                : null;
+
             List<int> intHolder = new List<int>();
             for (int i = 0; cbOverallItem10List.Count > i; i++)
             {
@@ -968,13 +988,6 @@ namespace MedProject_UI
                                                              .FirstOrDefault(x => x.Value == contentHolder.Content.ToString()).Key
                                                 : 0;
 
-            List<CheckBox> cbOverallItem14List = new List<CheckBox>() {
-                cbOverallItem14_1,
-                cbOverallItem14_2,
-                cbOverallItem14_3,
-                cbOverallItem14_4,
-                cbOverallItem14_5
-             };
             intHolder = new List<int>();
             for (int i = 0; cbOverallItem14List.Count > i; i++)
             {
@@ -1017,6 +1030,23 @@ namespace MedProject_UI
         }
         private void btnPage7Next_Click(object sender, RoutedEventArgs e)
         {
+            List<TextBox> checkMandatory = new List<TextBox>()
+            {
+                tbLifeAnamnesisItem1,
+                tbLifeAnamnesisItem2,
+                tbLifeAnamnesisItem3,
+                tbLifeAnamnesisItem4,
+                tbLifeAnamnesisItem5,
+                tbLifeAnamnesisItem6
+            };
+            checkMandatory.ForEach(x => (x.Parent as Border).BorderBrush = new SolidColorBrush(Color.FromRgb(170, 170, 170)));
+            if (checkMandatory.Where(x => string.IsNullOrEmpty(x.Text)).Any())
+            {
+                checkMandatory.Where(x => string.IsNullOrEmpty(x.Text)).ToList()
+                    .ForEach(x => (x.Parent as Border).BorderBrush = new SolidColorBrush(Colors.Red));
+                return;
+            }
+
             mainGridPage7.Visibility = Visibility.Hidden;
             mainGridPage8.Visibility = Visibility.Visible;
 
@@ -1047,7 +1077,22 @@ namespace MedProject_UI
 
         private void btnPage8Next_Click(object sender, RoutedEventArgs e)
         {
+            List<TextBox> checkMandatory = new List<TextBox>()
+            {
+                tbLocusMorbiItem1,
+                tbLocusMorbiItem2,
+                tbLocusMorbiItem4,
+                tbLocusMorbiItem6,
+                tbLocusMorbiItem7
+            };
 
+            checkMandatory.ForEach(x => (x.Parent as Border).BorderBrush = new SolidColorBrush(Color.FromRgb(170, 170, 170)));
+            if (checkMandatory.Where(x => string.IsNullOrEmpty(x.Text)).Any())
+            {
+                checkMandatory.Where(x => string.IsNullOrEmpty(x.Text)).ToList()
+                    .ForEach(x => (x.Parent as Border).BorderBrush = new SolidColorBrush(Colors.Red));
+                return;
+            }
 
             newPatient._fieldLocusMorbiItem1 = tbLocusMorbiItem1.Text.Trim().TrimEnd(',').Split(", ");
             newPatient._fieldLocusMorbiItem2 = tbLocusMorbiItem2.Text.Trim().TrimEnd(',').Split(", ");
@@ -1059,7 +1104,7 @@ namespace MedProject_UI
                                                              .FirstOrDefault(x => (bool)x.IsChecked);
             newPatient._fieldLocusMorbiItem3 = contentHolder != null
                                                 ? contentHolder.Content.ToString() == "Везикулярне" ? false : true
-                                                : false;
+                                                : null;
 
             newPatient._fieldLocusMorbiItem4 = tbLocusMorbiItem4.Text.Trim().TrimEnd(',').Split(", ");
 
@@ -1070,7 +1115,7 @@ namespace MedProject_UI
                                                              .FirstOrDefault(x => (bool)x.IsChecked);
             newPatient._fieldLocusMorbiItem5 = contentHolder != null
                                                 ? contentHolder.Content.ToString() == "Легеневий звук" ? false : true
-                                                : false;
+                                                : null;
             newPatient._fieldLocusMorbiItem6 = tbLocusMorbiItem6.Text.Trim().TrimEnd(',').Split(", ");
             newPatient._fieldLocusMorbiItem7 = tbLocusMorbiItem7.Text.Trim().TrimEnd(',').Split(", ");
 
@@ -1098,6 +1143,23 @@ namespace MedProject_UI
 
         private void btnPage8Save_Changes(object sender, RoutedEventArgs e)
         {
+            List<TextBox> checkMandatory = new List<TextBox>()
+            {
+                tbLocusMorbiItem1,
+                tbLocusMorbiItem2,
+                tbLocusMorbiItem4,
+                tbLocusMorbiItem6,
+                tbLocusMorbiItem7
+            };
+
+            checkMandatory.ForEach(x => (x.Parent as Border).BorderBrush = new SolidColorBrush(Color.FromRgb(170, 170, 170)));
+            if (checkMandatory.Where(x => string.IsNullOrEmpty(x.Text)).Any())
+            {
+                checkMandatory.Where(x => string.IsNullOrEmpty(x.Text)).ToList()
+                    .ForEach(x => (x.Parent as Border).BorderBrush = new SolidColorBrush(Colors.Red));
+                return;
+            }
+
             newPatient._fieldLocusMorbiItem1 = tbLocusMorbiItem1.Text.Trim().TrimEnd(',').Split(", ");
             newPatient._fieldLocusMorbiItem2 = tbLocusMorbiItem2.Text.Trim().TrimEnd(',').Split(", ");
 
@@ -1108,7 +1170,7 @@ namespace MedProject_UI
                                                              .FirstOrDefault(x => (bool)x.IsChecked);
             newPatient._fieldLocusMorbiItem3 = contentHolder != null
                                                 ? contentHolder.Content.ToString() == "Везикулярне" ? false : true
-                                                : false;
+                                                : null;
 
             newPatient._fieldLocusMorbiItem4 = tbLocusMorbiItem4.Text.Trim().TrimEnd(',').Split(", ");
 
@@ -1119,7 +1181,7 @@ namespace MedProject_UI
                                                              .FirstOrDefault(x => (bool)x.IsChecked);
             newPatient._fieldLocusMorbiItem5 = contentHolder != null
                                                 ? contentHolder.Content.ToString() == "Легеневий звук" ? false : true
-                                                : false;
+                                                : null;
             newPatient._fieldLocusMorbiItem6 = tbLocusMorbiItem6.Text.Trim().TrimEnd(',').Split(", ");
             newPatient._fieldLocusMorbiItem7 = tbLocusMorbiItem7.Text.Trim().TrimEnd(',').Split(", ");
 
@@ -1210,7 +1272,7 @@ namespace MedProject_UI
 
         private void tbEntrDiagnosis_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,'+\- ]+$");
             if (!regex.IsMatch(e.Text))
                 e.Handled = true;
             base.OnPreviewTextInput(e);
@@ -1218,7 +1280,7 @@ namespace MedProject_UI
 
         private void tbFinalDiagnosis_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,'+\- ]+$");
             if (!regex.IsMatch(e.Text))
                 e.Handled = true;
             base.OnPreviewTextInput(e);
@@ -1226,7 +1288,7 @@ namespace MedProject_UI
 
         private void tbComplications_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,'+\- ]+$");
             if (!regex.IsMatch(e.Text))
                 e.Handled = true;
             base.OnPreviewTextInput(e);
@@ -1234,7 +1296,7 @@ namespace MedProject_UI
 
         private void tbAdditionDiagnosis_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,' ]+$");
+            Regex regex = new Regex(@"^[А-ЩЬЮЯЄІЇҐа-щьюяєіїґ0-9,'+\- ]+$");
             if (!regex.IsMatch(e.Text))
                 e.Handled = true;
             base.OnPreviewTextInput(e);

@@ -10,9 +10,6 @@
     <Compile Update="AddPatient.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="CreatedDocs.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Update="DocBuilder.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -34,9 +31,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="AddPatient.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="CreatedDocs.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="DocBuilder.xaml">

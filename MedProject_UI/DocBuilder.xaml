@@ -4,223 +4,36 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MedProject_UI"
+        xmlns:UserControls="clr-namespace:MedProject_UI.View.UserControls"
         mc:Ignorable="d"
-        Title="DocBuilder" Height="450" Width="800" MinHeight="600" MinWidth="1100" ResizeMode="CanMinimize" WindowStartupLocation="Manual">
+        Title="DocBuilder" Height="300" Width="700" MinHeight="300" MinWidth="700" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="/smallIcon.jpg">
     <Grid x:Name="mainContainer">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2.5*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
         <Grid.Background>
             <ImageBrush ImageSource="/c516ff9163fefeaa5974fc7c8855cd02.jpg" Stretch="UniformToFill" TileMode="Tile" Opacity="0.20" AlignmentX="Left"/>
         </Grid.Background>
-        <Grid x:Name="mainDetailsGrid">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="2*"/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
-            <Label Content="Заповніть основні дані хворого" HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Center" Grid.ColumnSpan="2" FontSize="20">
-                <Label.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF22FF81" Offset="1"/>
-                        <GradientStop Color="White" Offset="0.667"/>
-                        <GradientStop Color="#FFD7FFE8" Offset="0.833"/>
-                    </LinearGradientBrush>
-                </Label.Background>
-            </Label>
-            <Label x:Name="LastNameLabel" Content="Прізвище" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" FontSize="18" Margin="0,0,15,0"/>
-            <Label x:Name="FirstNameLabel" Content="Ім'я" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center" FontSize="18" Margin="0,0,15,0"/>
-            <Label x:Name="MiddleNameLabel" Content="По-батькові" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontSize="18" Margin="0,0,15,0"/>
-            <Label x:Name="BirthdayLabel" Content="Дата народження" HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Center" FontSize="18" Margin="0,0,15,0"/>
-            <Label x:Name="LivingAddressLabel" Content="Адреса проживання" HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center" FontSize="18" Margin="0,0,15,0"/>
-            <Label x:Name="WorkDescriptorLabel" Content="Місце роботи" HorizontalAlignment="Right" Grid.Row="6" VerticalAlignment="Center" FontSize="18" Margin="0,0,15,0"/>
-            <Label x:Name="HospitalEntDateLabel" Content="Дата госпіталізації" HorizontalAlignment="Right" Grid.Row="7" VerticalAlignment="Center" FontSize="18" Margin="0,0,15,0"/>
-            <Label x:Name="HospitalEntEndDateLabel" Content="Дата вибуття зі стаціонару" HorizontalAlignment="Right" Grid.Row="8" VerticalAlignment="Center" FontSize="18" Margin="0,0,15,0"/>
-            <Button x:Name="btnPage1Next" Grid.Column="1" Content="Далі &gt;&gt;&gt;" HorizontalAlignment="Right" Grid.Row="9" VerticalAlignment="Center" Margin="0,0,25,0" FontSize="16" Background="#FFFDFDFD" BorderBrush="Black" Padding="10,1,5,3" BorderThickness="0.5,0.5,0.5,0.5" Click="btnPage1Next_Click"/>
-            <TextBox x:Name="textBoxLastName" Grid.Column="1" Margin="5,5,5,5" Grid.Row="1" TextWrapping="Wrap" FontSize="18"/>
-            <TextBox x:Name="textBoxFirstName" Grid.Column="1" Margin="5,5,5,5" Grid.Row="2" TextWrapping="Wrap" FontSize="18"/>
-            <TextBox x:Name="textBoxMiddleName" Grid.Column="1" Margin="5,5,5,5" Grid.Row="3" TextWrapping="Wrap" FontSize="18"/>
-            <DatePicker x:Name="datePickerBirthday" Grid.Column="1" Margin="5,5,5,5" Grid.Row="4" FontSize="16"/>
-            <TextBox x:Name="textBoxLivingAddress" Grid.Column="1" Margin="5,5,5,5" Grid.Row="5" TextWrapping="Wrap" FontSize="18"/>
-            <TextBox x:Name="textBoxWorkAddress" Grid.Column="1" Margin="5,5,5,5" Grid.Row="6" TextWrapping="Wrap" FontSize="18"/>
-            <DatePicker x:Name="datePickerHospitalStart" Grid.Column="1" Margin="5,5,5,5" Grid.Row="7" FontSize="16"/>
-            <DatePicker x:Name="datePickerHospitalEnd" Grid.Column="1" Margin="5,5,5,5" Grid.Row="8" FontSize="16"/>
-        </Grid>
-        <Grid x:Name="diagnosisDetailsGrid" Visibility="Hidden">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="1.5*"/>
-                <RowDefinition Height="1.5*"/>
-                <RowDefinition Height="1.5*"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
-            <Label Content="Заповніть дані діагнозів" HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Center" Grid.ColumnSpan="2" FontSize="20">
-                <Label.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF22FF81" Offset="1"/>
-                        <GradientStop Color="White" Offset="0.667"/>
-                        <GradientStop Color="#FFD7FFE8" Offset="0.833"/>
-                    </LinearGradientBrush>
-                </Label.Background>
-            </Label>
-            <Label Content="Основний" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" Margin="0,0,15,0" FontSize="18"/>
-            <Label Content="Ускладнення" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center" FontSize="18" Margin="0,0,15,0"/>
-            <Label Content="Супутній" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontSize="18" Margin="0,0,15,0"/>
-            <TextBox x:Name="tbMainDiagnosis" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Margin="5,5,5,5" FontSize="16" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"/>
-            <TextBox x:Name="tbAdditionDiagnosis" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" Margin="5,5,5,5" FontSize="16" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"/>
-            <TextBox x:Name="tbSiblingDiagnosis" Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" Margin="5,5,5,5" FontSize="16" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"/>
-            <Button x:Name="btnPage2Next" Grid.Column="1" Content="Далі &gt;&gt;&gt;" HorizontalAlignment="Right" Grid.Row="9" VerticalAlignment="Center" Margin="0,0,25,0" FontSize="16" Background="#FFFDFDFD" BorderBrush="Black" Padding="10,1,5,3" BorderThickness="0.5,0.5,0.5,0.5" Click="btnPage2Next_Click"/>
-            <Button x:Name="btnPage2Back" Content="&lt;&lt;&lt; Назад" HorizontalAlignment="Left" Grid.Row="4" VerticalAlignment="Center" Margin="25,0,0,0" FontSize="16" Background="#FFFDFDFD" BorderBrush="Black" Padding="10,1,5,3" BorderThickness="0.5,0.5,0.5,0.5" Click="btnPage2Back_Click"/>
-        </Grid>
-        <Grid x:Name="shortIllDescGrid" Visibility="Hidden">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition Height="1.5*"/>
-                <RowDefinition Height="1.5*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="2*"/>
-            </Grid.ColumnDefinitions>
-            <Label Content="Заповніть короткий анамнез, діагностичні дослідження, перебіг хвороби" HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Center" Grid.ColumnSpan="2" FontSize="20">
-                <Label.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF22FF81" Offset="1"/>
-                        <GradientStop Color="White" Offset="0.667"/>
-                        <GradientStop Color="#FFD7FFE8" Offset="0.833"/>
-                    </LinearGradientBrush>
-                </Label.Background>
-            </Label>
+        <Label Content="Оберіть необхідку виписку" HorizontalAlignment="Center" Margin="30,0,30,0" VerticalAlignment="Center" Grid.ColumnSpan="2" FontSize="25">
+            <Label.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF56B1A9" Offset="1"/>
+                    <GradientStop Color="Transparent" Offset="0.667"/>
+                </LinearGradientBrush>
+            </Label.Background>
+        </Label>
 
-            <Button x:Name="btnPage3Next" Grid.Column="1" Content="Далі &gt;&gt;&gt;" HorizontalAlignment="Right" Grid.Row="9" VerticalAlignment="Center" Margin="0,0,25,0" FontSize="16" Background="#FFFDFDFD" BorderBrush="Black" Padding="10,1,5,3" BorderThickness="0.5,0.5,0.5,0.5" Click="btnPage3Next_Click"/>
-            <Button x:Name="btnPage3Back" Content="&lt;&lt;&lt; Назад" HorizontalAlignment="Left" Grid.Row="7" VerticalAlignment="Center" Margin="25,0,0,0" FontSize="16" Background="#FFFDFDFD" BorderBrush="Black" Padding="10,1,5,3" BorderThickness="0.5,0.5,0.5,0.5" Click="btnPage3Back_Click"/>
-            <Label Content="Скарги" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" FontSize="18" Margin="0,0,15,0"/>
-            <Grid Grid.Column="1" Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="1.5*"/>
-                </Grid.ColumnDefinitions>
-                <ComboBox x:Name="comboBoxComplaints" VerticalAlignment="Center" Margin="5,0,5,0">
-                    <ComboBoxItem Content="Кашель з слизовою, гнійною мокротою, сухий," FontSize="14"/>
-                    <ComboBoxItem Content="Кровохаркання" FontSize="14"/>
-                    <ComboBoxItem Content="Задишку при фізичному навантаженні, розмові, в спокої" FontSize="14"/>
-                    <ComboBoxItem Content="Біль у грудній клітці справа, зліва, за грудиною" FontSize="14"/>
-                    <ComboBoxItem Content="Гіпертермію до °С" FontSize="14"/>
-                    <ComboBoxItem Content="Субфебрилітет вечорами" FontSize="14"/>
-                    <ComboBoxItem Content="Осиплість голосу" FontSize="14"/>
-                    <ComboBoxItem Content="Набряк обличчя" FontSize="14"/>
-                    <ComboBoxItem Content="Утруднення проходження їжі по стравоходу" FontSize="14"/>
-                    <ComboBoxItem Content="Загальна слабкість" FontSize="14"/>
-                    <ComboBoxItem Content="Зниження апетиту" FontSize="14"/>
-                </ComboBox>
-                <TextBlock x:Name="tbComplaints" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Обрані скарги будуть тут..." VerticalAlignment="Center" FontSize="16" Margin="15,0,0,0"/>
-            </Grid>
-            <Label Content="Анамнез хвороби" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center" FontSize="18" Margin="0,0,15,0"/>
-            <Grid Grid.Column="1" Grid.Row="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="1.5*"/>
-                </Grid.ColumnDefinitions>
-                <ComboBox x:Name="comboBoxAnamnesis" VerticalAlignment="Center" Margin="5,0,5,0">
-                    <ComboBoxItem Content="Зміни виявлені при профогляді" FontSize="14"/>
-                    <ComboBoxItem Content="Виставлено діагноз" FontSize="14"/>
-                    <ComboBoxItem Content="Проведено дообстеження" FontSize="14"/>
-                    <ComboBoxItem Content="Лікування" FontSize="14"/>
-                    <ComboBoxItem Content="Попередня ХЛТ" FontSize="14"/>
-                    <ComboBoxItem Content="КТ ОГК, ОБП, ОМТ, ГМ" FontSize="14"/>
-                    <ComboBoxItem Content="МРТ ГМ" FontSize="14"/>
-                    <ComboBoxItem Content="ФБС" FontSize="14"/>
-                    <ComboBoxItem Content="ФЕГДС" FontSize="14"/>
-                </ComboBox>
-                <TextBlock x:Name="tbAnamnesis" Grid.Column="1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Обрані анамнези будуть тут..." VerticalAlignment="Center" FontSize="16" Margin="15,0,0,0"/>
-            </Grid>
-            <Label Content="КТ ОГК, ОБП, ОМТ, ГМ" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontSize="18" Margin="0,0,15,0"/>
-            <Label Content="МРТ ГМ" HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Center" FontSize="18" Margin="0,0,15,0"/>
-            <Label Content="ФБС" HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center" FontSize="18" Margin="0,0,15,0"/>
-            <TextBox x:Name="tbKT_OGK" Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" Margin="5,5,5,5" FontSize="16"/>
-            <TextBox x:Name="tbMRT_GM" Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" Margin="5,5,5,5" FontSize="16"/>
-            <TextBox x:Name="tbFBS" Grid.Column="1" Grid.Row="5" TextWrapping="Wrap" Margin="5,5,5,5" FontSize="16"/>
-            <TextBox x:Name="tbFEGDS" Grid.Column="1" Grid.Row="6" TextWrapping="Wrap" Margin="5,5,5,5" FontSize="16"/>
-            <Label Content="ФЕГДС" HorizontalAlignment="Right" Grid.Row="6" VerticalAlignment="Center" FontSize="18" Margin="0,0,15,0"/>
-        </Grid>
-        <Grid x:Name="additionalDetailsGrid" Visibility="Hidden">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1.2*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition/>
-                <RowDefinition Height="*"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+        <Grid x:Name="mainInputGrid" Grid.Row="1" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="1.9*"/>
+                <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label Content="Заповніть додаткові дані" HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Center" Grid.ColumnSpan="2" FontSize="20">
-                <Label.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF22FF81" Offset="1"/>
-                        <GradientStop Color="White" Offset="0.667"/>
-                        <GradientStop Color="#FFD7FFE8" Offset="0.833"/>
-                    </LinearGradientBrush>
-                </Label.Background>
-            </Label>
 
-            <Button x:Name="btnPage4Next" Grid.Column="1" Content="Створити документ &gt;&gt;&gt;" HorizontalAlignment="Right" Grid.Row="9" VerticalAlignment="Center" Margin="0,0,25,0" FontSize="16" Background="#FFFDFDFD" BorderBrush="Black" Padding="10,1,5,3" BorderThickness="0.5,0.5,0.5,0.5" Click="btnPage4Next_Click"/>
-            <Button x:Name="btnPage4Back" Content="&lt;&lt;&lt; Назад" HorizontalAlignment="Left" Grid.Row="7" VerticalAlignment="Center" Margin="25,0,0,0" FontSize="16" Background="#FFFDFDFD" BorderBrush="Black" Padding="10,1,5,3" BorderThickness="0.5,0.5,0.5,0.5" Click="btnPage4Back_Click"/>
-            <Label Content="Гістологія/цитологія" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center" Margin="0,0,15,0" FontSize="18"/>
-            <Label Content="Рішення МДК" HorizontalAlignment="Right" Grid.Row="2" VerticalAlignment="Center" FontSize="18" Margin="0,0,15,0"/>
-            <Label Content="Операція / ПТ / ПХТ" HorizontalAlignment="Right" Grid.Row="3" VerticalAlignment="Center" FontSize="18" Margin="0,0,15,0"/>
-            <Grid Grid.Column="1" Grid.Row="3
-                  ">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="1.5*"/>
-                </Grid.ColumnDefinitions>
-                <DatePicker x:Name="datePickerOperation" Margin="5,10,10,10" FontSize="14"/>
-                <TextBox x:Name="tbOperation" Grid.Column="1" Margin="5,5,5,5" TextWrapping="Wrap" FontSize="14" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"/>
-            </Grid>
-            <Label Content="Лікувальні і трудові рекомендації" HorizontalAlignment="Right" Grid.Row="4" VerticalAlignment="Center" FontSize="16" Margin="0,0,15,0"/>
-            <Label Content="Дата створення документа" HorizontalAlignment="Right" Grid.Row="5" VerticalAlignment="Center" FontSize="18" Margin="0,0,15,0"/>
-            <Label Content="Лікуючий лікар" HorizontalAlignment="Right" Grid.Row="6" VerticalAlignment="Center" FontSize="18" Margin="0,0,15,0"/>
-            <Grid Grid.Column="1" Grid.Row="6">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="1.5*"/>
-                </Grid.ColumnDefinitions>
-                <ComboBox x:Name="comboBoxDoctor" VerticalAlignment="Center" Margin="5,0,5,0">
-                    <ComboBoxItem Content="Г.В. Трунов" FontSize="14"/>
-                    <ComboBoxItem Content="А.Ю. Гаврилов" FontSize="14"/>
-                    <ComboBoxItem Content="С.Р. Петриченко" FontSize="14"/>
-                    <ComboBoxItem Content="Є.В. Ревков" FontSize="14"/>
-                    <ComboBoxItem Content="А.В. Чернявська" FontSize="14"/>
-                </ComboBox>
-                <TextBlock x:Name="tbDoctor" Grid.Column="2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Обраний лікар буде тут..." VerticalAlignment="Center" FontSize="16" Margin="15,0,0,0"/>
-            </Grid>
-            <TextBox x:Name="tbCystology" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" FontSize="14" Margin="5,5,5,5"/>
-            <TextBox x:Name="tbMDCDecision" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" FontSize="14" Margin="5,5,5,5" VerticalScrollBarVisibility="Visible" AcceptsReturn="True"/>
-            <TextBox x:Name="tbRecommendation" Grid.Column="1" Grid.Row="4" TextWrapping="Wrap" FontSize="14" Margin="5,5,5,5" AcceptsReturn="True" VerticalScrollBarVisibility="Visible"/>
-            <DatePicker x:Name="datePickerDocCreateDate" Margin="5,5,5,5" FontSize="16" Grid.Column="1" Grid.Row="5"/>
+            <UserControls:btnTemplate x:Name="btnCreateF1" Grid.Column="0" Width="250" HorizontalAlignment="Center" MyBtnText="Виписка ОГП ОЦО" Margin="30,0,30,0" />
+            <UserControls:btnTemplate x:Name="btnCreateF2" Grid.Column="1" Width="250" HorizontalAlignment="Center" MyBtnText="Виписка №066" Margin="30,0,30,0" />
         </Grid>
-        
+           
     </Grid>
 </Window>

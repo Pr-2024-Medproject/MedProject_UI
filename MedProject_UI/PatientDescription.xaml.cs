@@ -74,89 +74,9 @@ namespace MedProject_UI
 
         private void btnGenerateDocument(object sender, RoutedEventArgs e)
         {
+            DocBuilder doc = new DocBuilder(sourceData);
+            doc.Show();
             
-            var claimsBuilder = sourceData._fieldClaims != null ? string.Join(", ", sourceData._fieldClaims) : "Text";
-            var anamnesisBuilder = "";
-            if (sourceData._fieldAnamnesisItem1 != null)
-            {
-                anamnesisBuilder += sourceData._fieldAnamnesisItem1 + ", ";
-            }
-            if(sourceData._fieldAnamnesisItem2 != null)
-            {
-                anamnesisBuilder += sourceData._fieldAnamnesisItem2 + ", ";
-            }
-            if (sourceData._fieldAnamnesisItem3 != null)
-            {
-                anamnesisBuilder += sourceData._fieldAnamnesisItem3 + ", ";
-            }
-            if(sourceData._fieldAnamnesisItem4 != null)
-            {
-                anamnesisBuilder += sourceData._fieldAnamnesisItem4 + ", ";
-            }
-            if (sourceData._fieldAnamnesisItem5 != null)
-            {
-                anamnesisBuilder += sourceData._fieldAnamnesisItem5 + ", ";
-            }
-            if(sourceData._fieldAnamnesisItem6 != null)
-            {
-                anamnesisBuilder += sourceData._fieldAnamnesisItem6 + ", ";
-            }
-            if (sourceData._fieldAnamnesisItem7 != null)
-            {
-                anamnesisBuilder += sourceData._fieldAnamnesisItem7 + ", ";
-            }
-            anamnesisBuilder = anamnesisBuilder.Trim().TrimEnd(',');
-            Dictionary<string, string> fieldValues = new Dictionary<string, string> {
-                {"_docNumber", "456"},
-                {"_docNumberAdditional",  "123"},
-                {"_docLastFirstMiddleName", $"{sourceData._colLastName} {sourceData._colFirstName} {sourceData._colMiddleName}"},
-                {"_docBirthDay", $"{sourceData._colBirthDay.ToString().Split(" ")[0]}"},
-                {"_docLivingAddress", $"{sourceData._colAddress}"},
-                {"_docProfession", $"{sourceData._colProfession}"},
-                {"_docHospitalStartDate", $"{sourceData._colHospitalDate.ToString().Split(" ")[0]}"},
-                {"_docHospitalEndDate", $"{sourceData._colLeaveDate.ToString().Split(" ")[0]}"},
-                {"_docDiagnosisMain", $"{sourceData._fieldFinalDiagnosis}"},
-                {"_docComplication", $"{sourceData._fieldComplication}"},
-                {"_docAdditionalDiagnosis", $"{sourceData._fieldAdditionalDiagnosis}"},
-                {"_docClaims", $"{claimsBuilder}"},
-                {"_docAnamnesis", $"{anamnesisBuilder}"},
-                {"_docAnamnesisItem8", $"{sourceData._fieldAnamnesisItem8}"},
-                {"_docAnamnesisItem9", $"{sourceData._fieldAnamnesisItem9}"},
-                {"_docAnamnesisItem10", $"{sourceData._fieldAnamnesisItem10}"},
-                {"_docAnamnesisItem11", $"{sourceData._fieldAnamnesisItem11}"},
-                {"_docHistology", $"{sourceData._fieldHistology}"},
-                {"_docChemotherapyDate", $"{sourceData._fieldChemotherapyDate.ToString().Split(" ")[0]}"},
-                {"_docChemotherapy", $"{sourceData._fieldChemotherapy}"},
-                {"_docCreationDate", $"{DateTime.Now.ToString().Split(" ")[0]}"},
-                {"_docDoctor", $"{sourceData._fieldDoctor}"}
-            };
-            var engine = new Engine();
-            try
-            {
-                engine.Merge("..\\..\\..\\Виписка ОГП ОЦО_template.docx", fieldValues, $"..\\..\\..\\Виписка_ОГП_ОЦО_{sourceData._colLastName}_{sourceData._colFirstName}_{sourceData._colMiddleName}.docx");
-                MessageBox.Show("Документ було створено!", "Документ", MessageBoxButton.OKCancel, MessageBoxImage.Information);
-                var p = new Process();
-                p.StartInfo = new ProcessStartInfo($"..\\..\\..\\Виписка_ОГП_ОЦО_{sourceData._colLastName}_{sourceData._colFirstName}_{sourceData._colMiddleName}.docx")
-                {
-                    UseShellExecute = true
-                };
-                p.Start();
-            }
-            catch (Exception ex)
-            {
-                if (ex.Message.Contains("because it is being used by another process."))
-                {
-                    MessageBox.Show("Скоріш за все документ вже створений та відкритий! Перевірте будь-ласка запущені процеси.", "Документ вже відкритий!", MessageBoxButton.OKCancel, MessageBoxImage.Information);
-                }
-                else if (ex.Message.Contains("Could not find file "))
-                {
-                    MessageBox.Show("Шаблон документу не знайдено. Будь-ласка зверніться до підтримки!", "Шаблон не знайдено!", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-                }
-                else
-                {
-                    MessageBox.Show("Неочікувана помилка. Будь-ласка зверніться до підтримки!", "Шаблон не знайдено!", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-                }
-            }
         }
 
         private void btnChangeDescription(object sender, RoutedEventArgs e)
@@ -204,12 +124,9 @@ namespace MedProject_UI
             tbOperationName.Text = source._fieldOperationName != null
                 ? source._fieldOperationName
                 : "--------";
-
-
             dateOperation.Text = source._fieldOperationDate != null
                 ? source._fieldOperationDate.ToString().Split(" ")[0]
                 : "--.--.----";
-
             tbChemotherapyName.Text = source._fieldChemotherapy != null
                 ? source._fieldChemotherapy
                 : "--------";

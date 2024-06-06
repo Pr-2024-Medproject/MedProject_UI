@@ -38,7 +38,7 @@
                         FontSize="23" 
                         Text="{Binding MyLabel}"
                         FontWeight ="Normal"
-                        Foreground="#666666"
+                        Foreground="#a6a6a6"
                         Margin="5,0,0,0"
                         VerticalAlignment="Center"
                         Panel.ZIndex="-1" />

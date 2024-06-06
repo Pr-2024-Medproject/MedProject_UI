@@ -21,6 +21,7 @@ namespace MedProject_UI.View.UserControls
     public partial class DatePickerTemplate : UserControl
     {
         public event SelectionChangedEventHandler DateSelectionChange;
+        public event TextCompositionEventHandler DatePrewiewText;
         public DatePickerTemplate()
         {
             InitializeComponent();
@@ -28,8 +29,12 @@ namespace MedProject_UI.View.UserControls
 
         private void customDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            
             DateSelectionChange.Invoke(this, e);
+        }
+
+        private void customDatePicker_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            DatePrewiewText.Invoke(this, e);
         }
     }
 }

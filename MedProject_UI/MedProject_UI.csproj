@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="c516ff9163fefeaa5974fc7c8855cd02.jpg" />
+    <None Remove="smallIcon.jpg" />
     <None Remove="web.png" />
   </ItemGroup>
 
@@ -19,6 +20,7 @@
 
   <ItemGroup>
     <Resource Include="c516ff9163fefeaa5974fc7c8855cd02.jpg" />
+    <Resource Include="smallIcon.jpg" />
     <Resource Include="web.png" />
   </ItemGroup>
 
