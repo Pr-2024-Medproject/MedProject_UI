@@ -75,7 +75,7 @@
 
     </UserControl.Resources>
     <Grid >
-        <Border x:Name="borderDatePicker" CornerRadius="6"
+        <Border x:Name="borderCustom" CornerRadius="6"
             BorderBrush="#AAAAAA"
             BorderThickness="1.5"
             Background="White"

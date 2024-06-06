@@ -6,72 +6,74 @@
              xmlns:local="clr-namespace:MedProject_UI.View.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="35" d:DesignWidth="450">
+    <Grid x:Name="mainGrid">
+        <Border x:Name="borderCustom"
+                CornerRadius="7"
+                BorderBrush="#AAAAAA"
+                BorderThickness="1.5"
+                Background="#F0F0F0"
+                Padding="2,2,2,2">
 
-    <Border CornerRadius="7"
-            BorderBrush="#AAAAAA"
-            BorderThickness="1.5"
-            Background="#F0F0F0"
-            Padding="2,2,2,2">
+            <Grid x:Name="SearchBarGrid" Background="#F0F0F0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="0.07*"/>
+                </Grid.ColumnDefinitions>
+                <Grid x:Name="textArea" Grid.Column="0" >
+                    <TextBox x:Name="tbSearchText"  
+                        FontFamily="Roboto"
+                        VerticalContentAlignment="Center" 
+                        FontSize="23" 
+                        Background="Transparent"
+                        FontWeight ="Normal"
+                        TextChanged="tbSearchText_TextChanged"
+                        BorderThickness ="0"
+                        HorizontalAlignment="Stretch"
+                        PreviewTextInput="tbSearchText_PreviewTextInput"  
+                        Margin="5,0,0,0"
+                     />
 
-        <Grid x:Name="SearchBarGrid" Background="#F0F0F0" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition Width="0.07*"/>
-            </Grid.ColumnDefinitions>
-            <Grid x:Name="textArea" Grid.Column="0" >
-                <TextBox x:Name="tbSearchText"  
-                    FontFamily="Roboto"
-                    VerticalContentAlignment="Center" 
-                    FontSize="23" 
-                    Background="Transparent"
-                    FontWeight ="Normal"
-                    TextChanged="tbSearchText_TextChanged"
-                    BorderThickness ="0"
-                    HorizontalAlignment="Stretch"
-                    PreviewTextInput="tbSearchText_PreviewTextInput"  
-                    Margin="5,0,0,0"
-                 />
+                    <TextBlock x:Name="tbLabel" 
+                        FontFamily="Roboto"
+                        FontSize="23" 
+                        Text="{Binding MyLabel}"
+                        FontWeight ="Normal"
+                        Foreground="#666666"
+                        Margin="5,0,0,0"
+                        VerticalAlignment="Center"
+                        Panel.ZIndex="-1" />
 
-                <TextBlock x:Name="tbLabel" 
-                    FontFamily="Roboto"
-                    FontSize="23" 
-                    Text="{Binding MyLabel}"
-                    FontWeight ="Normal"
-                    Foreground="#666666"
-                    Margin="5,0,0,0"
+                </Grid>
+                <Button Grid.Column="1" x:Name="btnClear" 
+                    FontSize="20" 
                     VerticalAlignment="Center"
-                    Panel.ZIndex="-1" />
+                    Content="X"
+                    Foreground="#595959" 
+                    BorderThickness="0"
+                    Width="30" 
+                    Click="btnClearClick" >
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}">
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border x:Name="Border" Background="Transparent">
+                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#f2f2f2" TargetName="Border" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
 
             </Grid>
-            <Button Grid.Column="1" x:Name="btnClear" 
-                FontSize="20" 
-                VerticalAlignment="Center"
-                Content="X"
-                Foreground="#595959" 
-                BorderThickness="0"
-                Width="30" 
-                Click="btnClearClick" >
-                <Button.Style>
-                    <Style TargetType="{x:Type Button}">
-
-                        <Setter Property="Template">
-                            <Setter.Value>
-                                <ControlTemplate TargetType="{x:Type Button}">
-                                    <Border x:Name="Border" Background="Transparent">
-                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                    </Border>
-                                    <ControlTemplate.Triggers>
-                                        <Trigger Property="IsMouseOver" Value="True">
-                                            <Setter Property="Background" Value="#f2f2f2" TargetName="Border" />
-                                        </Trigger>
-                                    </ControlTemplate.Triggers>
-                                </ControlTemplate>
-                            </Setter.Value>
-                        </Setter>
-                    </Style>
-                </Button.Style>
-            </Button>
-
-        </Grid>
-    </Border>
+        </Border>
+    </Grid>
 </UserControl>

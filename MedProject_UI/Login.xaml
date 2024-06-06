@@ -38,7 +38,7 @@
             <Label x:Name="Lable_Login" Content="Ваш логін" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" FontFamily="Roboto" FontSize="22" Margin="15,0,0,0"/>
             <Label x:Name="Label_Pass" Content="Ваш пароль" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontFamily="Roboto" FontSize="22" Margin="15,0,0,0"/>
             <TextBox x:Name="TB_Login" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Margin="0,7,15,7" FontSize="22"/>
-            <TextBox x:Name="TB_Pass" Grid.Row="3" TextWrapping="Wrap" Margin="0,7,15,7" FontSize="22" Grid.Column="1"/>
+            <PasswordBox x:Name="TB_Pass" Grid.Row="3" Margin="0,7,15,7" FontSize="22" Grid.Column="1"/>
         </Grid>
         <Button x:Name="BTN_Login" 
                 Style="{StaticResource RoundButtonTemplate}"

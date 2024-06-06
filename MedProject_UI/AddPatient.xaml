@@ -141,7 +141,7 @@
                         <ComboBoxItem FontSize="23" Content="Загальна слабкість" />
                         <ComboBoxItem FontSize="23" Content="Зниження апетиту" />
                     </ComboBox>
-                    <Border Grid.Column="1" Grid.Row="1" Margin="5,5,10,5" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                    <Border x:Name="borderClaims" Grid.Column="1" Grid.Row="1" Margin="5,5,10,5" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
                         <TextBox x:Name="tbClaims" TextWrapping="Wrap" FontSize="20"  VerticalScrollBarVisibility="Visible" BorderThickness="0" Background="#F0F0F0" PreviewTextInput="tbClaims_PreviewTextInput"/>
                     </Border>
                 </Grid>
@@ -229,14 +229,14 @@
                 <UserControls:ClearableSearchBar x:Name="tbHistology"           Grid.Column="1" Grid.Row="4" Margin="5,5,10,5" VerticalAlignment="Center"  MyLabel=""  Height="40"/>
 
                 <ComboBox x:Name="comboBoxDoctorName" Grid.Column="1" Grid.Row="5" Height="35" Width="250" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="23" Margin="5,0,10,0" SelectedIndex="0">
-                    <ComboBoxItem Content="Г.В. Трунов"     FontSize="25" FontFamily="Roboto"/>
+                    <ComboBoxItem Content="Г.В. Трунов"     IsSelected="True" FontSize="25" FontFamily="Roboto"/>
                     <ComboBoxItem Content="А.Ю. Гаврилов"   FontSize="25" FontFamily="Roboto"/>
                     <ComboBoxItem Content="С.Р. Петриченко" FontSize="25" FontFamily="Roboto"/>
                     <ComboBoxItem Content="Є.В. Ревков"     FontSize="25" FontFamily="Roboto"/>
                     <ComboBoxItem Content="А.В. Чернявська" FontSize="25" FontFamily="Roboto"/>
                 </ComboBox>
 
-                <Border Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Margin="5,0,5,0" Width="400" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5"  ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
+                <Border x:Name="borderDepartmentHead" Grid.Column="1" Grid.Row="6" HorizontalAlignment="Left" Margin="5,0,5,0" Width="400" Height="40" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5"  ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
                     <TextBox x:Name="tbDepartmentHead" VerticalAlignment="Center" Text="Г.В. Трунов"  FontSize="25" FontFamily="Roboto" Background="#F0F0F0" BorderBrush="{x:Null}" PreviewTextInput="tbDepartmentHead_PreviewTextInput"/>
                 </Border>
                 <Border Grid.Column="1" Grid.Row="7" HorizontalAlignment="Left" Margin="5,0,5,0" Height="40" Width="400" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5"  ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">

@@ -645,72 +645,183 @@ namespace MedProject_UI
 
         private void btnPage1Next_Click(object sender, RoutedEventArgs e)
         {
-            mainGridPage1.Visibility = Visibility.Hidden;
-            mainGridPage2.Visibility = Visibility.Visible;
+
+            List<UserControl> listInputs = new List<UserControl>() {tbLastName, tbFirstName, tbMiddleName, datePickerBirthday, tbLivingAddress, tbWorkAddress, datePickerHospitalStart };
+            foreach(UserControl input in listInputs)
+            {
+                if (input is View.UserControls.ClearableSearchBar)
+                {
+                    (input as View.UserControls.ClearableSearchBar).borderCustom.BorderBrush = new SolidColorBrush(Color.FromRgb(170, 170, 170));
+                }
+                else
+                {
+                    (input as View.UserControls.DatePickerTemplate).borderCustom.BorderBrush = new SolidColorBrush(Color.FromRgb(170, 170, 170));
+                }
+            }
+            List<bool> listBool = new List<bool>();
+            int boolTrueCount = 0;
+
+            foreach (var item in listInputs)
+            {
+                listBool.Add(false);
+            }
+            
+            if (string.IsNullOrEmpty(tbLastName.tbSearchText.Text) )
+            {
+                listBool[0] = true;
+            }
+            if (string.IsNullOrEmpty(tbFirstName.tbSearchText.Text))
+            {
+                listBool[1] = true;
+            }
+            if (string.IsNullOrEmpty(tbMiddleName.tbSearchText.Text))
+            {
+                listBool[2] = true;
+            }
+            if (datePickerBirthday.customDatePicker.SelectedDate == null)
+            {
+                listBool[3] = true;
+            }
+            if (string.IsNullOrEmpty(tbLivingAddress.tbSearchText.Text))
+            {
+                listBool[4] = true;
+            }
+            if (string.IsNullOrEmpty(tbWorkAddress.tbSearchText.Text))
+            {
+                listBool[5] = true;
+            }
+            if (datePickerHospitalStart.customDatePicker.SelectedDate == null)
+            {
+                listBool[6] = true;
+            }
+
+            for (int i = 0; i < listBool.Count; i++)
+            {
+                
+                if (listBool[i]) 
+                {
+                    if (listInputs[i] is View.UserControls.ClearableSearchBar)
+                    {
+                        (listInputs[i] as View.UserControls.ClearableSearchBar).borderCustom.BorderBrush = new SolidColorBrush(Colors.Red);
+                    }
+                    else
+                    {
+                        (listInputs[i] as View.UserControls.DatePickerTemplate).borderCustom.BorderBrush = new SolidColorBrush(Colors.Red);
+                    }
+                        //listInputs[i].
+                }
+                else
+                {
+                    boolTrueCount++;
+                }
+            }
+
+            if (boolTrueCount == listInputs.Count) {
+                mainGridPage1.Visibility = Visibility.Hidden;
+                mainGridPage2.Visibility = Visibility.Visible;
 
 
-            newPatient._colLastName = tbLastName.tbSearchText.Text;
-            newPatient._colFirstName = tbFirstName.tbSearchText.Text;
-            newPatient._colMiddleName = tbMiddleName.tbSearchText.Text;
-            newPatient._colBirthDay = datePickerBirthday.customDatePicker.SelectedDate != null
-                                            ? datePickerBirthday.customDatePicker.SelectedDate
-                                            : DateTime.Now.AddYears(-1);
-            newPatient._colAddress = tbLivingAddress.tbSearchText.Text;
-            newPatient._colProfession = tbWorkAddress.tbSearchText.Text;
-            newPatient._colHospitalDate = datePickerHospitalStart.customDatePicker.SelectedDate != null
-                                            ? datePickerHospitalStart.customDatePicker.SelectedDate
-                                            : DateTime.Now;
-            newPatient._colLeaveDate = datePickerHospitalEnd.customDatePicker.SelectedDate != null
-                                            ? datePickerHospitalEnd.customDatePicker.SelectedDate
-                                            : DateTime.Now;
+                newPatient._colLastName = tbLastName.tbSearchText.Text;
+                newPatient._colFirstName = tbFirstName.tbSearchText.Text;
+                newPatient._colMiddleName = tbMiddleName.tbSearchText.Text;
+                newPatient._colBirthDay = datePickerBirthday.customDatePicker.SelectedDate != null
+                                                ? datePickerBirthday.customDatePicker.SelectedDate
+                                                : DateTime.Now.AddYears(-1);
+                newPatient._colAddress = tbLivingAddress.tbSearchText.Text;
+                newPatient._colProfession = tbWorkAddress.tbSearchText.Text;
+                newPatient._colHospitalDate = datePickerHospitalStart.customDatePicker.SelectedDate != null
+                                                ? datePickerHospitalStart.customDatePicker.SelectedDate
+                                                : DateTime.Now;
+                newPatient._colLeaveDate = datePickerHospitalEnd.customDatePicker.SelectedDate != null
+                                                ? datePickerHospitalEnd.customDatePicker.SelectedDate
+                                                : DateTime.Now;
+
+            }                   
+
         }
 
 
         private void btnPage2Next_Click(object sender, RoutedEventArgs e)
         {
-            mainGridPage2.Visibility = Visibility.Hidden;
-            mainGridPage3.Visibility = Visibility.Visible;
+            borderClaims.BorderBrush = new SolidColorBrush(Color.FromRgb(170, 170, 170));
+            if (string.IsNullOrEmpty(tbClaims.Text))
+            {
+                borderClaims.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+            else 
+            {
+                mainGridPage2.Visibility = Visibility.Hidden;
+                mainGridPage3.Visibility = Visibility.Visible;
 
-            newPatient._fieldClaims = tbClaims.Text.Trim().TrimEnd(',').Split(", ");
-            newPatient._fieldEntrDiagnosis = tbEntrDiagnosis.Text;
-            newPatient._fieldFinalDiagnosis = tbFinalDiagnosis.Text;
-            newPatient._fieldComplication = tbComplications.Text;
-            newPatient._fieldAdditionalDiagnosis = tbAdditionDiagnosis.Text;
-            newPatient._fieldMKX = tbMKX.tbSearchText.Text;
+                newPatient._fieldClaims = tbClaims.Text.Trim().TrimEnd(',').Split(", ");
+                newPatient._fieldEntrDiagnosis = tbEntrDiagnosis.Text;
+                newPatient._fieldFinalDiagnosis = tbFinalDiagnosis.Text;
+                newPatient._fieldComplication = tbComplications.Text;
+                newPatient._fieldAdditionalDiagnosis = tbAdditionDiagnosis.Text;
+                newPatient._fieldMKX = tbMKX.tbSearchText.Text;
+            }
+            
         }
 
         private void btnPage2Back_Click(object sender, RoutedEventArgs e)
         {
-            mainGridPage2.Visibility = Visibility.Hidden;
+            borderClaims.BorderBrush = new SolidColorBrush(Color.FromRgb(170, 170, 170));
+            if (string.IsNullOrEmpty(tbClaims.Text))
+            {
+                borderClaims.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+            else
+            {
+                mainGridPage2.Visibility = Visibility.Hidden;
             mainGridPage1.Visibility = Visibility.Visible;
-        }
+            }
 
+        }
 
 
         private void btnPage3Back_Click(object sender, RoutedEventArgs e)
         {
-            mainGridPage3.Visibility = Visibility.Hidden;
-            mainGridPage2.Visibility = Visibility.Visible;
+
+            borderDepartmentHead.BorderBrush = new SolidColorBrush(Color.FromRgb(170, 170, 170));
+            if (string.IsNullOrEmpty(tbDepartmentHead.Text))
+            {
+                borderDepartmentHead.BorderBrush= new SolidColorBrush(Colors.Red);
+            }
+            else
+            {
+                mainGridPage3.Visibility = Visibility.Hidden;
+                mainGridPage2.Visibility = Visibility.Visible;
+            }
+            
         }
 
         private void btnPage3Next_Click(object sender, RoutedEventArgs e)
         {
-            mainGridPage3.Visibility = Visibility.Hidden;
-            mainGridPage4.Visibility = Visibility.Visible;
+            borderDepartmentHead.BorderBrush = new SolidColorBrush(Color.FromRgb(170, 170, 170));
+            if (string.IsNullOrEmpty(tbDepartmentHead.Text))
+            {
+                
+                borderDepartmentHead.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+            else
+            {
+                mainGridPage3.Visibility = Visibility.Hidden;
+                mainGridPage4.Visibility = Visibility.Visible;
 
 
-            newPatient._fieldOperationName = tbOperationName.tbSearchText.Text;
-            newPatient._fieldOperationDate = dateOperation.customDatePicker.SelectedDate != null
-                                            ? dateOperation.customDatePicker.SelectedDate
-                                            : DateTime.Now;
-            newPatient._fieldChemotherapy = tbChemotherapyName.tbSearchText.Text;
-            newPatient._fieldChemotherapyDate = dateChemotherapy.customDatePicker.SelectedDate != null
-                                            ? dateChemotherapy.customDatePicker.SelectedDate
-                                            : DateTime.Now;
-            newPatient._fieldHistology = tbHistology.tbSearchText.Text;
-            newPatient._fieldDoctor = (comboBoxDoctorName.Items[comboBoxDoctorName.SelectedIndex] as ComboBoxItem).Content.ToString();
-            newPatient._fieldDepartmentHead = tbDepartmentHead.Text;
-            newPatient._fieldDepartHeadAssistant = tbDepartHeadAssistant.Text;
+                newPatient._fieldOperationName = tbOperationName.tbSearchText.Text;
+                newPatient._fieldOperationDate = dateOperation.customDatePicker.SelectedDate != null
+                                                ? dateOperation.customDatePicker.SelectedDate
+                                                : DateTime.Now;
+                newPatient._fieldChemotherapy = tbChemotherapyName.tbSearchText.Text;
+                newPatient._fieldChemotherapyDate = dateChemotherapy.customDatePicker.SelectedDate != null
+                                                ? dateChemotherapy.customDatePicker.SelectedDate
+                                                : DateTime.Now;
+                newPatient._fieldHistology = tbHistology.tbSearchText.Text;
+                newPatient._fieldDoctor = (comboBoxDoctorName.Items[comboBoxDoctorName.SelectedIndex] as ComboBoxItem).Content.ToString();
+                newPatient._fieldDepartmentHead = tbDepartmentHead.Text;
+                newPatient._fieldDepartHeadAssistant = tbDepartHeadAssistant.Text;
+            }
         }
 
 
