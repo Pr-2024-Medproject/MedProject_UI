@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MedProject_UI"
         xmlns:UserControls="clr-namespace:MedProject_UI.View.UserControls"
         mc:Ignorable="d"
-        Title="Med Project" Height="600" Width="1300" MinHeight="500" MinWidth="1035" WindowStartupLocation="Manual" Activated="WIndow_Main_Activated" >
+        Title="Med Project" Height="600" Width="1300" MinHeight="500" MinWidth="1035" WindowStartupLocation="Manual" Activated="WIndow_Main_Activated" Icon="/smallIcon.jpg" >
     <Grid x:Name="Main">
         <Grid.Background>
             <ImageBrush ImageSource="/c516ff9163fefeaa5974fc7c8855cd02.jpg" Stretch="UniformToFill" TileMode="Tile" Opacity="0.35" AlignmentX="Left"/>

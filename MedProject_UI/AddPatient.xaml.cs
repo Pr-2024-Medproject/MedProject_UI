@@ -72,6 +72,13 @@ namespace MedProject_UI
             dateChemotherapy.DatePrewiewText += DatePrewiewText_Chemotherapy;
 
 
+            datePickerBirthday.DateLoad += DateLoad_Birthday;
+            datePickerHospitalStart.DateLoad += DateLoad_HospitalStart;
+            datePickerHospitalEnd.DateLoad += DateLoad_HospitalEnd;
+            dateOperation.DateLoad += DateLoad_Operation;
+            dateChemotherapy.DateLoad += DateLoad_Chemotherapy;
+
+
             btnPage1Next.btnClick += btnPage1Next_Click;
 
             btnPage2Next.btnClick += btnPage2Next_Click;
@@ -150,6 +157,11 @@ namespace MedProject_UI
             dateOperation.DatePrewiewText += DatePrewiewText_Operation;
             dateChemotherapy.DatePrewiewText += DatePrewiewText_Chemotherapy;
 
+            datePickerBirthday.DateLoad += DateLoad_Birthday;
+            datePickerHospitalStart.DateLoad += DateLoad_HospitalStart;
+            datePickerHospitalEnd.DateLoad += DateLoad_HospitalEnd;
+            dateOperation.DateLoad += DateLoad_Operation;
+            dateChemotherapy.DateLoad += DateLoad_Chemotherapy;
 
             btnPage1Next.btnClick += btnPage1Next_Click;
 
@@ -203,8 +215,10 @@ namespace MedProject_UI
             {
                 doctors.Add((item as ComboBoxItem).Content.ToString());
             }
-            comboBoxDoctorName.SelectedIndex = doctors.IndexOf(newPatient._fieldDoctor != null ? newPatient._fieldDoctor : "");
-            tbDepartmentHead.Text = newPatient._fieldDepartmentHead != null ? newPatient._fieldDepartmentHead : "Г.В. Трунов";
+            comboBoxDoctorName.SelectedIndex = doctors.IndexOf(newPatient._fieldDoctor != null ? newPatient._fieldDoctor : doctors[0]) != -1 
+                ? doctors.IndexOf(newPatient._fieldDoctor != null ? newPatient._fieldDoctor : doctors[0]) 
+                : 0;
+            tbDepartmentHead.Text = newPatient._fieldDepartmentHead != null ? newPatient._fieldDepartmentHead : "Г.В. Петриченко";
             tbDepartHeadAssistant.Text = newPatient._fieldDepartHeadAssistant != null ? newPatient._fieldDepartHeadAssistant : "";
             LogicalTreeHelper.GetChildren(containerOverallItem1)
                              .OfType<RadioButton>()
@@ -493,9 +507,6 @@ namespace MedProject_UI
 
         private void DateSelectionChanged_Birthday(object sender, SelectionChangedEventArgs e)
         {
-            datePickerBirthday.customDatePicker.BlackoutDates.Clear();
-            datePickerBirthday.customDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.Now.Date.AddDays(1) , new DateTime(2100, 12, 31)));
-
             if (datePickerBirthday.customDatePicker.SelectedDate.HasValue)
             {
 
@@ -683,6 +694,25 @@ namespace MedProject_UI
         private void DateSelectionChanged_Chemotherapy(object sender, SelectionChangedEventArgs e)
         { }
 
+
+        private void DateLoad_Birthday(object sender, RoutedEventArgs e)
+        {
+            datePickerBirthday.customDatePicker.BlackoutDates.Clear();
+            datePickerBirthday.customDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.Now.Date.AddDays(1), new DateTime(2100, 12, 31)));
+
+        }
+        private void DateLoad_HospitalStart(object sender, RoutedEventArgs e)
+        { 
+        }
+        private void DateLoad_HospitalEnd(object sender, RoutedEventArgs e)
+        { 
+        }
+        private void DateLoad_Operation(object sender, RoutedEventArgs e)
+        { 
+        }
+        private void DateLoad_Chemotherapy(object sender, RoutedEventArgs e)
+        { 
+        }
 
 
         private void AddTextLastName(object sender, TextChangedEventArgs e)

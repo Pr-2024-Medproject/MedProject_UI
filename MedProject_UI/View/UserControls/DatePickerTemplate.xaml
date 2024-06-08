@@ -91,7 +91,7 @@
             BorderThickness="1.5"
             Background="White"
             Padding="2,2,2,2">
-            <DatePicker x:Name="customDatePicker" VerticalAlignment="Center" BorderThickness="0" Foreground="#282828" Background="White" Height="40" DisplayDateStart="1900-01-01" DisplayDateEnd="2100-12-31" SelectedDateChanged="customDatePicker_SelectedDateChanged" SelectedDateFormat="Short" FontSize="22" PreviewTextInput="customDatePicker_PreviewTextInput" />
+            <DatePicker x:Name="customDatePicker" VerticalAlignment="Center" BorderThickness="0" Foreground="#282828" Background="White" Height="40" DisplayDateStart="1900-01-01" DisplayDateEnd="2100-12-31" SelectedDateChanged="customDatePicker_SelectedDateChanged" SelectedDateFormat="Short" FontSize="22" PreviewTextInput="customDatePicker_PreviewTextInput" Loaded="customDatePicker_Loaded" />
         </Border>
 
 

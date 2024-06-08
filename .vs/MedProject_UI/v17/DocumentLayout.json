@@ -3,14 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|c:\\users\\administrator\\source\\repos\\medproject_ui\\medproject_ui\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|solutionrelative:medproject_ui\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|c:\\users\\administrator\\source\\repos\\medproject_ui\\medproject_ui\\addpatient.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|solutionrelative:medproject_ui\\addpatient.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|c:\\users\\administrator\\source\\repos\\medproject_ui\\medproject_ui\\addpatient.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|solutionrelative:medproject_ui\\addpatient.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
@@ -23,12 +15,12 @@
       "RelativeMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|solutionrelative:medproject_ui\\view\\usercontrols\\datepickertemplate.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|c:\\users\\administrator\\source\\repos\\medproject_ui\\medproject_ui\\patientdescription.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|solutionrelative:medproject_ui\\patientdescription.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|c:\\users\\administrator\\source\\repos\\medproject_ui\\medproject_ui\\addpatient.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|solutionrelative:medproject_ui\\addpatient.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|c:\\users\\administrator\\source\\repos\\medproject_ui\\medproject_ui\\database.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|solutionrelative:medproject_ui\\database.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|c:\\users\\administrator\\source\\repos\\medproject_ui\\medproject_ui\\patientdescription.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|solutionrelative:medproject_ui\\patientdescription.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,94 +30,66 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "DatePickerTemplate.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\View\\UserControls\\DatePickerTemplate.xaml.cs",
-              "RelativeDocumentMoniker": "MedProject_UI\\View\\UserControls\\DatePickerTemplate.xaml.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\View\\UserControls\\DatePickerTemplate.xaml.cs",
-              "RelativeToolTip": "MedProject_UI\\View\\UserControls\\DatePickerTemplate.xaml.cs",
-              "ViewState": "AQIAABQAAAAAAAAAAAAcwCQAAAAMAAAA",
+              "DocumentIndex": 4,
+              "Title": "PatientDescription.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\PatientDescription.xaml.cs",
+              "RelativeDocumentMoniker": "MedProject_UI\\PatientDescription.xaml.cs",
+              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\PatientDescription.xaml.cs",
+              "RelativeToolTip": "MedProject_UI\\PatientDescription.xaml.cs",
+              "ViewState": "AQIAAEkBAAAAAAAAAAAwwAkAAAAeAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T20:59:35.009Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-07T18:55:02.204Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
+              "Title": "AddPatient.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\AddPatient.xaml.cs",
+              "RelativeDocumentMoniker": "MedProject_UI\\AddPatient.xaml.cs",
+              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\AddPatient.xaml.cs",
+              "RelativeToolTip": "MedProject_UI\\AddPatient.xaml.cs",
+              "ViewState": "AQIAALMCAAAAAAAAAAAAAMACAAAKAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-07T10:15:21.129Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "DatePickerTemplate.xaml",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\View\\UserControls\\DatePickerTemplate.xaml",
               "RelativeDocumentMoniker": "MedProject_UI\\View\\UserControls\\DatePickerTemplate.xaml",
               "ToolTip": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\View\\UserControls\\DatePickerTemplate.xaml",
               "RelativeToolTip": "MedProject_UI\\View\\UserControls\\DatePickerTemplate.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-06-06T20:57:04.013Z",
+              "WhenOpened": "2024-06-07T10:17:28.06Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "PatientDescription.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\PatientDescription.xaml.cs",
-              "RelativeDocumentMoniker": "MedProject_UI\\PatientDescription.xaml.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\PatientDescription.xaml.cs",
-              "RelativeToolTip": "MedProject_UI\\PatientDescription.xaml.cs",
-              "ViewState": "AQIAAEQAAAAAAAAAAAAswCwAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T06:33:44.952Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "database.json",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\database.json",
-              "RelativeDocumentMoniker": "MedProject_UI\\database.json",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\database.json",
-              "RelativeToolTip": "MedProject_UI\\database.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-06-06T06:33:19.619Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "AddPatient.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\AddPatient.xaml.cs",
-              "RelativeDocumentMoniker": "MedProject_UI\\AddPatient.xaml.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\AddPatient.xaml.cs",
-              "RelativeToolTip": "MedProject_UI\\AddPatient.xaml.cs",
-              "ViewState": "AQIAAOkBAAAAAAAAAAAUwN0CAABmAAAA",
+              "Title": "DatePickerTemplate.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\View\\UserControls\\DatePickerTemplate.xaml.cs",
+              "RelativeDocumentMoniker": "MedProject_UI\\View\\UserControls\\DatePickerTemplate.xaml.cs",
+              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\View\\UserControls\\DatePickerTemplate.xaml.cs",
+              "RelativeToolTip": "MedProject_UI\\View\\UserControls\\DatePickerTemplate.xaml.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAcwBgAAABAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T13:15:57.39Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-07T10:16:56.232Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "AddPatient.xaml",
               "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\AddPatient.xaml",
               "RelativeDocumentMoniker": "MedProject_UI\\AddPatient.xaml",
               "ToolTip": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\AddPatient.xaml",
               "RelativeToolTip": "MedProject_UI\\AddPatient.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-06-05T15:18:17.86Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "App.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\App.xaml.cs",
-              "RelativeDocumentMoniker": "MedProject_UI\\App.xaml.cs",
-              "ToolTip": "C:\\Users\\Administrator\\source\\repos\\MedProject_UI\\MedProject_UI\\App.xaml.cs",
-              "RelativeToolTip": "MedProject_UI\\App.xaml.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAAA3wBkAAAAtAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-06T06:44:03.626Z",
+              "WhenOpened": "2024-06-07T10:16:33.061Z",
               "EditorCaption": ""
             }
           ]

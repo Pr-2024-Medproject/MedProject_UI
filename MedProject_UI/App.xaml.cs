@@ -206,7 +206,7 @@ namespace MedProject_UI
         {
             base.OnStartup(e);
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 1; i++)
             {
                 dataItems.Add(new DataItem
                 {
