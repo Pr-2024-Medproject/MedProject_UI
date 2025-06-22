@@ -148,3 +148,8 @@ MedProject_UI/obj/project.assets.json
 MedProject_UI/obj/project.nuget.cache
 /MedProject_UI/obj/Debug/net8.0-windows
 /.vs/MedProject_UI/FileContentIndex
+/MedProject_UI/bin
+/MedProject_UI/bin
+/MedProject_UI/obj
+/MedProject_UI/bin/Debug/net8.0-windows
+/.vs
