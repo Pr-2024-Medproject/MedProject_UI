@@ -153,3 +153,5 @@ MedProject_UI/obj/project.nuget.cache
 /MedProject_UI/obj
 /MedProject_UI/bin/Debug/net8.0-windows
 /.vs
+/MedProject_UI/config.json
+/MedProject_UI/database.json

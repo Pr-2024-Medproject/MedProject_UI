@@ -1,11 +1,12 @@
-﻿using System.IO;
-using System.Text.Json;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using MedProject_UI.Models;
+using MedProject_UI.Services;
 using MedProject_UI.View.UserControls;
+using Newtonsoft.Json;
 using static MedProject_UI.App;
 
 namespace MedProject_UI;
@@ -16,10 +17,45 @@ namespace MedProject_UI;
 public partial class AddPatient : Window
 {
     private readonly DataItem newPatient = new();
+    private readonly Patient _patient;
+    private readonly Visit _visit;
+    private readonly bool _isEditMode;
+    private readonly MongoDbService _mongoService;
 
-    public AddPatient()
+    public AddPatient(Patient existingPatient = null)
     {
         InitializeComponent();
+
+        var config = AppConfig.Load();
+        _mongoService = new MongoDbService(
+            config.MongoDbConnection,
+            config.DatabaseName,
+            config.PatientsCollection
+        );
+
+        if (existingPatient == null)
+        {
+            _isEditMode = false;
+            _patient = new Patient();
+            _visit = new Visit();
+
+            btnPage8SaveChanges.Visibility = Visibility.Hidden;
+            btnPage8Save.Visibility = Visibility.Visible;
+        }
+        else
+        {
+            Title = "Edit Patient";
+
+            _isEditMode = true;
+            _patient = existingPatient;
+            _visit = existingPatient.Visits?.LastOrDefault() ?? new Visit();
+
+            btnPage8Save.Visibility = Visibility.Hidden;
+            btnPage8SaveChanges.Visibility = Visibility.Visible;
+        }
+
+        #region Init EventListeners
+
         mainGridPage1.Visibility = Visibility.Visible;
         mainGridPage2.Visibility = Visibility.Hidden;
         mainGridPage3.Visibility = Visibility.Hidden;
@@ -91,330 +127,225 @@ public partial class AddPatient : Window
         btnPage7Next.btnClick += btnPage7Next_Click;
 
         btnPage8Back.btnClick += btnPage8Back_Click;
-        btnPage8Save.btnClick += btnPage8Next_Click;
-        btnPage8SaveChanges.Visibility = Visibility.Hidden;
-        //btnPage8SaveChanges.btnClick += btnPage8Save_Changes;
+        btnPage8Save.btnClick += btnPage8Save_Changes;
+        btnPage8SaveChanges.btnClick += btnPage8Save_Changes;
+
+        #endregion
+
+        PopulateFields();
     }
 
-    public AddPatient(DataItem editData)
+    private void PopulateFields()
     {
-        InitializeComponent();
-
-        newPatient = editData;
-
-        Title = "Edit Patient";
-
-
-        mainGridPage1.Visibility = Visibility.Visible;
-        mainGridPage2.Visibility = Visibility.Hidden;
-        mainGridPage3.Visibility = Visibility.Hidden;
-        mainGridPage4.Visibility = Visibility.Hidden;
-        mainGridPage5.Visibility = Visibility.Hidden;
-        mainGridPage6.Visibility = Visibility.Hidden;
-        mainGridPage7.Visibility = Visibility.Hidden;
-        mainGridPage8.Visibility = Visibility.Hidden;
-
-
-        tbLastName.TextChanged += AddTextLastName;
-        tbFirstName.TextChanged += AddTextFirstName;
-        tbMiddleName.TextChanged += AddTextMiddleName;
-        tbLivingAddress.TextChanged += AddTextLivingAddress;
-        tbWorkAddress.TextChanged += AddTextWorkAddress;
-        tbMKX.TextChanged += AddTextMKX;
-        tbHistology.TextChanged += AddTextHistology;
-        tbOperationName.TextChanged += AddTextOperationName;
-        tbChemotherapyName.TextChanged += AddTextChemotherapyName;
-
-        tbLastName.PreviewTextInput += PreviewTextLastName;
-        tbFirstName.PreviewTextInput += PreviewTextFirstName;
-        tbMiddleName.PreviewTextInput += PreviewTextMiddleName;
-        tbLivingAddress.PreviewTextInput += PreviewTextLivingAddress;
-        tbWorkAddress.PreviewTextInput += PreviewTextWork;
-        tbMKX.PreviewTextInput += PreviewTextMKX;
-        tbHistology.PreviewTextInput += PreviewTextHistology;
-        tbOperationName.PreviewTextInput += PreviewTextOperationName;
-        tbChemotherapyName.PreviewTextInput += PreviewTextChemotherapyName;
-
-        datePickerBirthday.DateSelectionChange += DateSelectionChanged_Birthday;
-        datePickerHospitalStart.DateSelectionChange += DateSelectionChanged_HospitalStart;
-        datePickerHospitalEnd.DateSelectionChange += DateSelectionChanged_HospitalEnd;
-        dateOperation.DateSelectionChange += DateSelectionChanged_Operation;
-        dateChemotherapy.DateSelectionChange += DateSelectionChanged_Chemotherapy;
-
-        datePickerBirthday.DatePrewiewText += DatePrewiewText_Birthday;
-        datePickerHospitalStart.DatePrewiewText += DatePrewiewText_HospitalStart;
-        datePickerHospitalEnd.DatePrewiewText += DatePrewiewText_HospitalEnd;
-        dateOperation.DatePrewiewText += DatePrewiewText_Operation;
-        dateChemotherapy.DatePrewiewText += DatePrewiewText_Chemotherapy;
-
-        datePickerBirthday.DateLoad += DateLoad_Birthday;
-        datePickerHospitalStart.DateLoad += DateLoad_HospitalStart;
-        datePickerHospitalEnd.DateLoad += DateLoad_HospitalEnd;
-        dateOperation.DateLoad += DateLoad_Operation;
-        dateChemotherapy.DateLoad += DateLoad_Chemotherapy;
-
-        btnPage1Next.btnClick += btnPage1Next_Click;
-
-        btnPage2Next.btnClick += btnPage2Next_Click;
-        btnPage2Back.btnClick += btnPage2Back_Click;
-
-        btnPage3Next.btnClick += btnPage3Next_Click;
-        btnPage3Back.btnClick += btnPage3Back_Click;
-
-        btnPage4Next.btnClick += btnPage4Next_Click;
-        btnPage4Back.btnClick += btnPage4Back_Click;
-
-        btnPage5Next.btnClick += btnPage5Next_Click;
-        btnPage5Back.btnClick += btnPage5Back_Click;
-
-        btnPage6Next.btnClick += btnPage6Next_Click;
-        btnPage6Back.btnClick += btnPage6Back_Click;
-
-        btnPage7Back.btnClick += btnPage7Back_Click;
-        btnPage7Next.btnClick += btnPage7Next_Click;
-
-        btnPage8Back.btnClick += btnPage8Back_Click;
-        //btnPage8Save.btnClick += btnPage8Next_Click;
-        btnPage8Save.Visibility = Visibility.Hidden;
-        btnPage8SaveChanges.btnClick += btnPage8Save_Changes;
-        btnPage8SaveChanges.Visibility = Visibility.Visible;
-
-
-        #region Put fields into fields
-
-        tbLastName.tbSearchText.Text = newPatient._colLastName;
-        tbFirstName.tbSearchText.Text = newPatient._colFirstName;
-        tbMiddleName.tbSearchText.Text = newPatient._colMiddleName;
-        datePickerBirthday.customDatePicker.SelectedDate = newPatient._colBirthDay;
-        tbLivingAddress.tbSearchText.Text = newPatient._colAddress;
-        tbWorkAddress.tbSearchText.Text = newPatient._colProfession;
-        datePickerHospitalStart.customDatePicker.SelectedDate = newPatient._colHospitalDate;
-        datePickerHospitalEnd.customDatePicker.SelectedDate = newPatient._colLeaveDate;
-        tbClaims.Text = newPatient._fieldClaims != null ? string.Join(", ", newPatient._fieldClaims) : "";
-        tbEntrDiagnosis.Text = newPatient._fieldEntrDiagnosis != null ? newPatient._fieldEntrDiagnosis : "";
-        tbFinalDiagnosis.Text = newPatient._fieldFinalDiagnosis != null ? newPatient._fieldFinalDiagnosis : "";
-        tbComplications.Text = newPatient._fieldComplication != null ? newPatient._fieldComplication : "";
-        tbAdditionDiagnosis.Text =
-            newPatient._fieldAdditionalDiagnosis != null ? newPatient._fieldAdditionalDiagnosis : "";
-        tbMKX.tbSearchText.Text = newPatient._fieldMKX != null ? newPatient._fieldMKX : "";
-        tbOperationName.tbSearchText.Text =
-            newPatient._fieldOperationName != null ? newPatient._fieldOperationName : "";
-        dateOperation.customDatePicker.SelectedDate = newPatient._fieldOperationDate;
-        tbChemotherapyName.tbSearchText.Text =
-            newPatient._fieldChemotherapy != null ? newPatient._fieldChemotherapy : "";
-        dateChemotherapy.customDatePicker.SelectedDate = newPatient._fieldChemotherapyDate;
-        tbHistology.tbSearchText.Text = newPatient._fieldHistology != null ? newPatient._fieldHistology : "";
-        var doctors = new List<string>();
-        foreach (var item in comboBoxDoctorName.Items) doctors.Add((item as ComboBoxItem).Content.ToString());
-        comboBoxDoctorName.SelectedIndex =
-            doctors.IndexOf(newPatient._fieldDoctor != null ? newPatient._fieldDoctor : doctors[0]) != -1
-                ? doctors.IndexOf(newPatient._fieldDoctor != null ? newPatient._fieldDoctor : doctors[0])
-                : 0;
-        tbDepartmentHead.Text =
-            newPatient._fieldDepartmentHead != null ? newPatient._fieldDepartmentHead : "Г.В. Петриченко";
-        tbDepartHeadAssistant.Text =
-            newPatient._fieldDepartHeadAssistant != null ? newPatient._fieldDepartHeadAssistant : "";
-        LogicalTreeHelper.GetChildren(containerOverallItem1)
-            .OfType<RadioButton>()
-            .ToList()
-            .Where(x => x.GroupName == "rbOverallItem1")
-            .ToList()[newPatient._fieldOverallItem1 != null ? (int)newPatient._fieldOverallItem1 : 0].IsChecked = true;
-        LogicalTreeHelper.GetChildren(containerOverallItem2)
-            .OfType<RadioButton>()
-            .ToList()
-            .Where(x => x.GroupName == "rbOverallItem2")
-            .ToList()[newPatient._fieldOverallItem2 != null ? (int)newPatient._fieldOverallItem2 : 0].IsChecked = true;
-        LogicalTreeHelper.GetChildren(containerOverallItem3)
-            .OfType<RadioButton>()
-            .ToList()
-            .Where(x => x.GroupName == "rbOverallItem3")
-            .ToList()[newPatient._fieldOverallItem3 != null ? (int)newPatient._fieldOverallItem3 : 0].IsChecked = true;
-        LogicalTreeHelper.GetChildren(containerOverallItem4)
-            .OfType<RadioButton>()
-            .ToList()
-            .Where(x => x.GroupName == "rbOverallItem4")
-            .ToList()[newPatient._fieldOverallItem4 != null ? (int)newPatient._fieldOverallItem4 : 0].IsChecked = true;
-        LogicalTreeHelper.GetChildren(containerOverallItem5)
-            .OfType<RadioButton>()
-            .ToList()
-            .Where(x => x.GroupName == "rbOverallItem5")
-            .ToList()[newPatient._fieldOverallItem5 != null ? (int)newPatient._fieldOverallItem5 : 0].IsChecked = true;
-        LogicalTreeHelper.GetChildren(containerOverallItem6)
-            .OfType<RadioButton>()
-            .ToList()
-            .Where(x => x.GroupName == "rbOverallItem6")
-            .ToList()[newPatient._fieldOverallItem6 != null ? (int)newPatient._fieldOverallItem6 : 0].IsChecked = true;
-        var liverExtend = newPatient._fieldOverallItem7 != null
-            ? newPatient._fieldOverallItem7.Contains("Збільшена")
-                ? newPatient._fieldOverallItem7.Split(" на ")[1].Trim().Split("см")[0].Trim()
-                : ""
-            : "";
-        tbOverallItem7.Text = liverExtend;
-        if (liverExtend == "")
-            LogicalTreeHelper.GetChildren(containerOverallItem7)
+        if (_isEditMode)
+        {
+            tbLastName.tbSearchText.Text = _patient.LastName;
+            tbFirstName.tbSearchText.Text = _patient.FirstName;
+            tbMiddleName.tbSearchText.Text = _patient.MiddleName;
+            datePickerBirthday.customDatePicker.SelectedDate = _patient.BirthDate;
+            tbLivingAddress.tbSearchText.Text = _patient.Address;
+            tbWorkAddress.tbSearchText.Text = _patient.Profession;
+            datePickerHospitalStart.customDatePicker.SelectedDate = _patient.HospitalDate;
+            datePickerHospitalEnd.customDatePicker.SelectedDate = _patient.LeaveDate;
+            tbClaims.Text = GetSymptom("_fieldClaims") ?? "";
+            tbEntrDiagnosis.Text = GetSymptom("_fieldEntrDiagnosis") ?? "";
+            tbFinalDiagnosis.Text = GetSymptom("_fieldFinalDiagnosis") ?? "";
+            tbComplications.Text = GetSymptom("_fieldComplication") ?? "";
+            tbAdditionDiagnosis.Text = GetSymptom("_fieldAdditionalDiagnosis") ?? "";
+            tbMKX.tbSearchText.Text = GetSymptom("_fieldMKX") ?? "";
+            tbOperationName.tbSearchText.Text = GetSymptom("_fieldOperationName") ?? "";
+            dateOperation.customDatePicker.SelectedDate = ParseDate(GetSymptom("_fieldOperationDate"));
+            tbChemotherapyName.tbSearchText.Text = GetSymptom("_fieldChemotherapy") ?? "";
+            dateChemotherapy.customDatePicker.SelectedDate = ParseDate(GetSymptom("_fieldChemotherapyDate"));
+            tbHistology.tbSearchText.Text = GetSymptom("_fieldHistology") ?? "";
+            var doctors = new List<string>();
+            foreach (var item in comboBoxDoctorName.Items) doctors.Add((item as ComboBoxItem).Content.ToString());
+            comboBoxDoctorName.SelectedIndex =
+                doctors.IndexOf(GetSymptom("_fieldDoctor") ?? doctors[0]) != -1
+                    ? doctors.IndexOf(GetSymptom("_fieldDoctor") ?? doctors[0])
+                    : 0;
+            tbDepartmentHead.Text = GetSymptom("_fieldDepartmentHead") ?? "Г.В. Петриченко";
+            tbDepartHeadAssistant.Text = GetSymptom("_fieldDepartHeadAssistant") ?? "";
+            LogicalTreeHelper.GetChildren(containerOverallItem1)
                 .OfType<RadioButton>()
                 .ToList()
-                .Where(x => x.GroupName == "rbOverallItem7").ToList()[0].IsChecked = true;
-        else
-            LogicalTreeHelper.GetChildren(containerOverallItem7)
+                .Where(x => x.GroupName == "rbOverallItem1")
+                .ToList()[int.Parse(GetSymptom("_fieldOverallItem1") ?? "0")].IsChecked = true;
+            LogicalTreeHelper.GetChildren(containerOverallItem2)
                 .OfType<RadioButton>()
                 .ToList()
-                .Where(x => x.GroupName == "rbOverallItem7").ToList()[1].IsChecked = true;
-        LogicalTreeHelper.GetChildren(containerOverallItem8)
-            .OfType<RadioButton>()
-            .ToList()
-            .Where(x => x.GroupName == "rbOverallItem8")
-            .ToList()[newPatient._fieldOverallItem8 != null ? (int)newPatient._fieldOverallItem8 : 0].IsChecked = true;
-        if (newPatient._fieldOverallItem9_1 != null)
-        {
-            if ((bool)newPatient._fieldOverallItem9_1)
-                LogicalTreeHelper.GetChildren(containerOverallItem9)
-                    .OfType<RadioButton>()
-                    .ToList()
-                    .Where(x => x.GroupName == "rbOverallItem9_1").ToList()[1].IsChecked = true;
-            else
-                LogicalTreeHelper.GetChildren(containerOverallItem9)
-                    .OfType<RadioButton>()
-                    .ToList()
-                    .Where(x => x.GroupName == "rbOverallItem9_1").ToList()[0].IsChecked = true;
-        }
+                .Where(x => x.GroupName == "rbOverallItem2")
+                .ToList()[int.Parse(GetSymptom("_fieldOverallItem2") ?? "0")].IsChecked = true;
+            LogicalTreeHelper.GetChildren(containerOverallItem3)
+                .OfType<RadioButton>()
+                .ToList()
+                .Where(x => x.GroupName == "rbOverallItem3")
+                .ToList()[int.Parse(GetSymptom("_fieldOverallItem3") ?? "0")].IsChecked = true;
+            LogicalTreeHelper.GetChildren(containerOverallItem4)
+                .OfType<RadioButton>()
+                .ToList()
+                .Where(x => x.GroupName == "rbOverallItem4")
+                .ToList()[int.Parse(GetSymptom("_fieldOverallItem4") ?? "0")].IsChecked = true;
+            LogicalTreeHelper.GetChildren(containerOverallItem5)
+                .OfType<RadioButton>()
+                .ToList()
+                .Where(x => x.GroupName == "rbOverallItem5")
+                .ToList()[int.Parse(GetSymptom("_fieldOverallItem5") ?? "0")].IsChecked = true;
+            LogicalTreeHelper.GetChildren(containerOverallItem6)
+                .OfType<RadioButton>()
+                .ToList()
+                .Where(x => x.GroupName == "rbOverallItem6")
+                .ToList()[int.Parse(GetSymptom("_fieldOverallItem6") ?? "0")].IsChecked = true;
 
-        if (newPatient._fieldOverallItem9_2 != null)
-        {
-            if ((bool)newPatient._fieldOverallItem9_2)
-                LogicalTreeHelper.GetChildren(containerOverallItem9)
+            var liverHolder = GetSymptom("_fieldOverallItem7") ?? "";
+            var liverExtend = !string.IsNullOrEmpty(liverHolder)
+                ? GetSymptom("_fieldOverallItem7").Contains("Збільшена")
+                    ? GetSymptom("_fieldOverallItem7").Split(" на ")[1].Trim().Split("см")[0].Trim()
+                    : ""
+                : "";
+            tbOverallItem7.Text = liverExtend;
+            if (liverExtend == "")
+                LogicalTreeHelper.GetChildren(containerOverallItem7)
                     .OfType<RadioButton>()
                     .ToList()
-                    .Where(x => x.GroupName == "rbOverallItem9_2").ToList()[1].IsChecked = true;
+                    .Where(x => x.GroupName == "rbOverallItem7").ToList()[0].IsChecked = true;
             else
-                LogicalTreeHelper.GetChildren(containerOverallItem9)
+                LogicalTreeHelper.GetChildren(containerOverallItem7)
                     .OfType<RadioButton>()
                     .ToList()
-                    .Where(x => x.GroupName == "rbOverallItem9_2").ToList()[0].IsChecked = true;
-        }
-
-        if (newPatient._fieldOverallItem10 != null)
-        {
-            var cbOverallItem10List = new List<CheckBox>
+                    .Where(x => x.GroupName == "rbOverallItem7").ToList()[1].IsChecked = true;
+            LogicalTreeHelper.GetChildren(containerOverallItem8)
+                .OfType<RadioButton>()
+                .ToList()
+                .Where(x => x.GroupName == "rbOverallItem8")
+                .ToList()[int.Parse(GetSymptom("_fieldOverallItem8") ?? "0")].IsChecked = true;
+            if (!string.IsNullOrEmpty(GetSymptom("_fieldOverallItem9_1")))
             {
-                cbOverallItem10_1,
-                cbOverallItem10_2,
-                cbOverallItem10_3,
-                cbOverallItem10_4,
-                cbOverallItem10_5,
-                cbOverallItem10_6
-            };
+                if (Convert.ToBoolean(GetSymptom("_fieldOverallItem9_1")))
+                    LogicalTreeHelper.GetChildren(containerOverallItem9)
+                        .OfType<RadioButton>()
+                        .ToList()
+                        .Where(x => x.GroupName == "rbOverallItem9_1").ToList()[1].IsChecked = true;
+                else
+                    LogicalTreeHelper.GetChildren(containerOverallItem9)
+                        .OfType<RadioButton>()
+                        .ToList()
+                        .Where(x => x.GroupName == "rbOverallItem9_1").ToList()[0].IsChecked = true;
+            }
 
-            foreach (var i in newPatient._fieldOverallItem10) cbOverallItem10List[i].IsChecked = true;
-        }
+            if (!string.IsNullOrEmpty(GetSymptom("_fieldOverallItem9_2")))
+            {
+                if (Convert.ToBoolean(GetSymptom("_fieldOverallItem9_2")))
+                    LogicalTreeHelper.GetChildren(containerOverallItem9)
+                        .OfType<RadioButton>()
+                        .ToList()
+                        .Where(x => x.GroupName == "rbOverallItem9_2").ToList()[1].IsChecked = true;
+                else
+                    LogicalTreeHelper.GetChildren(containerOverallItem9)
+                        .OfType<RadioButton>()
+                        .ToList()
+                        .Where(x => x.GroupName == "rbOverallItem9_2").ToList()[0].IsChecked = true;
+            }
 
-        tbOverallItem11.Text = newPatient._fieldOverallItem11 != null ? newPatient._fieldOverallItem11.ToString() : "";
-        tbOverallItem12.Text = newPatient._fieldOverallItem12 != null ? newPatient._fieldOverallItem12 : "";
-        LogicalTreeHelper.GetChildren(containerOverallItem13)
+            if (!string.IsNullOrEmpty(GetSymptom("_fieldOverallItem10")))
+            {
+                var cbOverallItem10List = new List<CheckBox>
+                {
+                    cbOverallItem10_1,
+                    cbOverallItem10_2,
+                    cbOverallItem10_3,
+                    cbOverallItem10_4,
+                    cbOverallItem10_5,
+                    cbOverallItem10_6
+                };
+                var OverallItem10 = GetSymptom("_fieldOverallItem10");
+
+                foreach (var i in OverallItem10.Split(',').Select(n => Convert.ToInt32(n)).ToArray())
+                    cbOverallItem10List[i].IsChecked = true;
+            }
+
+            tbOverallItem11.Text = GetSymptom("_fieldOverallItem11") ?? "";
+            tbOverallItem12.Text = GetSymptom("_fieldOverallItem12") ?? "";
+            LogicalTreeHelper.GetChildren(containerOverallItem13)
                 .OfType<RadioButton>()
                 .ToList()
                 .Where(x => x.GroupName == "rbOverallItem13")
-                .ToList()[newPatient._fieldOverallItem13 != null ? (int)newPatient._fieldOverallItem13 : 0].IsChecked =
-            true;
-        if (newPatient._fieldOverallItem14 != null)
-        {
-            var cbOverallItem14List = new List<CheckBox>
+                .ToList()[int.Parse(GetSymptom("_fieldOverallItem13") ?? "0")].IsChecked = true;
+            if (!string.IsNullOrEmpty(GetSymptom("_fieldOverallItem14")))
             {
-                cbOverallItem14_1,
-                cbOverallItem14_2,
-                cbOverallItem14_3,
-                cbOverallItem14_4,
-                cbOverallItem14_5
-            };
-            foreach (var i in newPatient._fieldOverallItem14) cbOverallItem14List[i].IsChecked = true;
+                var cbOverallItem14List = new List<CheckBox>
+                {
+                    cbOverallItem14_1,
+                    cbOverallItem14_2,
+                    cbOverallItem14_3,
+                    cbOverallItem14_4,
+                    cbOverallItem14_5
+                };
+
+                var OverallItem14 = GetSymptom("_fieldOverallItem14");
+
+                foreach (var i in OverallItem14.Split(',').Select(n => Convert.ToInt32(n)).ToArray())
+                    cbOverallItem14List[i].IsChecked = true;
+            }
+
+            tbOverallItem15.Text = GetSymptom("_fieldOverallItem15") ?? "";
+            tbAnamnesisItem1.Text = GetSymptom("_fieldAnamnesisItem1") ?? "";
+            tbAnamnesisItem2.Text = GetSymptom("_fieldAnamnesisItem2") ?? "";
+            tbAnamnesisItem3.Text = GetSymptom("_fieldAnamnesisItem3") ?? "";
+            tbAnamnesisItem4.Text = GetSymptom("_fieldAnamnesisItem4") ?? "";
+            tbAnamnesisItem5.Text = GetSymptom("_fieldAnamnesisItem5") ?? "";
+            tbAnamnesisItem6.Text = GetSymptom("_fieldAnamnesisItem6") ?? "";
+            tbAnamnesisItem7.Text = GetSymptom("_fieldAnamnesisItem7") ?? "";
+            tbAnamnesisItem8.Text = GetSymptom("_fieldAnamnesisItem8") ?? "";
+            tbAnamnesisItem9.Text = GetSymptom("_fieldAnamnesisItem9") ?? "";
+            tbAnamnesisItem10.Text = GetSymptom("_fieldAnamnesisItem10") ?? "";
+            tbAnamnesisItem11.Text = GetSymptom("_fieldAnamnesisItem11") ?? "";
+            tbLifeAnamnesisItem1.Text = GetSymptom("_fieldLifeAnamnesisItem1") ?? "Не хворів";
+            tbLifeAnamnesisItem2.Text = GetSymptom("_fieldLifeAnamnesisItem2") ?? "Не хворів";
+            tbLifeAnamnesisItem3.Text = GetSymptom("_fieldLifeAnamnesisItem3") ?? "Не хворів";
+            tbLifeAnamnesisItem4.Text = GetSymptom("_fieldLifeAnamnesisItem4") ?? "Не хворів";
+            tbLifeAnamnesisItem5.Text = GetSymptom("_fieldLifeAnamnesisItem5") ?? "Не хворів";
+            tbLifeAnamnesisItem6.Text = GetSymptom("_fieldLifeAnamnesisItem6") ?? "Не хворів";
+            tbLifeAnamnesisItem7.Text = GetSymptom("_fieldLifeAnamnesisItem7") ?? "";
+            tbLifeAnamnesisItem8.Text = GetSymptom("_fieldLifeAnamnesisItem8") ?? "";
+            tbLifeAnamnesisItem9.Text = GetSymptom("_fieldLifeAnamnesisItem9") ?? "";
+            tbLifeAnamnesisItem10.Text = GetSymptom("_fieldLifeAnamnesisItem10") ?? "";
+            tbLocusMorbiItem1.Text = GetSymptom("_fieldLocusMorbiItem1") ?? "";
+            tbLocusMorbiItem2.Text = GetSymptom("_fieldLocusMorbiItem2") ?? "";
+
+            if (!string.IsNullOrEmpty(GetSymptom("_fieldLocusMorbiItem3")))
+            {
+                if (Convert.ToBoolean(GetSymptom("_fieldLocusMorbiItem3")))
+                    LogicalTreeHelper.GetChildren(containerLocusMorbiItem3)
+                        .OfType<RadioButton>()
+                        .ToList()
+                        .Where(x => x.GroupName == "rbLocusMorbiItem3").ToList()[1].IsChecked = true;
+                else
+                    LogicalTreeHelper.GetChildren(containerLocusMorbiItem3)
+                        .OfType<RadioButton>()
+                        .ToList()
+                        .Where(x => x.GroupName == "rbLocusMorbiItem3").ToList()[0].IsChecked = true;
+            }
+
+            tbLocusMorbiItem4.Text = GetSymptom("_fieldLocusMorbiItem4") ?? "";
+
+            if (!string.IsNullOrEmpty(GetSymptom("_fieldLocusMorbiItem5")))
+            {
+                if (Convert.ToBoolean(GetSymptom("_fieldLocusMorbiItem5")))
+                    LogicalTreeHelper.GetChildren(containerLocusMorbiItem5)
+                        .OfType<RadioButton>()
+                        .ToList()
+                        .Where(x => x.GroupName == "rbLocusMorbiItem5").ToList()[1].IsChecked = true;
+                else
+                    LogicalTreeHelper.GetChildren(containerLocusMorbiItem5)
+                        .OfType<RadioButton>()
+                        .ToList()
+                        .Where(x => x.GroupName == "rbLocusMorbiItem5").ToList()[0].IsChecked = true;
+            }
+
+            tbLocusMorbiItem6.Text = GetSymptom("_fieldLocusMorbiItem6") ?? "";
+            tbLocusMorbiItem7.Text = GetSymptom("_fieldLocusMorbiItem7") ?? "";
         }
-
-        tbOverallItem15.Text = newPatient._fieldOverallItem15 != null ? newPatient._fieldOverallItem15.ToString() : "";
-        tbAnamnesisItem1.Text = newPatient._fieldAnamnesisItem1 != null ? newPatient._fieldAnamnesisItem1 : "";
-        tbAnamnesisItem2.Text = newPatient._fieldAnamnesisItem2 != null ? newPatient._fieldAnamnesisItem2 : "";
-        tbAnamnesisItem3.Text = newPatient._fieldAnamnesisItem3 != null ? newPatient._fieldAnamnesisItem3 : "";
-        tbAnamnesisItem4.Text = newPatient._fieldAnamnesisItem4 != null ? newPatient._fieldAnamnesisItem4 : "";
-        tbAnamnesisItem5.Text = newPatient._fieldAnamnesisItem5 != null ? newPatient._fieldAnamnesisItem5 : "";
-        tbAnamnesisItem6.Text = newPatient._fieldAnamnesisItem6 != null ? newPatient._fieldAnamnesisItem6 : "";
-        tbAnamnesisItem7.Text = newPatient._fieldAnamnesisItem7 != null ? newPatient._fieldAnamnesisItem7 : "";
-        tbAnamnesisItem8.Text = newPatient._fieldAnamnesisItem8 != null ? newPatient._fieldAnamnesisItem8 : "";
-        tbAnamnesisItem9.Text = newPatient._fieldAnamnesisItem9 != null ? newPatient._fieldAnamnesisItem9 : "";
-        tbAnamnesisItem10.Text = newPatient._fieldAnamnesisItem10 != null ? newPatient._fieldAnamnesisItem10 : "";
-        tbAnamnesisItem11.Text = newPatient._fieldAnamnesisItem11 != null ? newPatient._fieldAnamnesisItem11 : "";
-        tbLifeAnamnesisItem1.Text = newPatient._fieldLifeAnamnesisItem1 != null
-            ? newPatient._fieldLifeAnamnesisItem1
-            : "Не ховрів";
-        tbLifeAnamnesisItem2.Text = newPatient._fieldLifeAnamnesisItem2 != null
-            ? newPatient._fieldLifeAnamnesisItem2
-            : "Не ховрів";
-        tbLifeAnamnesisItem3.Text = newPatient._fieldLifeAnamnesisItem3 != null
-            ? newPatient._fieldLifeAnamnesisItem3
-            : "Не ховрів";
-        tbLifeAnamnesisItem4.Text = newPatient._fieldLifeAnamnesisItem4 != null
-            ? newPatient._fieldLifeAnamnesisItem4
-            : "Не ховрів";
-        tbLifeAnamnesisItem5.Text = newPatient._fieldLifeAnamnesisItem5 != null
-            ? newPatient._fieldLifeAnamnesisItem5
-            : "Не ховрів";
-        tbLifeAnamnesisItem6.Text = newPatient._fieldLifeAnamnesisItem6 != null
-            ? newPatient._fieldLifeAnamnesisItem6
-            : "Не ховрів";
-        tbLifeAnamnesisItem7.Text =
-            newPatient._fieldLifeAnamnesisItem7 != null ? newPatient._fieldLifeAnamnesisItem7 : "";
-        tbLifeAnamnesisItem8.Text = newPatient._fieldLifeAnamnesisItem8 != null
-            ? newPatient._fieldLifeAnamnesisItem8.ToString()
-            : "";
-        tbLifeAnamnesisItem9.Text = newPatient._fieldLifeAnamnesisItem9 != null
-            ? newPatient._fieldLifeAnamnesisItem9.ToString()
-            : "";
-        ;
-        tbLifeAnamnesisItem10.Text =
-            newPatient._fieldLifeAnamnesisItem10 != null ? newPatient._fieldLifeAnamnesisItem10 : "";
-        tbLocusMorbiItem1.Text = newPatient._fieldLocusMorbiItem1 != null
-            ? string.Join(", ", newPatient._fieldLocusMorbiItem1)
-            : "";
-        tbLocusMorbiItem2.Text = newPatient._fieldLocusMorbiItem2 != null
-            ? string.Join(", ", newPatient._fieldLocusMorbiItem2)
-            : "";
-        if (newPatient._fieldLocusMorbiItem3 != null)
-        {
-            if ((bool)newPatient._fieldLocusMorbiItem3)
-                LogicalTreeHelper.GetChildren(containerLocusMorbiItem3)
-                    .OfType<RadioButton>()
-                    .ToList()
-                    .Where(x => x.GroupName == "rbLocusMorbiItem3").ToList()[1].IsChecked = true;
-            else
-                LogicalTreeHelper.GetChildren(containerLocusMorbiItem3)
-                    .OfType<RadioButton>()
-                    .ToList()
-                    .Where(x => x.GroupName == "rbLocusMorbiItem3").ToList()[0].IsChecked = true;
-        }
-
-        tbLocusMorbiItem4.Text = newPatient._fieldLocusMorbiItem4 != null
-            ? string.Join(", ", newPatient._fieldLocusMorbiItem4)
-            : "";
-        if (newPatient._fieldLocusMorbiItem5 != null)
-        {
-            if ((bool)newPatient._fieldLocusMorbiItem5)
-                LogicalTreeHelper.GetChildren(containerLocusMorbiItem5)
-                    .OfType<RadioButton>()
-                    .ToList()
-                    .Where(x => x.GroupName == "rbLocusMorbiItem5").ToList()[1].IsChecked = true;
-            else
-                LogicalTreeHelper.GetChildren(containerLocusMorbiItem5)
-                    .OfType<RadioButton>()
-                    .ToList()
-                    .Where(x => x.GroupName == "rbLocusMorbiItem5").ToList()[0].IsChecked = true;
-        }
-
-        tbLocusMorbiItem6.Text = newPatient._fieldLocusMorbiItem6 != null
-            ? string.Join(", ", newPatient._fieldLocusMorbiItem6)
-            : "";
-        tbLocusMorbiItem7.Text = newPatient._fieldLocusMorbiItem7 != null
-            ? string.Join(", ", newPatient._fieldLocusMorbiItem7)
-            : "";
-
-        #endregion
     }
 
 
@@ -827,14 +758,14 @@ public partial class AddPatient : Window
             mainGridPage2.Visibility = Visibility.Visible;
 
 
-            newPatient._colLastName = tbLastName.tbSearchText.Text;
-            newPatient._colFirstName = tbFirstName.tbSearchText.Text;
-            newPatient._colMiddleName = tbMiddleName.tbSearchText.Text;
-            newPatient._colBirthDay = datePickerBirthday.customDatePicker.SelectedDate;
-            newPatient._colAddress = tbLivingAddress.tbSearchText.Text;
-            newPatient._colProfession = tbWorkAddress.tbSearchText.Text;
-            newPatient._colHospitalDate = datePickerHospitalStart.customDatePicker.SelectedDate;
-            newPatient._colLeaveDate = datePickerHospitalEnd.customDatePicker.SelectedDate;
+            _patient.LastName = tbLastName.tbSearchText.Text;
+            _patient.FirstName = tbFirstName.tbSearchText.Text;
+            _patient.MiddleName = tbMiddleName.tbSearchText.Text;
+            _patient.BirthDate = datePickerBirthday.customDatePicker.SelectedDate ?? DateTime.MinValue;
+            _patient.Address = tbLivingAddress.tbSearchText.Text;
+            _patient.Profession = tbWorkAddress.tbSearchText.Text;
+            _patient.HospitalDate = datePickerHospitalStart.customDatePicker.SelectedDate;
+            _patient.LeaveDate = datePickerHospitalEnd.customDatePicker.SelectedDate;
         }
     }
 
@@ -858,12 +789,12 @@ public partial class AddPatient : Window
         mainGridPage2.Visibility = Visibility.Hidden;
         mainGridPage3.Visibility = Visibility.Visible;
 
-        newPatient._fieldClaims = tbClaims.Text.Trim().TrimEnd(',').Split(", ");
-        newPatient._fieldEntrDiagnosis = tbEntrDiagnosis.Text;
-        newPatient._fieldFinalDiagnosis = tbFinalDiagnosis.Text;
-        newPatient._fieldComplication = tbComplications.Text;
-        newPatient._fieldAdditionalDiagnosis = tbAdditionDiagnosis.Text;
-        newPatient._fieldMKX = tbMKX.tbSearchText.Text;
+        SetSymptom("_fieldClaims", JsonConvert.SerializeObject(tbClaims.Text.Trim().TrimEnd(',').Split(", ")));
+        SetSymptom("_fieldEntrDiagnosis", tbEntrDiagnosis.Text);
+        SetSymptom("_fieldFinalDiagnosis", tbFinalDiagnosis.Text);
+        SetSymptom("_fieldComplication", tbComplications.Text);
+        SetSymptom("_fieldAdditionalDiagnosis", tbAdditionDiagnosis.Text);
+        SetSymptom("_fieldMKX", tbMKX.tbSearchText.Text);
     }
 
     private void btnPage2Back_Click(object sender, RoutedEventArgs e)
@@ -892,15 +823,17 @@ public partial class AddPatient : Window
             mainGridPage4.Visibility = Visibility.Visible;
 
 
-            newPatient._fieldOperationName = tbOperationName.tbSearchText.Text;
-            newPatient._fieldOperationDate = dateOperation.customDatePicker.SelectedDate;
-            newPatient._fieldChemotherapy = tbChemotherapyName.tbSearchText.Text;
-            newPatient._fieldChemotherapyDate = dateChemotherapy.customDatePicker.SelectedDate;
-            newPatient._fieldHistology = tbHistology.tbSearchText.Text;
-            newPatient._fieldDoctor = (comboBoxDoctorName.Items[comboBoxDoctorName.SelectedIndex] as ComboBoxItem)
-                .Content.ToString();
-            newPatient._fieldDepartmentHead = tbDepartmentHead.Text;
-            newPatient._fieldDepartHeadAssistant = tbDepartHeadAssistant.Text;
+            SetSymptom("_fieldOperationName", tbOperationName.tbSearchText.Text);
+            SetSymptom("_fieldOperationDate", dateOperation.customDatePicker.SelectedDate?.ToString());
+            SetSymptom("_fieldChemotherapy", tbChemotherapyName.tbSearchText.Text);
+            SetSymptom("_fieldChemotherapyDate", dateChemotherapy.customDatePicker.SelectedDate?.ToString());
+            SetSymptom("_fieldHistology", tbHistology.tbSearchText.Text);
+            SetSymptom("_fieldDoctor",
+                (comboBoxDoctorName.Items[comboBoxDoctorName.SelectedIndex] as ComboBoxItem).Content.ToString());
+            _patient.Doctor = (comboBoxDoctorName.Items[comboBoxDoctorName.SelectedIndex] as ComboBoxItem).Content
+                .ToString();
+            SetSymptom("_fieldDepartmentHead", tbDepartmentHead.Text);
+            SetSymptom("_fieldDepartHeadAssistant", tbDepartHeadAssistant.Text);
         }
     }
 
@@ -916,80 +849,93 @@ public partial class AddPatient : Window
         mainGridPage4.Visibility = Visibility.Hidden;
         mainGridPage5.Visibility = Visibility.Visible;
 
-
         var contentHolder = LogicalTreeHelper.GetChildren(containerOverallItem1)
             .OfType<RadioButton>()
             .ToList()
             .Where(x => x.GroupName == "rbOverallItem1")
             .FirstOrDefault(x => (bool)x.IsChecked);
-        newPatient._fieldOverallItem1 = contentHolder != null
+        SetSymptom("_fieldOverallItem1", Convert.ToString(contentHolder != null
             ? ((App)Application.Current).dictOverallItem1
             .FirstOrDefault(x => x.Value == contentHolder.Content.ToString()).Key
-            : 0;
+            : 0));
+
+
         contentHolder = LogicalTreeHelper.GetChildren(containerOverallItem2)
             .OfType<RadioButton>()
             .ToList()
             .Where(x => x.GroupName == "rbOverallItem2")
             .FirstOrDefault(x => (bool)x.IsChecked);
-        newPatient._fieldOverallItem2 = contentHolder != null
+        SetSymptom("_fieldOverallItem2", Convert.ToString(contentHolder != null
             ? ((App)Application.Current).dictOverallItem2
             .FirstOrDefault(x => x.Value == contentHolder.Content.ToString()).Key
-            : 0;
+            : 0));
+
+
         contentHolder = LogicalTreeHelper.GetChildren(containerOverallItem3)
             .OfType<RadioButton>()
             .ToList()
             .Where(x => x.GroupName == "rbOverallItem3")
             .FirstOrDefault(x => (bool)x.IsChecked);
-        newPatient._fieldOverallItem3 = contentHolder != null
+        SetSymptom("_fieldOverallItem3", Convert.ToString(contentHolder != null
             ? ((App)Application.Current).dictOverallItem3
             .FirstOrDefault(x => x.Value == contentHolder.Content.ToString()).Key
-            : 0;
+            : 0));
+
+
         contentHolder = LogicalTreeHelper.GetChildren(containerOverallItem4)
             .OfType<RadioButton>()
             .ToList()
             .Where(x => x.GroupName == "rbOverallItem4")
             .FirstOrDefault(x => (bool)x.IsChecked);
-        newPatient._fieldOverallItem4 = contentHolder != null
+        SetSymptom("_fieldOverallItem4", Convert.ToString(contentHolder != null
             ? ((App)Application.Current).dictOverallItem4
             .FirstOrDefault(x => x.Value == contentHolder.Content.ToString()).Key
-            : 0;
+            : 0));
+
+
         contentHolder = LogicalTreeHelper.GetChildren(containerOverallItem5)
             .OfType<RadioButton>()
             .ToList()
             .Where(x => x.GroupName == "rbOverallItem5")
             .FirstOrDefault(x => (bool)x.IsChecked);
-        newPatient._fieldOverallItem5 = contentHolder != null
+        SetSymptom("_fieldOverallItem5", Convert.ToString(contentHolder != null
             ? ((App)Application.Current).dictOverallItem5
             .FirstOrDefault(x => x.Value == contentHolder.Content.ToString()).Key
-            : 0;
+            : 0));
+
+
         contentHolder = LogicalTreeHelper.GetChildren(containerOverallItem6)
             .OfType<RadioButton>()
             .ToList()
             .Where(x => x.GroupName == "rbOverallItem6")
             .FirstOrDefault(x => (bool)x.IsChecked);
-        newPatient._fieldOverallItem6 = contentHolder != null
+        SetSymptom("_fieldOverallItem6", Convert.ToString(contentHolder != null
             ? ((App)Application.Current).dictOverallItem6
             .FirstOrDefault(x => x.Value == contentHolder.Content.ToString()).Key
-            : 0;
+            : 0));
+
+
         contentHolder = LogicalTreeHelper.GetChildren(containerOverallItem7)
             .OfType<RadioButton>()
             .ToList()
             .Where(x => x.GroupName == "rbOverallItem7")
             .FirstOrDefault(x => (bool)x.IsChecked);
-        newPatient._fieldOverallItem7 = contentHolder != null
+        SetSymptom("_fieldOverallItem7", contentHolder != null
             ? contentHolder.Content.ToString() == "Не збільшена"
                 ? "Не збільшена"
                 : contentHolder.Content + $" на {tbOverallItem7.Text} см."
-            : "";
+            : "");
+
+
         contentHolder = LogicalTreeHelper.GetChildren(containerOverallItem8)
             .OfType<RadioButton>()
             .ToList()
             .Where(x => x.GroupName == "rbOverallItem8")
             .FirstOrDefault(x => (bool)x.IsChecked);
-        newPatient._fieldOverallItem8 = contentHolder != null
+        SetSymptom("_fieldOverallItem8", Convert.ToString(contentHolder != null
             ? ((App)Application.Current).dictOverallItem8
             .FirstOrDefault(x => x.Value == contentHolder.Content.ToString()).Key
-            : 0;
+            : 0));
     }
 
 
@@ -1050,47 +996,48 @@ public partial class AddPatient : Window
             .ToList()
             .Where(x => x.GroupName == "rbOverallItem9_1")
             .FirstOrDefault(x => (bool)x.IsChecked);
-        newPatient._fieldOverallItem9_1 = contentHolder != null
+        SetSymptom("_fieldOverallItem9_1", Convert.ToString(contentHolder != null
             ? contentHolder.Content.ToString() == "Негативний" ? false : true
-            : null;
+            : null));
         contentHolder = LogicalTreeHelper.GetChildren(containerOverallItem9)
             .OfType<RadioButton>()
             .ToList()
             .Where(x => x.GroupName == "rbOverallItem9_2")
             .FirstOrDefault(x => (bool)x.IsChecked);
-        newPatient._fieldOverallItem9_2 = contentHolder != null
+        SetSymptom("_fieldOverallItem9_2", Convert.ToString(contentHolder != null
             ? contentHolder.Content.ToString() == "Справа" ? false : true
-            : null;
+            : null));
 
         var intHolder = new List<int>();
         for (var i = 0; cbOverallItem10List.Count > i; i++)
             if ((bool)cbOverallItem10List[i].IsChecked)
                 intHolder.Add(i);
-        newPatient._fieldOverallItem10 = intHolder.ToArray();
+        SetSymptom("_fieldOverallItem10", string.Join(", ", intHolder.ToArray()));
 
         var flag = 0;
         int.TryParse(tbOverallItem11.Text, out flag);
-        newPatient._fieldOverallItem11 = flag;
-        newPatient._fieldOverallItem12 = tbOverallItem12.Text;
+        SetSymptom("_fieldOverallItem11", flag.ToString());
+        SetSymptom("_fieldOverallItem12", tbOverallItem12.Text);
 
         contentHolder = LogicalTreeHelper.GetChildren(containerOverallItem13)
             .OfType<RadioButton>()
             .ToList()
             .Where(x => x.GroupName == "rbOverallItem13")
             .FirstOrDefault(x => (bool)x.IsChecked);
-        newPatient._fieldOverallItem13 = contentHolder != null
+        SetSymptom("_fieldOverallItem13", Convert.ToString(contentHolder != null
             ? ((App)Application.Current).dictOverallItem13
             .FirstOrDefault(x => x.Value == contentHolder.Content.ToString()).Key
-            : 0;
+            : 0));
 
         intHolder = new List<int>();
         for (var i = 0; cbOverallItem14List.Count > i; i++)
             if ((bool)cbOverallItem14List[i].IsChecked)
                 intHolder.Add(i);
-        newPatient._fieldOverallItem14 = intHolder.ToArray();
+        SetSymptom("_fieldOverallItem14", string.Join(", ", intHolder.ToArray()));
+
         flag = 0;
         int.TryParse(tbOverallItem15.Text, out flag);
-        newPatient._fieldOverallItem15 = flag;
+        SetSymptom("_fieldOverallItem15", flag.ToString());
     }
 
 
@@ -1105,17 +1052,17 @@ public partial class AddPatient : Window
         mainGridPage6.Visibility = Visibility.Hidden;
         mainGridPage7.Visibility = Visibility.Visible;
 
-        newPatient._fieldAnamnesisItem1 = tbAnamnesisItem1.Text;
-        newPatient._fieldAnamnesisItem2 = tbAnamnesisItem2.Text;
-        newPatient._fieldAnamnesisItem3 = tbAnamnesisItem3.Text;
-        newPatient._fieldAnamnesisItem4 = tbAnamnesisItem4.Text;
-        newPatient._fieldAnamnesisItem5 = tbAnamnesisItem5.Text;
-        newPatient._fieldAnamnesisItem6 = tbAnamnesisItem6.Text;
-        newPatient._fieldAnamnesisItem7 = tbAnamnesisItem7.Text;
-        newPatient._fieldAnamnesisItem8 = tbAnamnesisItem8.Text;
-        newPatient._fieldAnamnesisItem9 = tbAnamnesisItem9.Text;
-        newPatient._fieldAnamnesisItem10 = tbAnamnesisItem10.Text;
-        newPatient._fieldAnamnesisItem11 = tbAnamnesisItem11.Text;
+        SetSymptom("_fieldAnamnesisItem1", tbAnamnesisItem1.Text);
+        SetSymptom("_fieldAnamnesisItem2", tbAnamnesisItem2.Text);
+        SetSymptom("_fieldAnamnesisItem3", tbAnamnesisItem3.Text);
+        SetSymptom("_fieldAnamnesisItem4", tbAnamnesisItem4.Text);
+        SetSymptom("_fieldAnamnesisItem5", tbAnamnesisItem5.Text);
+        SetSymptom("_fieldAnamnesisItem6", tbAnamnesisItem6.Text);
+        SetSymptom("_fieldAnamnesisItem7", tbAnamnesisItem7.Text);
+        SetSymptom("_fieldAnamnesisItem8", tbAnamnesisItem8.Text);
+        SetSymptom("_fieldAnamnesisItem9", tbAnamnesisItem9.Text);
+        SetSymptom("_fieldAnamnesisItem10", tbAnamnesisItem10.Text);
+        SetSymptom("_fieldAnamnesisItem11", tbAnamnesisItem11.Text);
     }
 
     private void btnPage7Back_Click(object sender, RoutedEventArgs e)
@@ -1147,22 +1094,23 @@ public partial class AddPatient : Window
         mainGridPage7.Visibility = Visibility.Hidden;
         mainGridPage8.Visibility = Visibility.Visible;
 
-        newPatient._fieldLifeAnamnesisItem1 = tbLifeAnamnesisItem1.Text;
-        newPatient._fieldLifeAnamnesisItem2 = tbLifeAnamnesisItem2.Text;
-        newPatient._fieldLifeAnamnesisItem3 = tbLifeAnamnesisItem3.Text;
-        newPatient._fieldLifeAnamnesisItem4 = tbLifeAnamnesisItem4.Text;
-        newPatient._fieldLifeAnamnesisItem5 = tbLifeAnamnesisItem5.Text;
-        newPatient._fieldLifeAnamnesisItem6 = tbLifeAnamnesisItem6.Text;
-        newPatient._fieldLifeAnamnesisItem7 = tbLifeAnamnesisItem7.Text;
+        SetSymptom("_fieldLifeAnamnesisItem1", tbLifeAnamnesisItem1.Text);
+        SetSymptom("_fieldLifeAnamnesisItem2", tbLifeAnamnesisItem2.Text);
+        SetSymptom("_fieldLifeAnamnesisItem3", tbLifeAnamnesisItem3.Text);
+        SetSymptom("_fieldLifeAnamnesisItem4", tbLifeAnamnesisItem4.Text);
+        SetSymptom("_fieldLifeAnamnesisItem5", tbLifeAnamnesisItem5.Text);
+        SetSymptom("_fieldLifeAnamnesisItem6", tbLifeAnamnesisItem6.Text);
+        SetSymptom("_fieldLifeAnamnesisItem7", tbLifeAnamnesisItem7.Text);
+
         var flag = 0;
         int.TryParse(tbLifeAnamnesisItem8.Text, out flag);
-        newPatient._fieldLifeAnamnesisItem8 = flag;
+        SetSymptom("_fieldLifeAnamnesisItem8", flag.ToString());
 
         flag = 0;
         int.TryParse(tbLifeAnamnesisItem9.Text, out flag);
-        newPatient._fieldLifeAnamnesisItem9 = flag;
+        SetSymptom("_fieldLifeAnamnesisItem9", flag.ToString());
 
-        newPatient._fieldLifeAnamnesisItem10 = tbLifeAnamnesisItem10.Text;
+        SetSymptom("_fieldLifeAnamnesisItem10", tbLifeAnamnesisItem10.Text);
     }
 
     private void btnPage8Back_Click(object sender, RoutedEventArgs e)
@@ -1172,7 +1120,7 @@ public partial class AddPatient : Window
     }
 
 
-    private void btnPage8Next_Click(object sender, RoutedEventArgs e)
+    private async void btnPage8Save_Changes(object sender, RoutedEventArgs e)
     {
         var checkMandatory = new List<TextBox>
         {
@@ -1192,124 +1140,66 @@ public partial class AddPatient : Window
             return;
         }
 
-        newPatient._fieldLocusMorbiItem1 = tbLocusMorbiItem1.Text.Trim().TrimEnd(',').Split(", ");
-        newPatient._fieldLocusMorbiItem2 = tbLocusMorbiItem2.Text.Trim().TrimEnd(',').Split(", ");
+        SetSymptom("_fieldLocusMorbiItem1", tbLocusMorbiItem1.Text.Trim().TrimEnd(','));
+        SetSymptom("_fieldLocusMorbiItem2", tbLocusMorbiItem2.Text.Trim().TrimEnd(','));
 
         var contentHolder = LogicalTreeHelper.GetChildren(containerLocusMorbiItem3)
             .OfType<RadioButton>()
             .ToList()
             .Where(x => x.GroupName == "rbLocusMorbiItem3")
             .FirstOrDefault(x => (bool)x.IsChecked);
-        newPatient._fieldLocusMorbiItem3 = contentHolder != null
-            ? contentHolder.Content.ToString() == "Везикулярне" ? false : true
-            : null;
 
-        newPatient._fieldLocusMorbiItem4 = tbLocusMorbiItem4.Text.Trim().TrimEnd(',').Split(", ");
+        SetSymptom("_fieldLocusMorbiItem3", Convert.ToString(contentHolder != null
+            ? contentHolder.Content.ToString() == "Везикулярне" ? false : true
+            : null));
+
+        SetSymptom("_fieldLocusMorbiItem4", tbLocusMorbiItem4.Text.Trim().TrimEnd(','));
 
         contentHolder = LogicalTreeHelper.GetChildren(containerLocusMorbiItem5)
             .OfType<RadioButton>()
             .ToList()
             .Where(x => x.GroupName == "rbLocusMorbiItem5")
             .FirstOrDefault(x => (bool)x.IsChecked);
-        newPatient._fieldLocusMorbiItem5 = contentHolder != null
+        SetSymptom("_fieldLocusMorbiItem5", Convert.ToString(contentHolder != null
             ? contentHolder.Content.ToString() == "Легеневий звук" ? false : true
-            : null;
-        newPatient._fieldLocusMorbiItem6 = tbLocusMorbiItem6.Text.Trim().TrimEnd(',').Split(", ");
-        newPatient._fieldLocusMorbiItem7 = tbLocusMorbiItem7.Text.Trim().TrimEnd(',').Split(", ");
+            : null));
+        SetSymptom("_fieldLocusMorbiItem6", tbLocusMorbiItem6.Text.Trim().TrimEnd(','));
+        SetSymptom("_fieldLocusMorbiItem7", tbLocusMorbiItem7.Text.Trim().TrimEnd(','));
 
-        var dialogResult =
-            MessageBox.Show($"Додати паціента {newPatient._colLastName} {newPatient._colFirstName} до бази?",
-                "Перевірка", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+        var dialogResult = MessageBoxResult.None;
+
+        if (_isEditMode)
+            dialogResult =
+                MessageBox.Show($"Додати зміни до даних паціента {_patient.LastName} {_patient.FirstName}?",
+                    "Перевірка", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+        else
+            dialogResult =
+                MessageBox.Show($"Додати паціента {_patient.LastName} {_patient.FirstName} до бази?",
+                    "Перевірка", MessageBoxButton.OKCancel, MessageBoxImage.Information);
 
         if (dialogResult == MessageBoxResult.OK)
         {
+            if (_patient.Visits == null)
+                _patient.Visits = new List<Visit>();
+
+            if (!_patient.Visits.Contains(_visit))
+                _patient.Visits.Add(_visit);
+
             try
             {
-                var fileName = "..\\..\\..\\database.json";
-                var jsonString = JsonSerializer.Serialize(newPatient);
-                File.AppendAllText(fileName, jsonString + Environment.NewLine);
+                await _mongoService.InsertOrUpdatePatientAsync(_patient);
+                MessageBox.Show("Пацієнта збережено успішно!", "Збереження", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                Close();
             }
-            catch (Exception ex)
+            catch (Exception exception)
             {
-                MessageBox.Show("Виникла помилка при записі в базу даних!", "Помилка запису в базу",
-                    MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                MessageBox.Show("Відбулась помилка збереження пацієнту! Спробуйте знову пізніше!", "Помилка збереження", MessageBoxButton.OKCancel,
+                    MessageBoxImage.Error);
+                Console.WriteLine(exception);
+                Close();
+                throw;
             }
-
-            ((App)Application.Current).AddDataToStorage(newPatient);
-            Close();
-        }
-    }
-
-    private void btnPage8Save_Changes(object sender, RoutedEventArgs e)
-    {
-        var checkMandatory = new List<TextBox>
-        {
-            tbLocusMorbiItem1,
-            tbLocusMorbiItem2,
-            tbLocusMorbiItem4,
-            tbLocusMorbiItem6,
-            tbLocusMorbiItem7
-        };
-
-        checkMandatory.ForEach(x =>
-            (x.Parent as Border).BorderBrush = new SolidColorBrush(Color.FromRgb(170, 170, 170)));
-        if (checkMandatory.Where(x => string.IsNullOrEmpty(x.Text)).Any())
-        {
-            checkMandatory.Where(x => string.IsNullOrEmpty(x.Text)).ToList()
-                .ForEach(x => (x.Parent as Border).BorderBrush = new SolidColorBrush(Colors.Red));
-            return;
-        }
-
-        newPatient._fieldLocusMorbiItem1 = tbLocusMorbiItem1.Text.Trim().TrimEnd(',').Split(", ");
-        newPatient._fieldLocusMorbiItem2 = tbLocusMorbiItem2.Text.Trim().TrimEnd(',').Split(", ");
-
-        var contentHolder = LogicalTreeHelper.GetChildren(containerLocusMorbiItem3)
-            .OfType<RadioButton>()
-            .ToList()
-            .Where(x => x.GroupName == "rbLocusMorbiItem3")
-            .FirstOrDefault(x => (bool)x.IsChecked);
-        newPatient._fieldLocusMorbiItem3 = contentHolder != null
-            ? contentHolder.Content.ToString() == "Везикулярне" ? false : true
-            : null;
-
-        newPatient._fieldLocusMorbiItem4 = tbLocusMorbiItem4.Text.Trim().TrimEnd(',').Split(", ");
-
-        contentHolder = LogicalTreeHelper.GetChildren(containerLocusMorbiItem5)
-            .OfType<RadioButton>()
-            .ToList()
-            .Where(x => x.GroupName == "rbLocusMorbiItem5")
-            .FirstOrDefault(x => (bool)x.IsChecked);
-        newPatient._fieldLocusMorbiItem5 = contentHolder != null
-            ? contentHolder.Content.ToString() == "Легеневий звук" ? false : true
-            : null;
-        newPatient._fieldLocusMorbiItem6 = tbLocusMorbiItem6.Text.Trim().TrimEnd(',').Split(", ");
-        newPatient._fieldLocusMorbiItem7 = tbLocusMorbiItem7.Text.Trim().TrimEnd(',').Split(", ");
-
-        var dialogResult =
-            MessageBox.Show($"Додати зміни до даних паціента {newPatient._colLastName} {newPatient._colFirstName}?",
-                "Перевірка", MessageBoxButton.OKCancel, MessageBoxImage.Information);
-
-        if (dialogResult == MessageBoxResult.OK)
-        {
-            var fileName = "..\\..\\..\\database.json";
-            if (File.Exists(fileName))
-                try
-                {
-                    var oldLines = File.ReadAllLines(fileName);
-                    var newLines = oldLines.Where(line => !line.Contains($"{newPatient._colCardNumber}"));
-                    File.WriteAllLines(fileName, newLines);
-
-                    var jsonString = JsonSerializer.Serialize(newPatient);
-                    File.AppendAllText(fileName, jsonString + Environment.NewLine);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Виникла помилка при читанні з бази даних!", "Помилка читання з бази",
-                        MessageBoxButton.OKCancel, MessageBoxImage.Warning);
-                }
-
-            ((App)Application.Current).EditDataInStorage(newPatient);
-            Close();
         }
     }
 
@@ -1655,5 +1545,43 @@ public partial class AddPatient : Window
         if (!regex.IsMatch(e.Text))
             e.Handled = true;
         base.OnPreviewTextInput(e);
+    }
+
+    private void SetSymptom(string key, string value)
+    {
+        if (_visit.Symptoms == null)
+            _visit.Symptoms = new Dictionary<string, string>();
+        _visit.Symptoms[key] = value;
+    }
+
+    private string GetSymptom(string key)
+    {
+        var visit = _visit;
+        if (visit.Symptoms == null || !visit.Symptoms.TryGetValue(key, out var value))
+            return null;
+
+        try
+        {
+            var list = JsonConvert.DeserializeObject<List<string>>(value);
+            if (list != null)
+                return string.Join(", ", list.Prepend("")).TrimStart(',').Trim();
+        }
+        catch
+        {
+            if (key == "_fieldClaims")
+                MessageBox.Show(
+                    "Скарги не будуть виведені коректно, оскільки збережені в неправильному форматі.",
+                    "Попередження",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
+        }
+
+        return value;
+    }
+
+    private DateTime? ParseDate(string text)
+    {
+        return DateTime.TryParse(text, out var result) ? result : null;
     }
 }

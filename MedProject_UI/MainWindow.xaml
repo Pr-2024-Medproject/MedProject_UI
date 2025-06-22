@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MedProject_UI"
         xmlns:UserControls="clr-namespace:MedProject_UI.View.UserControls"
         mc:Ignorable="d"
-        Title="Med Project" Height="600" Width="1300" MinHeight="500" MinWidth="1035" WindowStartupLocation="Manual" Activated="WIndow_Main_Activated" Icon="/smallIcon.jpg" >
+        Title="Med Project" Height="600" Width="1300" MinHeight="500" MinWidth="1035" WindowStartupLocation="Manual" Activated="WIndow_Main_Activated" Icon="/smallIcon.jpg" Loaded="WIndow_Main_Loaded" >
     <Grid x:Name="Main">
         <Grid.Background>
             <ImageBrush ImageSource="/background.jpg" Stretch="UniformToFill" TileMode="Tile" Opacity="0.35" AlignmentX="Left"/>
@@ -34,13 +34,13 @@
             <DataGrid.Columns>
                 <!--<DataGridCheckBoxColumn Binding="{Binding _colCheckBox}"/>-->
                 <DataGridTemplateColumn Width="50"/>
-                <DataGridTextColumn Binding="{Binding _colCardNumber}" Header="Номер картки"  Width="150" />
+                <DataGridTextColumn Binding="{Binding CardNumber}" Header="Номер картки"  Width="150" />
 
-                <DataGridTextColumn Binding="{Binding _colLastName}" Header="Прізвище"   Width="150"/>
-                <DataGridTextColumn Binding="{Binding _colFirstName}" Header="Ім'я"   Width="150"/>
-                <DataGridTextColumn Binding="{Binding _colMiddleName}" Header="По-батькові"   Width="150"/>
-                <DataGridTextColumn Binding="{Binding _colBirthDay, StringFormat=\{0:dd.MM.yyyy\}}" Header="Дата народження"   Width="200"/>
-                <DataGridTextColumn Binding="{Binding _colAge}" Header="Вік"   Width="40"/>
+                <DataGridTextColumn Binding="{Binding LastName}" Header="Прізвище"   Width="150"/>
+                <DataGridTextColumn Binding="{Binding FirstName}" Header="Ім'я"   Width="150"/>
+                <DataGridTextColumn Binding="{Binding MiddleName}" Header="По-батькові"   Width="150"/>
+                <DataGridTextColumn Binding="{Binding BirthDate, StringFormat=\{0:dd.MM.yyyy\}}" Header="Дата народження"   Width="200"/>
+                <DataGridTextColumn Binding="{Binding Age}" Header="Вік"   Width="40"/>
 
                 <DataGridTemplateColumn Header="Інформація">
                     <DataGridTemplateColumn.CellTemplate>

@@ -1,10 +1,14 @@
-﻿using System.Collections.ObjectModel;
+﻿using MedProject_UI.Helpers;
+using MedProject_UI.Models;
+using MedProject_UI.Services;
+using MedProject_UI.View.UserControls;
+using System.Collections.ObjectModel;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using MedProject_UI.View.UserControls;
 using static MedProject_UI.App;
 
 namespace MedProject_UI;
@@ -14,12 +18,16 @@ namespace MedProject_UI;
 /// </summary>
 public partial class MainWindow : Window
 {
-    private ObservableCollection<DataItem> data;
-    private CollectionViewSource collectionViewSource;
+    private ObservableCollection<DataItem> _data;
+    private CollectionViewSource _collectionViewSource;
+
+    private MongoDbService _mongoService;
+    private ObservableCollection<Patient> Patients { get; set; } = new();
 
     public MainWindow()
     {
         InitializeComponent();
+        InitializeMongo();
 
         SearchBar.TextChanged += RouteViewerOpened;
         SearchBar.PreviewTextInput += PreviewTextSearch;
@@ -31,17 +39,10 @@ public partial class MainWindow : Window
     private void GetListDocument(object sender, RoutedEventArgs e)
     {
         var button = sender as Button;
-        if (button == null)
+        if (button?.DataContext is not Patient selectedPatient)
             return;
 
-        // Get the DataContext of the clicked button
-        var dataItem = button.DataContext as DataItem;
-        if (dataItem == null)
-            return;
-
-        //// Show the message box with the correct card number
-        //MessageBox.Show($"Номер картки: {dataItem._colCardNumber}");
-        var patientDescription = new PatientDescription(dataItem);
+        var patientDescription = new PatientDescription(selectedPatient);
         patientDescription.ShowDialog();
     }
 
@@ -57,7 +58,7 @@ public partial class MainWindow : Window
         if (textBox == null) return;
         var filterText = textBox.Text.Trim();
 
-        collectionViewSource.View.Filter = item =>
+        _collectionViewSource.View.Filter = item =>
         {
             if (item is DataItem dataItem)
             {
@@ -94,7 +95,7 @@ public partial class MainWindow : Window
             return false;
         };
 
-        collectionViewSource.View.Refresh();
+        _collectionViewSource.View.Refresh();
     }
 
     private void PreviewTextSearch(object sender, TextCompositionEventArgs e)
@@ -107,10 +108,9 @@ public partial class MainWindow : Window
 
     private void WIndow_Main_Activated(object sender, EventArgs e)
     {
-        data = new ObservableCollection<DataItem>(((App)Application.Current).GetDataItems());
-
-        collectionViewSource = new CollectionViewSource { Source = data };
-        MainGrid.ItemsSource = collectionViewSource.View;
+        //_data = new ObservableCollection<DataItem>(((App)Application.Current).GetDataItems());
+        _collectionViewSource = new CollectionViewSource { Source = Patients };
+        MainGrid.ItemsSource = _collectionViewSource.View;
     }
 
     private void BTN_DeleteRecord_Click(object sender, RoutedEventArgs e)
@@ -139,5 +139,31 @@ public partial class MainWindow : Window
                 MessageBox.Show("Виникла помилка при видаленні користувача з БД!", "Помилка", MessageBoxButton.OKCancel,
                     MessageBoxImage.Exclamation);
             }
+    }
+
+    private void InitializeMongo()
+    {
+        var config = AppConfig.Load();
+        _mongoService = new MongoDbService(
+            config.MongoDbConnection,
+            config.DatabaseName,
+            config.PatientsCollection
+        );
+    }
+
+    private async Task LoadPatientsAsync()
+    {
+        var patientsFromDb = await _mongoService.GetAllPatientsAsync();
+        Patients.Clear();
+        foreach (var patient in patientsFromDb)
+        {
+            Patients.Add(patient);
+        }
+    }
+
+    private async void WIndow_Main_Loaded(object sender, RoutedEventArgs e)
+    {
+        //await JsonImporter.ImportFromJsonAsync("database.json", _mongoService);
+        await LoadPatientsAsync();
     }
 }

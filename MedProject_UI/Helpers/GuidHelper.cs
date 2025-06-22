@@ -1,4 +1,4 @@
-﻿namespace MedProject_UI;
+﻿namespace MedProject_UI.Helpers;
 
 public static class GuidHelper
 {

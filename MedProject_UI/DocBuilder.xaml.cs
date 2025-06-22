@@ -1,186 +1,179 @@
-﻿using EasyDox;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using static MedProject_UI.App;
+using EasyDox;
+using MedProject_UI.Models;
+using Microsoft.Win32;
+using Newtonsoft.Json;
 
-namespace MedProject_UI
+namespace MedProject_UI;
+
+public partial class DocBuilder : Window
 {
-    /// <summary>
-    /// Interaction logic for DocBuilder.xaml
-    /// </summary>
-    public partial class DocBuilder : Window
+    private readonly Patient _patient;
+    private readonly Visit _visit;
+
+    public DocBuilder()
     {
-        DataItem sourceData = new DataItem();
-        public DocBuilder()
-        {
-            InitializeComponent();
+        InitializeComponent();
+    }
 
-            btnCreateF1.btnClick += btnCreateF1_Click;
-            btnCreateF2.btnClick += btnCreateF2_Click;
+    public DocBuilder(Patient patient)
+    {
+        InitializeComponent();
+        _patient = patient;
+        _visit = patient.Visits?.LastOrDefault() ?? new Visit();
+
+        btnCreateF1.btnClick += BtnCreateF1_Click;
+        btnCreateF2.btnClick += BtnCreateF2_Click;
+    }
+
+    private string GetSymptom(string key, string fallback = "--------")
+    {
+        var visit = _visit;
+        if (visit.Symptoms == null || !visit.Symptoms.TryGetValue(key, out var value))
+            return fallback;
+
+        try
+        {
+            var list = JsonConvert.DeserializeObject<List<string>>(value);
+            if (list != null)
+                return string.Join("\n• ", list.Prepend(""));
         }
-        public DocBuilder(DataItem dataObject)
+        catch
         {
-
-            InitializeComponent();
-
-            sourceData = dataObject;
-
-            btnCreateF1.btnClick += btnCreateF1_Click;
-            btnCreateF2.btnClick += btnCreateF2_Click;
+            if (key == "_fieldClaims")
+                MessageBox.Show(
+                    "Скарги не будуть виведені коректно, оскільки збережені в неправильному форматі.",
+                    "Попередження",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Warning
+                );
         }
 
+        return value;
+    }
 
-
-        private void btnCreateF1_Click(object sender, RoutedEventArgs e)
+    private void BtnCreateF1_Click(object sender, RoutedEventArgs e)
+    {
+        var claims = FormatList(GetSymptom("_fieldClaims"));
+        var anamnesisItems = new[]
         {
-            var claimsBuilder = sourceData._fieldClaims != null ? string.Join(", ", sourceData._fieldClaims) : "Text";
-            var anamnesisBuilder = "";
-            if (!string.IsNullOrEmpty(sourceData._fieldAnamnesisItem1)) anamnesisBuilder += sourceData._fieldAnamnesisItem1 + ", ";
-            if (!string.IsNullOrEmpty(sourceData._fieldAnamnesisItem2)) anamnesisBuilder += sourceData._fieldAnamnesisItem2 + ", ";
-            if (!string.IsNullOrEmpty(sourceData._fieldAnamnesisItem3)) anamnesisBuilder += sourceData._fieldAnamnesisItem3 + ", ";
-            if (!string.IsNullOrEmpty(sourceData._fieldAnamnesisItem4)) anamnesisBuilder += sourceData._fieldAnamnesisItem4 + ", ";
-            if (!string.IsNullOrEmpty(sourceData._fieldAnamnesisItem5)) anamnesisBuilder += sourceData._fieldAnamnesisItem5 + ", ";
-            if (!string.IsNullOrEmpty(sourceData._fieldAnamnesisItem6)) anamnesisBuilder += sourceData._fieldAnamnesisItem6 + ", ";
-            if (!string.IsNullOrEmpty(sourceData._fieldAnamnesisItem7)) anamnesisBuilder += sourceData._fieldAnamnesisItem7 + ", ";
-            anamnesisBuilder = anamnesisBuilder.Trim().TrimEnd(',');
-            Dictionary<string, string> fieldValues = new Dictionary<string, string> {
-                {"_docNumber", "456"},
-                {"_docNumberAdditional",  "123"},
-                {"_docLastFirstMiddleName", $"{sourceData._colLastName} {sourceData._colFirstName} {sourceData._colMiddleName}"},
-                {"_docBirthDay", $"{sourceData._colBirthDay.ToString().Split(" ")[0]}"},
-                {"_docLivingAddress", $"{sourceData._colAddress}"},
-                {"_docProfession", $"{sourceData._colProfession}"},
-                {"_docHospitalStartDate", $"{sourceData._colHospitalDate.ToString().Split(" ")[0]}"},
-                {"_docHospitalEndDate", $"{sourceData._colLeaveDate.ToString().Split(" ")[0]}"},
-                {"_docDiagnosisMain", $"{sourceData._fieldFinalDiagnosis}"},
-                {"_docComplication", $"{sourceData._fieldComplication}"},
-                {"_docAdditionalDiagnosis", $"{sourceData._fieldAdditionalDiagnosis}"},
-                {"_docClaims", $"{claimsBuilder}"},
-                {"_docAnamnesis", $"{anamnesisBuilder}"},
-                {"_docAnamnesisItem8", $"{sourceData._fieldAnamnesisItem8}"},
-                {"_docAnamnesisItem9", $"{sourceData._fieldAnamnesisItem9}"},
-                {"_docAnamnesisItem10", $"{sourceData._fieldAnamnesisItem10}"},
-                {"_docAnamnesisItem11", $"{sourceData._fieldAnamnesisItem11}"},
-                {"_docHistology", $"{sourceData._fieldHistology}"},
-                {"_docChemotherapyDate", $"{sourceData._fieldChemotherapyDate.ToString().Split(" ")[0]}"},
-                {"_docChemotherapy", $"{sourceData._fieldChemotherapy}"},
-                {"_docCreationDate", $"{DateTime.Now.ToString().Split(" ")[0]}"},
-                {"_docDoctor", $"{sourceData._fieldDoctor}"}
+            "_fieldAnamnesisItem1", "_fieldAnamnesisItem2", "_fieldAnamnesisItem3",
+            "_fieldAnamnesisItem4", "_fieldAnamnesisItem5", "_fieldAnamnesisItem6",
+            "_fieldAnamnesisItem7"
+        };
+        var anamnesisBuilder = string.Join(", ", anamnesisItems
+            .Select(key => GetSymptom(key))
+            .Where(val => !string.IsNullOrWhiteSpace(val)));
+
+        var fieldValues = new Dictionary<string, string>
+        {
+            { "_docNumber", "456" },
+            { "_docNumberAdditional", "123" },
+            { "_docLastFirstMiddleName", $"{_patient.LastName} {_patient.FirstName} {_patient.MiddleName}" },
+            { "_docBirthDay", _patient.BirthDate.ToString("dd.MM.yyyy") },
+            { "_docLivingAddress", _patient.Address },
+            { "_docProfession", _patient.Profession },
+            { "_docHospitalStartDate", _patient.HospitalDate?.ToString("dd.MM.yyyy") ?? "" },
+            { "_docHospitalEndDate", _patient.LeaveDate?.ToString("dd.MM.yyyy") ?? "" },
+            { "_docDiagnosisMain", GetSymptom("_fieldFinalDiagnosis") },
+            { "_docComplication", GetSymptom("_fieldComplication") },
+            { "_docAdditionalDiagnosis", GetSymptom("_fieldAdditionalDiagnosis") },
+            { "_docClaims", claims },
+            { "_docAnamnesis", anamnesisBuilder },
+            { "_docAnamnesisItem8", GetSymptom("_fieldAnamnesisItem8") },
+            { "_docAnamnesisItem9", GetSymptom("_fieldAnamnesisItem9") },
+            { "_docAnamnesisItem10", GetSymptom("_fieldAnamnesisItem10") },
+            { "_docAnamnesisItem11", GetSymptom("_fieldAnamnesisItem11") },
+            { "_docHistology", GetSymptom("_fieldHistology") },
+            { "_docChemotherapyDate", GetSymptom("_fieldChemotherapyDate") },
+            { "_docChemotherapy", GetSymptom("_fieldChemotherapy") },
+            { "_docCreationDate", DateTime.Now.ToString("dd.MM.yyyy") },
+            { "_docDoctor", GetSymptom("_fieldDoctor") }
+        };
+
+        GenerateDocument("Виписка ОГП ОЦО_template.docx", fieldValues,
+            $"Виписка_ОГП_ОЦО_{_patient.LastName}_{_patient.FirstName}_{_patient.MiddleName}");
+    }
+
+    private void BtnCreateF2_Click(object sender, RoutedEventArgs e)
+    {
+        var fieldValues = new Dictionary<string, string>
+        {
+            { "_docCardNumber", _patient.CardNumber },
+            { "_docHospitalStartDate", _patient.HospitalDate?.ToString("dd.MM.yyyy") ?? "" },
+            { "_docLastFirstMiddleName", $"{_patient.LastName} {_patient.FirstName} {_patient.MiddleName}" },
+            { "_docBirthDay", _patient.BirthDate.ToString("dd.MM.yyyy") },
+            { "_docAge", _patient.Age.ToString() },
+            { "_docLivingAddress", _patient.Address },
+            { "_docProfession", _patient.Profession },
+            { "_docHospitalEndDate", _patient.LeaveDate?.ToString("dd.MM.yyyy") ?? "" },
+            { "_docDiagnosisMain", GetSymptom("_fieldFinalDiagnosis") },
+            { "_docMKX", GetSymptom("_fieldMKX") },
+            { "_docFirstOpertaionDate", GetSymptom("_fieldOperationDate") },
+            { "_docFirstOpertaionName", GetSymptom("_fieldOperationName") },
+            { "_docSecOpertaionDate", "" },
+            { "_docSecOpertaionName", "" },
+            { "_docDoctor", GetSymptom("_fieldDoctor") },
+            { "_docCreationDate", DateTime.Now.ToString("dd.MM.yyyy") }
+        };
+
+        GenerateDocument("Виписка 066_template.docx", fieldValues,
+            $"Виписка_066_{_patient.LastName}_{_patient.FirstName}_{_patient.MiddleName}");
+    }
+
+    private void GenerateDocument(string templateFileName, Dictionary<string, string> values, string outputName)
+    {
+        var engine = new Engine();
+        try
+        {
+            var dialog = new SaveFileDialog
+            {
+                FileName = outputName,
+                DefaultExt = ".docx",
+                Filter = "Word Documents (.docx)|*.docx"
             };
-            var engine = new Engine();
-            try
-            {
-                var dialog = new Microsoft.Win32.SaveFileDialog();
-                dialog.FileName = $"Виписка_ОГП_ОЦО_{sourceData._colLastName}_{sourceData._colFirstName}_{sourceData._colMiddleName}";
-                dialog.DefaultExt = ".docx";
-                dialog.Filter = "Word Documents (.docx)|*.docx";
 
-                bool? result = dialog.ShowDialog();
-
-                if (result == true)
-                {
-                    string filename = dialog.FileName;
-                    engine.Merge("..\\..\\..\\Виписка ОГП ОЦО_template.docx", fieldValues, filename);
-                    MessageBox.Show("Документ було створено!", "Документ", MessageBoxButton.OKCancel, MessageBoxImage.Information);
-                    var p = new Process();
-                    p.StartInfo = new ProcessStartInfo(filename)
-                    {
-                        UseShellExecute = true
-                    };
-                    p.Start();
-                }
-            }
-            catch (Exception ex)
+            if (dialog.ShowDialog() == true)
             {
-                if (ex.Message.Contains("because it is being used by another process."))
+                engine.Merge($"..\\..\\..\\{templateFileName}", values, dialog.FileName);
+                MessageBox.Show("Документ було створено!", "Документ", MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                new Process
                 {
-                    MessageBox.Show("Скоріш за все документ вже створений та відкритий! Перевірте будь-ласка запущені процеси.", "Документ вже відкритий!", MessageBoxButton.OKCancel, MessageBoxImage.Information);
-                }
-                else if (ex.Message.Contains("Could not find file "))
-                {
-                    MessageBox.Show("Шаблон документу не знайдено. Будь-ласка зверніться до підтримки!", "Шаблон не знайдено!", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-                }
-                else
-                {
-                    MessageBox.Show("Неочікувана помилка. Будь-ласка зверніться до підтримки!", "Шаблон не знайдено!", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-                }
+                    StartInfo = new ProcessStartInfo(dialog.FileName) { UseShellExecute = true }
+                }.Start();
             }
-            this.Close();
         }
-
-        private void btnCreateF2_Click(object sender, RoutedEventArgs e)
+        catch (Exception ex)
         {
-            
-             Dictionary<string, string> fieldValues = new Dictionary<string, string> {
-               {"_docCardNumber", $"{sourceData._colCardNumber}"},
-               {"_docHospitalStartDate",  $"{sourceData._colHospitalDate.ToString().Split(" ")[0]}"},
-               {"_docLastFirstMiddleName", $"{sourceData._colLastName} {sourceData._colFirstName} {sourceData._colMiddleName}"},
-               {"_docBirthDay", $"{sourceData._colBirthDay.ToString().Split(" ")[0]}"},
-               {"_docAge", $"{sourceData._colAge.ToString()}"},
-               {"_docLivingAddress", $"{sourceData._colAddress}"},
-               {"_docProfession", $"{sourceData._colProfession}"},
-               {"_docHospitalEndDate", $"{sourceData._colLeaveDate.ToString().Split(" ")[0]}"},
-               {"_docDiagnosisMain", $"{sourceData._fieldFinalDiagnosis}"},
-               {"_docMKX", $"{sourceData._fieldMKX}"},
-               {"_docFirstOpertaionDate", $"{sourceData._fieldOperationDate.ToString().Split(" ")[0]}"},
-               {"_docFirstOpertaionName", $"{sourceData._fieldOperationName}"},
-               {"_docSecOpertaionDate", $""},
-               {"_docSecOpertaionName", $""},
-               {"_docDoctor", $"{sourceData._fieldDoctor}"},
-               {"_docCreationDate", $"{DateTime.Now.ToString().Split(" ")[0]}"}
-                };
-            var engine = new Engine();
-            try
-            {
-                var dialog = new Microsoft.Win32.SaveFileDialog();
-                dialog.FileName = $"Виписка_066_{sourceData._colLastName}_{sourceData._colFirstName}_{sourceData._colMiddleName}";
-                dialog.DefaultExt = ".docx";
-                dialog.Filter = "Word Documents (.docx)|*.docx";
+            var msg = ex.Message.Contains("being used")
+                ?
+                "Документ вже створений та відкритий! Перевірте будь-ласка запущені процеси."
+                : ex.Message.Contains("Could not find file")
+                    ? "Шаблон документу не знайдено. Будь-ласка зверніться до підтримки!"
+                    :
+                    "Неочікувана помилка. Будь-ласка зверніться до підтримки!";
 
-                bool? result = dialog.ShowDialog();
-
-                if (result == true)
-                {
-                    string filename = dialog.FileName;
-                    engine.Merge("..\\..\\..\\Виписка 066_template.docx", fieldValues, filename);
-                    MessageBox.Show("Документ було створено!", "Документ", MessageBoxButton.OKCancel, MessageBoxImage.Information);
-                    var p = new Process();
-                    p.StartInfo = new ProcessStartInfo(filename)
-                    {
-                        UseShellExecute = true
-                    };
-                    p.Start();
-                }
-            }
-            catch (Exception ex)
-            {
-                if (ex.Message.Contains("because it is being used by another process."))
-                {
-                    MessageBox.Show("Скоріш за все документ вже створений та відкритий! Перевірте будь-ласка запущені процеси.", "Документ вже відкритий!", MessageBoxButton.OKCancel, MessageBoxImage.Information);
-                }
-                else if (ex.Message.Contains("Could not find file "))
-                {
-                    MessageBox.Show("Шаблон документу не знайдено. Будь-ласка зверніться до підтримки!", "Шаблон не знайдено!", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-                }
-                else
-                {
-                    MessageBox.Show("Неочікувана помилка. Будь-ласка зверніться до підтримки!", "Шаблон не знайдено!", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-                }
-            }
-            this.Close();
-            
+            MessageBox.Show(msg, "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+
+        Close();
+    }
+
+    private string FormatList(string raw)
+    {
+        try
+        {
+            var list = JsonConvert.DeserializeObject<List<string>>(raw);
+            if (list != null)
+                return string.Join(", ", list);
+        }
+        catch
+        {
+            // do nothing
+        }
+
+        return raw ?? "";
     }
 }

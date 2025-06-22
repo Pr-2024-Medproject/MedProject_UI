@@ -10,12 +10,25 @@
 
   <ItemGroup>
     <None Remove="background.jpg" />
+    <None Remove="config.json" />
+    <None Remove="database.json" />
     <None Remove="smallIcon.jpg" />
     <None Remove="web.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="config.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="database.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EasyDox" Version="2.0.39" />
+    <PackageReference Include="MongoDB.Driver" Version="3.4.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>

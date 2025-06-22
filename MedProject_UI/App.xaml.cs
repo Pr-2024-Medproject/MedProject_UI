@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using MedProject_UI.Helpers;
+using System.IO;
 using System.Text.Json;
 using System.Windows;
 
@@ -357,17 +358,17 @@ public partial class App : Application
                     .AddSeconds(new Random().Next(0, 59) * -1)
             });
 
-        if (File.Exists("..\\..\\..\\database.json"))
-            try
-            {
-                var lines = File.ReadLines("..\\..\\..\\database.json");
-                foreach (var line in lines) dataItems.Add(JsonSerializer.Deserialize<DataItem>(line)!);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Виникла помилка при читанні з бази даних!", "Помилка читання з бази",
-                    MessageBoxButton.OKCancel, MessageBoxImage.Warning);
-            }
+        //if (File.Exists("..\\..\\..\\database.json"))
+        //    try
+        //    {
+        //        var lines = File.ReadLines("..\\..\\..\\database.json");
+        //        foreach (var line in lines) dataItems.Add(JsonSerializer.Deserialize<DataItem>(line)!);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Виникла помилка при читанні з бази даних!", "Помилка читання з бази",
+        //            MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+        //    }
     }
 
     public List<DataItem> GetDataItems()
