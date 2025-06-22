@@ -1,7 +1,24 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Anastasiia\\source\\repos\\MedProject_UI\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\Users\\Serhii\\source\\repos\\Pr-2024-Medproject\\MedProject_UI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|c:\\users\\serhii\\source\\repos\\pr-2024-medproject\\medproject_ui\\medproject_ui\\addpatient.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|solutionrelative:medproject_ui\\addpatient.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|c:\\users\\serhii\\source\\repos\\pr-2024-medproject\\medproject_ui\\medproject_ui\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|solutionrelative:medproject_ui\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|c:\\users\\serhii\\source\\repos\\pr-2024-medproject\\medproject_ui\\medproject_ui\\guidhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|solutionrelative:medproject_ui\\guidhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|c:\\users\\serhii\\source\\repos\\pr-2024-medproject\\medproject_ui\\medproject_ui\\login.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{444E5505-CBDB-4EDA-8BDB-ACC786123124}|MedProject_UI\\MedProject_UI.csproj|solutionrelative:medproject_ui\\login.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 1,
@@ -9,11 +26,59 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AddPatient.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Serhii\\source\\repos\\Pr-2024-Medproject\\MedProject_UI\\MedProject_UI\\AddPatient.xaml.cs",
+              "RelativeDocumentMoniker": "MedProject_UI\\AddPatient.xaml.cs",
+              "ToolTip": "C:\\Users\\Serhii\\source\\repos\\Pr-2024-Medproject\\MedProject_UI\\MedProject_UI\\AddPatient.xaml.cs",
+              "RelativeToolTip": "MedProject_UI\\AddPatient.xaml.cs",
+              "ViewState": "AgIAAGkGAAAAAAAAAAAiwHoGAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T07:15:44.28Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Serhii\\source\\repos\\Pr-2024-Medproject\\MedProject_UI\\MedProject_UI\\App.xaml.cs",
+              "RelativeDocumentMoniker": "MedProject_UI\\App.xaml.cs",
+              "ToolTip": "C:\\Users\\Serhii\\source\\repos\\Pr-2024-Medproject\\MedProject_UI\\MedProject_UI\\App.xaml.cs",
+              "RelativeToolTip": "MedProject_UI\\App.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T07:15:12.656Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "GuidHelper.cs",
+              "DocumentMoniker": "C:\\Users\\Serhii\\source\\repos\\Pr-2024-Medproject\\MedProject_UI\\MedProject_UI\\GuidHelper.cs",
+              "RelativeDocumentMoniker": "MedProject_UI\\GuidHelper.cs",
+              "ToolTip": "C:\\Users\\Serhii\\source\\repos\\Pr-2024-Medproject\\MedProject_UI\\MedProject_UI\\GuidHelper.cs",
+              "RelativeToolTip": "MedProject_UI\\GuidHelper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T07:14:59.25Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Login.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Serhii\\source\\repos\\Pr-2024-Medproject\\MedProject_UI\\MedProject_UI\\Login.xaml.cs",
+              "RelativeDocumentMoniker": "MedProject_UI\\Login.xaml.cs",
+              "ToolTip": "C:\\Users\\Serhii\\source\\repos\\Pr-2024-Medproject\\MedProject_UI\\MedProject_UI\\Login.xaml.cs",
+              "RelativeToolTip": "MedProject_UI\\Login.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-22T07:14:44.997Z",
+              "EditorCaption": ""
             }
           ]
         }

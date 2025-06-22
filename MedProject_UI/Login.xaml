@@ -8,7 +8,7 @@
         Title="Login" Height="452" Width="432" ResizeMode="CanMinimize" WindowStartupLocation="Manual" Icon="/smallIcon.jpg" >
     <Grid>
         <Grid.Background>
-            <ImageBrush ImageSource="/c516ff9163fefeaa5974fc7c8855cd02.jpg" Stretch="UniformToFill" TileMode="Tile" Opacity="0.3" AlignmentX="Left"/>
+            <ImageBrush ImageSource="/background.jpg" Stretch="UniformToFill" TileMode="Tile" Opacity="0.3" AlignmentX="Left"/>
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="2.7*"/>

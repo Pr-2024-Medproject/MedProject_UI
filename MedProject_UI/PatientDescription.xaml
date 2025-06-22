@@ -20,7 +20,7 @@
             <RowDefinition Height="8*"/>
         </Grid.RowDefinitions>
         <Grid.Background>
-            <ImageBrush ImageSource="/c516ff9163fefeaa5974fc7c8855cd02.jpg" Stretch="UniformToFill" TileMode="Tile" Opacity="0.20" AlignmentX="Left"/>
+            <ImageBrush ImageSource="/background.jpg" Stretch="UniformToFill" TileMode="Tile" Opacity="0.20" AlignmentX="Left"/>
         </Grid.Background>
         <Label Content="Картка №19ТР48ОТ53" HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Center" Grid.ColumnSpan="2" FontSize="25">
             <Label.Background>
