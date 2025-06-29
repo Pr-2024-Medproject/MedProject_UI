@@ -1,7 +1,5 @@
-﻿using MedProject_UI.Helpers;
-using System.IO;
-using System.Text.Json;
-using System.Windows;
+﻿using System.Windows;
+using MedProject_UI.Helpers;
 
 namespace MedProject_UI;
 
@@ -332,32 +330,6 @@ public partial class App : Application
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
-
-        for (var i = 0; i < 1; i++)
-            dataItems.Add(new DataItem
-            {
-                //_colCheckBox = false,
-                _colBirthDay = DateTime.Now.AddYears(new Random().Next(16, 50) * -1)
-                    .AddMonths(new Random().Next(1, 12) * -1)
-                    .AddDays(new Random().Next(1, 28) * -1)
-                    .AddHours(new Random().Next(1, 23) * -1)
-                    .AddMinutes(new Random().Next(1, 59) * -1)
-                    .AddSeconds(new Random().Next(1, 59) * -1),
-                _colAddress = GetRandomStreet(),
-                _colProfession = GetRandomProfession(),
-                _colHospitalDate = DateTime.Now.AddYears(new Random().Next(1, 3) * -1)
-                    .AddMonths(new Random().Next(1, 12) * -1)
-                    .AddDays(new Random().Next(0, 28) * -1)
-                    .AddHours(new Random().Next(0, 23) * -1)
-                    .AddMinutes(new Random().Next(0, 59) * -1)
-                    .AddSeconds(new Random().Next(0, 59) * -1),
-                _colLeaveDate = DateTime.Now.AddMonths(new Random().Next(1, 12) * -1)
-                    .AddDays(new Random().Next(0, 28) * -1)
-                    .AddHours(new Random().Next(0, 23) * -1)
-                    .AddMinutes(new Random().Next(0, 59) * -1)
-                    .AddSeconds(new Random().Next(0, 59) * -1)
-            });
-
         //if (File.Exists("..\\..\\..\\database.json"))
         //    try
         //    {
@@ -369,79 +341,5 @@ public partial class App : Application
         //        MessageBox.Show("Виникла помилка при читанні з бази даних!", "Помилка читання з бази",
         //            MessageBoxButton.OKCancel, MessageBoxImage.Warning);
         //    }
-    }
-
-    public List<DataItem> GetDataItems()
-    {
-        return dataItems;
-    }
-
-    public DataItem? GetDataItemsByID(string searchId)
-    {
-        if (dataItems.FindIndex(x => x._colCardNumber == searchId) != -1)
-            try
-            {
-                return dataItems[dataItems.FindIndex(x => x._colCardNumber == searchId)];
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"{ex.Message}", "Неочікувана помилка!", MessageBoxButton.OKCancel,
-                    MessageBoxImage.Error);
-            }
-        else
-            MessageBox.Show("Користувача не знайдено в базі даних!", "Користувач відстуній", MessageBoxButton.OKCancel,
-                MessageBoxImage.Error);
-
-        return null;
-    }
-
-    public void AddDataToStorage(DataItem data)
-    {
-        try
-        {
-            dataItems.Add(data);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"{ex.Message}", "Неочікувана помилка!", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-        }
-    }
-
-    public void RemoveDataFromStorage(DataItem data)
-    {
-        try
-        {
-            var fileName = "..\\..\\..\\database.json";
-            if (File.Exists(fileName))
-            {
-                var oldLines = File.ReadAllLines(fileName);
-                var newLines = oldLines.Where(line => !line.Contains($"{data._colCardNumber}"));
-                File.WriteAllLines(fileName, newLines);
-            }
-
-            dataItems.Remove(data);
-        }
-        catch (Exception ex)
-        {
-            MessageBox.Show($"{ex.Message}", "Неочікувана помилка!", MessageBoxButton.OKCancel, MessageBoxImage.Error);
-        }
-    }
-
-
-    public void EditDataInStorage(DataItem data)
-    {
-        if (dataItems.FindIndex(x => x._colCardNumber == data._colCardNumber) != -1)
-            try
-            {
-                dataItems[dataItems.FindIndex(x => x._colCardNumber == data._colCardNumber)] = data;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"{ex.Message}", "Неочікувана помилка!", MessageBoxButton.OKCancel,
-                    MessageBoxImage.Error);
-            }
-        else
-            MessageBox.Show("Користувача не знайдено в базі даних!", "Користувач відстуній", MessageBoxButton.OKCancel,
-                MessageBoxImage.Error);
     }
 }

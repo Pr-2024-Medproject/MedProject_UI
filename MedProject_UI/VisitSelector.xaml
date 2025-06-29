@@ -1,0 +1,41 @@
+﻿<Window x:Class="MedProject_UI.VisitSelector"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MedProject_UI"
+        mc:Ignorable="d"
+        Title="VisitSelector" Height="450" Width="800">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/background.jpg" Stretch="UniformToFill" TileMode="Tile" Opacity="0.35" AlignmentX="Left"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TextBlock x:Name="lbVisitsLabel" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Перелік візитів пацієнта" VerticalAlignment="Center" FontSize="20" FontFamily="Roboto" Margin="10,0,0,0" Grid.ColumnSpan="2">
+            <TextBlock.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF56B1A9" Offset="1"/>
+                    <GradientStop Color="Transparent" Offset="0.667"/>
+                </LinearGradientBrush>
+            </TextBlock.Background>
+        </TextBlock>
+        <ListBox x:Name="lbVisitDates" Grid.ColumnSpan="3" Margin="10,10,10,10" Grid.Row="1" FontSize="18" FontFamily="Roboto">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Date, StringFormat='Госпіталізація від {0:dd.MM.yyyy}'}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button x:Name="btnSelectVisit" Content="Обрати" Click="btnSelectVisit_Click" Grid.Column="2" Margin="10,10,10,10" Grid.Row="2" FontSize="16"/>
+        <Button x:Name="btnCancel" Content="Скасувати" Click="btnCancel_Click" Grid.Column="0" Margin="10,10,10,10" Grid.Row="2" FontSize="16"/>
+    </Grid>
+</Window>

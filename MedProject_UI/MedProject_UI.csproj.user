@@ -28,6 +28,9 @@
     <Compile Update="View\UserControls\DatePickerTemplate.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="VisitSelector.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="AddPatient.xaml">

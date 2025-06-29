@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using MedProject_UI.Helpers;
 using MedProject_UI.Models;
 using MedProject_UI.Services;
 using MedProject_UI.View.UserControls;
@@ -16,46 +17,95 @@ namespace MedProject_UI;
 /// </summary>
 public partial class AddPatient : Window
 {
-    private readonly DataItem newPatient = new();
-    private readonly Patient _patient;
-    private readonly Visit _visit;
-    private readonly bool _isEditMode;
-    private readonly MongoDbService _mongoService;
+    #region поля
+    private readonly Patient _patient;              // активний пацієнт (або новий)
+    private readonly Visit _visit;                  // візит, з яким працює форма
+    private readonly bool _isEditMode;              // редагуємо пацієнта цілком
+    private readonly bool _isNewVisitMode;          // додаємо лише новий візит існуючому пацієнту
+    private readonly MongoDbService _mongoService;  // робота з БД
+    #endregion
 
-    public AddPatient(Patient existingPatient = null)
+    #region конструктор
+    /// <summary>
+    /// Конструктор форми.
+    /// 
+    /// <para>patient == null  &rarr;  створення нового пацієнта</para>
+    /// <para>patient != null &amp;&amp; isNewVisitMode == false  &rarr;  редагування пацієнта</para>
+    /// <para>patient != null &amp;&amp; isNewVisitMode == true   &rarr;  додавання нового візиту</para>
+    /// </summary>
+    public AddPatient(Patient patient = null, bool isNewVisitMode = false)
     {
         InitializeComponent();
 
+        // ініціалізуємо доступ до БД
         var config = AppConfig.Load();
         _mongoService = new MongoDbService(
             config.MongoDbConnection,
             config.DatabaseName,
-            config.PatientsCollection
-        );
+            config.PatientsCollection);
 
-        if (existingPatient == null)
+        _isNewVisitMode = isNewVisitMode;
+
+        // --- режим створення нового пацієнта --------------------------------
+        if (patient == null)
         {
             _isEditMode = false;
             _patient = new Patient();
             _visit = new Visit();
-
-            btnPage8SaveChanges.Visibility = Visibility.Hidden;
-            btnPage8Save.Visibility = Visibility.Visible;
         }
+        // --- режим додавання нового візиту ----------------------------------
+        else if (_isNewVisitMode)
+        {
+            _isEditMode = false;
+            _patient = patient;            // пацієнт вже є в базі
+            _visit = new Visit();        // створюємо ПУСТИЙ новий візит
+        }
+        // --- режим редагування наявного пацієнта ----------------------------
         else
         {
-            Title = "Edit Patient";
-
             _isEditMode = true;
-            _patient = existingPatient;
-            _visit = existingPatient.Visits?.LastOrDefault() ?? new Visit();
+            _patient = patient;
+            // беремо ОСТАННІЙ візит, або створимо новий, щоб форма відкрилася коректно
+            _visit = patient.Visits?.LastOrDefault() ?? new Visit();
+        }
 
+        ConfigureButtons();
+        WireUpUiEvents();
+        PopulateFields();      // заповнюємо форму згідно з режимом
+    }
+    #endregion
+
+    #region налаштування UI
+    private void ConfigureButtons()
+    {
+        // «Зберегти» vs «Зберегти зміни»
+        if (_isEditMode)
+        {
             btnPage8Save.Visibility = Visibility.Hidden;
             btnPage8SaveChanges.Visibility = Visibility.Visible;
         }
+        else if (_isNewVisitMode)
+        {
+            // для нового візиту зручніше підписати як «Зберегти візит» (UI‑текст можна змінити у XAML)
+            btnPage8Save.MyBtnText = "Зберегти візит";
+            btnPage8Save.Visibility = Visibility.Visible;
+            btnPage8SaveChanges.Visibility = Visibility.Hidden;
+            tbLastName.IsEnabled = false;
+            tbFirstName.IsEnabled = false;
+            tbMiddleName.IsEnabled = false;
+            datePickerBirthday.IsEnabled = false;
+            tbLivingAddress.IsEnabled = false;
+            tbWorkAddress.IsEnabled = false;
+        }
+        else // новий пацієнт
+        {
+            btnPage8Save.Visibility = Visibility.Visible;
+            btnPage8SaveChanges.Visibility = Visibility.Hidden;
+        }
+    }
 
-        #region Init EventListeners
-
+    private void WireUpUiEvents()
+    {
         mainGridPage1.Visibility = Visibility.Visible;
         mainGridPage2.Visibility = Visibility.Hidden;
         mainGridPage3.Visibility = Visibility.Hidden;
@@ -129,13 +179,31 @@ public partial class AddPatient : Window
         btnPage8Back.btnClick += btnPage8Back_Click;
         btnPage8Save.btnClick += btnPage8Save_Changes;
         btnPage8SaveChanges.btnClick += btnPage8Save_Changes;
+    }
+    #endregion
 
-        #endregion
-
-        PopulateFields();
+    #region заповнення полів
+    private void PopulateFields()
+    {
+        // --- редагування пацієнта – залишаємо повне заповнення як було --------
+        if (_isEditMode)
+        {
+            PopulateAllFieldsFromVisit();
+        }
+        // --- новий візит – заповнюємо тільки паспортну частину ----------------
+        else if (_isNewVisitMode)
+        {
+            tbLastName.tbSearchText.Text = _patient.LastName;
+            tbFirstName.tbSearchText.Text = _patient.FirstName;
+            tbMiddleName.tbSearchText.Text = _patient.MiddleName;
+            datePickerBirthday.customDatePicker.SelectedDate = _patient.BirthDate;
+            tbLivingAddress.tbSearchText.Text = _patient.Address;
+            tbWorkAddress.tbSearchText.Text = _patient.Profession;
+        }
+        // --- новий пацієнт – форма порожня -----------------------------------
     }
 
-    private void PopulateFields()
+    private void PopulateAllFieldsFromVisit()
     {
         if (_isEditMode)
         {
@@ -347,7 +415,7 @@ public partial class AddPatient : Window
             tbLocusMorbiItem7.Text = GetSymptom("_fieldLocusMorbiItem7") ?? "";
         }
     }
-
+    #endregion
 
     private void DatePrewiewText_Birthday(object sender, TextCompositionEventArgs e)
     {
@@ -761,11 +829,11 @@ public partial class AddPatient : Window
             _patient.LastName = tbLastName.tbSearchText.Text;
             _patient.FirstName = tbFirstName.tbSearchText.Text;
             _patient.MiddleName = tbMiddleName.tbSearchText.Text;
-            _patient.BirthDate = datePickerBirthday.customDatePicker.SelectedDate ?? DateTime.MinValue;
+            _patient.BirthDate = datePickerBirthday.customDatePicker.SelectedDate.Value;
             _patient.Address = tbLivingAddress.tbSearchText.Text;
             _patient.Profession = tbWorkAddress.tbSearchText.Text;
-            _patient.HospitalDate = datePickerHospitalStart.customDatePicker.SelectedDate;
-            _patient.LeaveDate = datePickerHospitalEnd.customDatePicker.SelectedDate;
+            _patient.HospitalDate = datePickerHospitalStart.customDatePicker.SelectedDate.Value;
+            _patient.LeaveDate = datePickerHospitalEnd.customDatePicker.SelectedDate.Value;
         }
     }
 
@@ -789,7 +857,7 @@ public partial class AddPatient : Window
         mainGridPage2.Visibility = Visibility.Hidden;
         mainGridPage3.Visibility = Visibility.Visible;
 
-        SetSymptom("_fieldClaims", JsonConvert.SerializeObject(tbClaims.Text.Trim().TrimEnd(',').Split(", ")));
+        SetSymptom("_fieldClaims", JsonConvert.SerializeObject(tbClaims.Text.Trim().TrimEnd(',').Split("\n")));
         SetSymptom("_fieldEntrDiagnosis", tbEntrDiagnosis.Text);
         SetSymptom("_fieldFinalDiagnosis", tbFinalDiagnosis.Text);
         SetSymptom("_fieldComplication", tbComplications.Text);
@@ -1012,7 +1080,9 @@ public partial class AddPatient : Window
         for (var i = 0; cbOverallItem10List.Count > i; i++)
             if ((bool)cbOverallItem10List[i].IsChecked)
                 intHolder.Add(i);
-        SetSymptom("_fieldOverallItem10", string.Join(", ", intHolder.ToArray()));
+        SetSymptom("_fieldOverallItem10",
+            JsonConvert.SerializeObject(string.Join(", ", intHolder.ToArray()).Trim().TrimEnd(',').Split(", ")));
+        //JsonConvert.SerializeObject(string.Join(", ", intHolder.ToArray()).Trim().TrimEnd(',').Split(", "))
 
         var flag = 0;
         int.TryParse(tbOverallItem11.Text, out flag);
@@ -1033,7 +1103,8 @@ public partial class AddPatient : Window
         for (var i = 0; cbOverallItem14List.Count > i; i++)
             if ((bool)cbOverallItem14List[i].IsChecked)
                 intHolder.Add(i);
-        SetSymptom("_fieldOverallItem14", string.Join(", ", intHolder.ToArray()));
+        SetSymptom("_fieldOverallItem14",
+            JsonConvert.SerializeObject(string.Join(", ", intHolder.ToArray()).Trim().TrimEnd(',').Split(", ")));
 
         flag = 0;
         int.TryParse(tbOverallItem15.Text, out flag);
@@ -1140,8 +1211,10 @@ public partial class AddPatient : Window
             return;
         }
 
-        SetSymptom("_fieldLocusMorbiItem1", tbLocusMorbiItem1.Text.Trim().TrimEnd(','));
-        SetSymptom("_fieldLocusMorbiItem2", tbLocusMorbiItem2.Text.Trim().TrimEnd(','));
+        SetSymptom("_fieldLocusMorbiItem1",
+            JsonConvert.SerializeObject(tbLocusMorbiItem1.Text.Trim().TrimEnd(',').Split(", ")));
+        SetSymptom("_fieldLocusMorbiItem2",
+            JsonConvert.SerializeObject(tbLocusMorbiItem2.Text.Trim().TrimEnd(',').Split(", ")));
 
         var contentHolder = LogicalTreeHelper.GetChildren(containerLocusMorbiItem3)
             .OfType<RadioButton>()
@@ -1153,7 +1226,8 @@ public partial class AddPatient : Window
             ? contentHolder.Content.ToString() == "Везикулярне" ? false : true
             : null));
 
-        SetSymptom("_fieldLocusMorbiItem4", tbLocusMorbiItem4.Text.Trim().TrimEnd(','));
+        SetSymptom("_fieldLocusMorbiItem4",
+            JsonConvert.SerializeObject(tbLocusMorbiItem4.Text.Trim().TrimEnd(',').Split(", ")));
 
         contentHolder = LogicalTreeHelper.GetChildren(containerLocusMorbiItem5)
             .OfType<RadioButton>()
@@ -1163,43 +1237,56 @@ public partial class AddPatient : Window
         SetSymptom("_fieldLocusMorbiItem5", Convert.ToString(contentHolder != null
             ? contentHolder.Content.ToString() == "Легеневий звук" ? false : true
             : null));
-        SetSymptom("_fieldLocusMorbiItem6", tbLocusMorbiItem6.Text.Trim().TrimEnd(','));
-        SetSymptom("_fieldLocusMorbiItem7", tbLocusMorbiItem7.Text.Trim().TrimEnd(','));
+        SetSymptom("_fieldLocusMorbiItem6",
+            JsonConvert.SerializeObject(tbLocusMorbiItem6.Text.Trim().TrimEnd(',').Split(", ")));
+        SetSymptom("_fieldLocusMorbiItem7",
+            JsonConvert.SerializeObject(tbLocusMorbiItem7.Text.Trim().TrimEnd(',').Split(", ")));
 
-        var dialogResult = MessageBoxResult.None;
+        // 3. Формулюємо підтвердження
+        var dlgText = _isEditMode
+            ? $"Додати зміни до даних пацієнта {_patient.LastName} {_patient.FirstName}?"
+            : _isNewVisitMode
+                ? $"Додати новий візит пацієнту {_patient.LastName} {_patient.FirstName}?"
+                : $"Додати пацієнта {_patient.LastName} {_patient.FirstName} до бази?";
 
-        if (_isEditMode)
-            dialogResult =
-                MessageBox.Show($"Додати зміни до даних паціента {_patient.LastName} {_patient.FirstName}?",
-                    "Перевірка", MessageBoxButton.OKCancel, MessageBoxImage.Information);
-        else
-            dialogResult =
-                MessageBox.Show($"Додати паціента {_patient.LastName} {_patient.FirstName} до бази?",
-                    "Перевірка", MessageBoxButton.OKCancel, MessageBoxImage.Information);
+        if (MessageBox.Show(dlgText, "Перевірка", MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
+            return;
 
-        if (dialogResult == MessageBoxResult.OK)
+        try
         {
-            if (_patient.Visits == null)
-                _patient.Visits = new List<Visit>();
-
-            if (!_patient.Visits.Contains(_visit))
+            if (_isNewVisitMode)
+            {
+                // додаємо новий візит і оновлюємо пацієнта в БД
+                _patient.Visits ??= new List<Visit>();
+                _visit.Date = DateTime.Today;
+                _visit.Notes = $"Запис від {DateTime.Today.ToString("D")}";
                 _patient.Visits.Add(_visit);
-
-            try
-            {
                 await _mongoService.InsertOrUpdatePatientAsync(_patient);
-                MessageBox.Show("Пацієнта збережено успішно!", "Збереження", MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-                Close();
             }
-            catch (Exception exception)
+            else if (_isEditMode)
             {
-                MessageBox.Show("Відбулась помилка збереження пацієнту! Спробуйте знову пізніше!", "Помилка збереження", MessageBoxButton.OKCancel,
-                    MessageBoxImage.Error);
-                Console.WriteLine(exception);
-                Close();
-                throw;
+                // зміни всередині поточного візиту вже враховано у _visit, а він вже є у списку.
+                await _mongoService.InsertOrUpdatePatientAsync(_patient);
             }
+            else // новий пацієнт
+            {
+                _patient.CardNumber = GuidHelper.GenerateShortGuid();
+                var unfixedAge = DateTime.Today.Year - _patient.BirthDate.Year;
+                _patient.Age = _patient.BirthDate > DateTime.Today.AddYears(-unfixedAge) ? --unfixedAge : unfixedAge;
+                _visit.Date = DateTime.Today;
+                _visit.Notes = $"Запис від {DateTime.Today.ToString("D")}";
+                _patient.Visits = new List<Visit> { _visit };
+                await _mongoService.InsertOrUpdatePatientAsync(_patient);
+            }
+
+            MessageBox.Show("Дані збережено успішно!", "Збереження", MessageBoxButton.OK, MessageBoxImage.Information);
+            DialogResult = true;
+            Close();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Сталася помилка при збереженні! Спробуйте пізніше.", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+            Console.WriteLine(ex);
         }
     }
 
@@ -1207,7 +1294,7 @@ public partial class AddPatient : Window
     private void comboBoxClaims_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var newClaims = sender as ComboBox;
-        tbClaims.Text += newClaims.SelectedValue.ToString().Split(": ")[1] + ", ";
+        tbClaims.Text += newClaims.SelectedValue.ToString().Split(": ")[1] + "\n";
     }
 
     private void RadioButton_Checked(object sender, RoutedEventArgs e)

@@ -22,7 +22,7 @@
         <Grid.Background>
             <ImageBrush ImageSource="/background.jpg" Stretch="UniformToFill" TileMode="Tile" Opacity="0.20" AlignmentX="Left"/>
         </Grid.Background>
-        <Label Content="Картка №19ТР48ОТ53" HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Center" Grid.ColumnSpan="2" FontSize="25">
+        <Label x:Name="lbCardNumber" Content="Картка №19ТР48ОТ53" HorizontalAlignment="Left" Margin="30,0,0,0" VerticalAlignment="Center" Grid.ColumnSpan="2" FontSize="25">
             <Label.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF56B1A9" Offset="1"/>
@@ -32,7 +32,7 @@
         </Label>
 
         <UserControls:btnTemplate x:Name="btnChangeDesc" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="1" MyBtnText="  Редагувати інформацію  "  Margin="0,0,30,0" />
-
+        <UserControls:btnTemplate x:Name="btnAddVisit" HorizontalAlignment="Left" Grid.Row="0" Grid.Column="1" MyBtnText="  Додати нову госпіталізацію  "  Margin="30,0,0,0" />
 
         <Grid x:Name="mainInputElementsLeft" Grid.Row="1" >
             <Grid.RowDefinitions>
@@ -70,6 +70,15 @@
             </Grid>
 
             <UserControls:btnTemplate x:Name="btnGenerateDoc" HorizontalAlignment="Center" Grid.Row="1" Grid.Column="1" MyBtnText="  Згенерувати документ  "  Margin="0,0,30,0" />
+            <Label x:Name="lbCurrentVisit" Content="Візит від _____" HorizontalAlignment="Left" Margin="15,0,0,15" VerticalAlignment="Bottom" FontSize="25" Grid.Row="2">
+                <Label.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF56B1A9" Offset="1"/>
+                        <GradientStop Color="Transparent" Offset="0.667"/>
+                    </LinearGradientBrush>
+                </Label.Background>
+            </Label>
+            <UserControls:btnTemplate x:Name="btnChangeVisit" HorizontalAlignment="Right" Grid.Row="2" MyBtnText="  Змінити дату візиту  "  Margin="0,0,15,15" VerticalContentAlignment="Bottom" VerticalAlignment="Bottom" />
         </Grid>
         <TabControl Grid.Row="1" Grid.Column="1" Margin="10,15,10,20" FontFamily="Roboto" FontSize="23" Background="Transparent" >
             <TabItem Header="Основне" Padding="10,5" Background="#FFCBEFEC" FontSize="23">
@@ -507,11 +516,6 @@
 
 
         </TabControl>
-
-
-
-
-
 
 
     </Grid>

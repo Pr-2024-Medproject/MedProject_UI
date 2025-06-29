@@ -13,11 +13,14 @@ public class Patient
     public string LastName { get; set; } // _colLastName
     public string FirstName { get; set; } // _colFirstName
     public string MiddleName { get; set; } // _colMiddleName
+    [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
     public DateTime BirthDate { get; set; } // _colBirthDay
     public int Age { get; set; } // _colAge
     public string Address { get; set; } // _colAddress
     public string Profession { get; set; } // _colProfession
+    [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
     public DateTime? HospitalDate { get; set; } // _colHospitalDate
+    [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
     public DateTime? LeaveDate { get; set; } // _colLeaveDate
 
     public string Phone { get; set; } = "0000000000";
