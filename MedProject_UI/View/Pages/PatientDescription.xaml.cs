@@ -81,7 +81,7 @@ public partial class PatientDescription : Window
         tbLivingAddress.Text = patient.Address;
         tbWork.Text = patient.Profession;
         tbHospitalStart.Text = patient.HospitalDate?.ToString("dd.MM.yyyy") ?? "--.--.----";
-        tbHospitalEnd.Text = patient.LeaveDate?.ToString("dd.MM.yyyy") ?? "--.--.----";
+        tbHospitalEnd.Text = patient.LeaveDate.GetValueOrDefault().Year == 1 ? "--.--.----" : patient.LeaveDate?.ToString("dd.MM.yyyy");
 
         try
         {
