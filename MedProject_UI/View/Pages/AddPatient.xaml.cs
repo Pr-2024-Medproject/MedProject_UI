@@ -828,11 +828,11 @@ public partial class AddPatient : Window
             _patient.LastName = tbLastName.tbSearchText.Text;
             _patient.FirstName = tbFirstName.tbSearchText.Text;
             _patient.MiddleName = tbMiddleName.tbSearchText.Text;
-            _patient.BirthDate = datePickerBirthday.customDatePicker.SelectedDate.GetValueOrDefault();
+            _patient.BirthDate = datePickerBirthday.customDatePicker.SelectedDate.Value;
             _patient.Address = tbLivingAddress.tbSearchText.Text;
             _patient.Profession = tbWorkAddress.tbSearchText.Text;
-            _patient.HospitalDate = datePickerHospitalStart.customDatePicker.SelectedDate.GetValueOrDefault();
-            _patient.LeaveDate = datePickerHospitalEnd.customDatePicker.SelectedDate.GetValueOrDefault();
+            _patient.HospitalDate = datePickerHospitalStart.customDatePicker.SelectedDate.Value;
+            _patient.LeaveDate = datePickerHospitalEnd.customDatePicker.SelectedDate.Value;
         }
     }
 
@@ -1257,7 +1257,7 @@ public partial class AddPatient : Window
             {
                 // додаємо новий візит і оновлюємо пацієнта в БД
                 _patient.Visits ??= new List<Visit>();
-                _visit.Date = _patient.HospitalDate ?? DateTime.Today;
+                _visit.Date = DateTime.Today;
                 _visit.Notes = $"Запис від {DateTime.Today.ToString("D")}";
                 _patient.Visits.Add(_visit);
                 await _mongoService.InsertOrUpdatePatientAsync(_patient);
@@ -1272,7 +1272,7 @@ public partial class AddPatient : Window
                 _patient.CardNumber = GuidHelper.GenerateShortGuid();
                 var unfixedAge = DateTime.Today.Year - _patient.BirthDate.Year;
                 _patient.Age = _patient.BirthDate > DateTime.Today.AddYears(-unfixedAge) ? --unfixedAge : unfixedAge;
-                _visit.Date = _patient.HospitalDate ?? DateTime.Today;
+                _visit.Date = DateTime.Today;
                 _visit.Notes = $"Запис від {DateTime.Today.ToString("D")}";
                 _patient.Visits = new List<Visit> { _visit };
                 await _mongoService.InsertOrUpdatePatientAsync(_patient);
