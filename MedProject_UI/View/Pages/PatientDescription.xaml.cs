@@ -19,8 +19,7 @@ public partial class PatientDescription : Window
         var config = AppConfig.Load();
         _mongoDbService = new MongoDbService(
             config.MongoDbConnection,
-            config.DatabaseName,
-            config.PatientsCollection);
+            config.DatabaseName);
 
         _patient = patient;
         LoadData(_patient);

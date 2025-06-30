@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using System.Windows.Input;
+using MedProject_UI.View.Pages;
 
 namespace MedProject_UI;
 
@@ -27,5 +29,11 @@ public partial class Login : Window
         var main = new MainWindow();
         Close();
         main.Show();
+    }
+
+    private void RegisterLink_Click(object sender, MouseButtonEventArgs e)
+    {
+        var registerWindow = new RegisterDoctorWindow();
+        registerWindow.ShowDialog();
     }
 }

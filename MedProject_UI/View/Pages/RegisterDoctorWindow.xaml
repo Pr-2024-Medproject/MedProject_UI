@@ -1,0 +1,129 @@
+﻿<Window x:Class="MedProject_UI.View.Pages.RegisterDoctorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MedProject_UI.View.Pages"
+        mc:Ignorable="d"
+        Title="Реєстрація лікаря" Height="470" Width="800" ResizeMode="CanMinimize">
+    <Window.Resources>
+        <Style x:Key="RoundedButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#007bff"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="BorderBrush" Value="#0056b3"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              RecognizesAccessKey="True"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/background.jpg" Stretch="UniformToFill" TileMode="Tile" Opacity="0.3" AlignmentX="Left"/>
+        </Grid.Background>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="1*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <!-- По одному рядку під кожне поле + ще один під кнопки -->
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="1.5*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1.5*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1.5*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1.5*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1.5*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="1.5*" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+
+        <!-- Ліва колонка -->
+        <TextBlock Grid.Column="0" Grid.Row="0" Text="Прізвище" Margin="10,0,10,3" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+        <TextBox Grid.Column="0" Grid.Row="1" x:Name="tbLastName" VerticalContentAlignment="Center" Margin="10,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" />
+
+        <TextBlock Grid.Column="0" Grid.Row="2" Text="Ім’я" Margin="10,0,10,0" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <TextBox Grid.Column="0" Grid.Row="3" x:Name="tbFirstName" VerticalContentAlignment="Center" Margin="10,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" />
+
+        <TextBlock Grid.Column="0" Grid.Row="4" Text="По-батькові" Margin="10,0,10,0" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <TextBox Grid.Column="0" Grid.Row="5" x:Name="tbMiddleName" VerticalContentAlignment="Center" Margin="10,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" />
+
+        <TextBlock Grid.Column="0" Grid.Row="6" Text="Дата народження" Margin="10,0,10,0" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <DatePicker Grid.Column="0" Grid.Row="7" x:Name="dpBirthDate" VerticalContentAlignment="Center" Margin="10,0,10,0" HorizontalAlignment="Stretch" Height="NaN" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" />
+
+        <TextBlock Grid.Column="0" Grid.Row="8" Text="Телефон" Margin="10,0,10,0" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <TextBox Grid.Column="0" Grid.Row="9" x:Name="tbPhone" VerticalContentAlignment="Center" Margin="10,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" />
+
+        <TextBlock Grid.Column="0" Grid.Row="10" Text="Email" Margin="10,0,10,0" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <TextBox Grid.Column="0" Grid.Row="11" x:Name="tbEmail" VerticalContentAlignment="Center" Margin="10,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" />
+
+        <!-- Права колонка -->
+        <TextBlock Grid.Column="1" Grid.Row="0" Text="Адреса" Margin="10,0,10,3" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+        <TextBox Grid.Column="1" Grid.Row="1" x:Name="tbAddress" VerticalContentAlignment="Center" Margin="10,0,10,0" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" />
+
+        <TextBlock Grid.Column="1" Grid.Row="2" Text="Посада" Margin="10,0,10,0" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <ComboBox Grid.Column="1" Grid.Row="3" x:Name="cbPosition" VerticalContentAlignment="Center" Margin="10,0,10,0" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" SelectedIndex="0">
+            <ComboBoxItem Content="Онколог" />
+            <ComboBoxItem Content="Хірург" />
+            <ComboBoxItem Content="Педіатр" />
+            <ComboBoxItem Content="Терапевт" />
+        </ComboBox>
+
+        <TextBlock Grid.Column="1" Grid.Row="4" Text="Дата початку роботи" Margin="10,0,10,0" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <DatePicker Grid.Column="1" Grid.Row="5" x:Name="dpStartDate" VerticalContentAlignment="Center" Margin="10,0,10,0" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" />
+
+        <TextBlock Grid.Column="1" Grid.Row="6" Text="Рівень доступу" Margin="10,0,10,0" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <ComboBox Grid.Column="1" Grid.Row="7" x:Name="cbAccessLevel" VerticalContentAlignment="Center" Margin="10,0,10,0" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" SelectedIndex="1">
+            <ComboBoxItem Content="doctor" />
+            <ComboBoxItem Content="visitor" />
+        </ComboBox>
+
+        <TextBlock Grid.Column="1" Grid.Row="8" Text="Пароль" Margin="10,0,10,0" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <PasswordBox Grid.Column="1" Grid.Row="9" x:Name="pbPassword" VerticalContentAlignment="Center" Margin="10,0,10,0" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" />
+
+        <TextBlock Grid.Column="1" Grid.Row="10" Text="Підтвердження паролю" Margin="10,0,10,0" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <PasswordBox Grid.Column="1" Grid.Row="11" x:Name="pbConfirmPassword" VerticalContentAlignment="Center" Margin="10,0,10,0" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" />
+
+        <!-- Кнопки -->
+        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="13" Margin="10,5,10,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="btnCancel" Content="❌ Скасувати" Grid.Column="0"
+                    Width="140" Cursor="Hand"
+                    Background="#dc3545" Foreground="White"
+                    BorderBrush="DarkRed"
+                    Style="{StaticResource RoundedButtonStyle}" FontFamily="Roboto" FontSize="16" Click="btnCancel_Click"/>
+
+            <Button x:Name="btnRegister" Content="✅ Зареєструватися" Grid.Column="1"
+                    Width="180" Cursor="Hand"
+                    Background="#28a745" Foreground="White"
+                    BorderBrush="DarkGreen"
+                    Style="{StaticResource RoundedButtonStyle}" FontFamily="Roboto" FontSize="16" Click="btnRegister_Click"/>
+
+        </Grid>
+    </Grid>
+</Window>

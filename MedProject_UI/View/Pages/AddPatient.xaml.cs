@@ -41,8 +41,7 @@ public partial class AddPatient : Window
         var config = AppConfig.Load();
         _mongoService = new MongoDbService(
             config.MongoDbConnection,
-            config.DatabaseName,
-            config.PatientsCollection);
+            config.DatabaseName);
 
         _isNewVisitMode = isNewVisitMode;
 

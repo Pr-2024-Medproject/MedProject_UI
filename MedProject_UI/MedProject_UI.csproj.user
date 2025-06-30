@@ -7,16 +7,19 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="AddPatient.xaml.cs">
+    <Compile Update="View\Pages\AddPatient.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="DocBuilder.xaml.cs">
+    <Compile Update="View\Pages\DocBuilder.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Login.xaml.cs">
+    <Compile Update="View\Pages\Login.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="PatientDescription.xaml.cs">
+    <Compile Update="View\Pages\PatientDescription.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="View\Pages\RegisterDoctorWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="View\UserControls\btnTemplate.xaml.cs">
@@ -28,24 +31,24 @@
     <Compile Update="View\UserControls\DatePickerTemplate.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="VisitSelector.xaml.cs">
+    <Compile Update="View\Pages\VisitSelector.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="AddPatient.xaml">
+    <Page Update="View\Pages\AddPatient.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="DocBuilder.xaml">
+    <Page Update="View\Pages\DocBuilder.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Login.xaml">
+    <Page Update="View\Pages\Login.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="MainWindow.xaml">
+    <Page Update="View\Pages\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="PatientDescription.xaml">
+    <Page Update="View\Pages\PatientDescription.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\UserControls\btnTemplate.xaml">

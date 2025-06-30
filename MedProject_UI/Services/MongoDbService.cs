@@ -6,12 +6,17 @@ namespace MedProject_UI.Services;
 internal class MongoDbService
 {
     private readonly IMongoCollection<Patient> _patients;
+    private readonly IMongoCollection<Doctor> _doctors;
 
-    public MongoDbService(string connectionString, string dbName, string collectionName)
+    public MongoDbService(string connectionString, string dbName)
     {
+        var config = AppConfig.Load();
+
         var client = new MongoClient(connectionString);
         var database = client.GetDatabase(dbName);
-        _patients = database.GetCollection<Patient>(collectionName);
+
+        _patients = database.GetCollection<Patient>(config.PatientsCollection);
+        _doctors = database.GetCollection<Doctor>(config.DoctorsCollection);
     }
 
     public async Task<List<Patient>> GetAllPatientsAsync()
@@ -51,4 +56,35 @@ internal class MongoDbService
     {
         await _patients.DeleteOneAsync(p => p.Id == id);
     }
+
+    public async Task<List<Doctor>> GetAllDoctorsAsync()
+    {
+        return await _doctors.Find(_ => true).ToListAsync();
+    }
+
+    public async Task<Doctor?> GetDoctorByIdAsync(string id)
+    {
+        return await _doctors.Find(d => d.Id == id).FirstOrDefaultAsync();
+    }
+
+    public async Task<Doctor?> GetDoctorByUsernameAsync(string username)
+    {
+        return await _doctors.Find(d => d.Username == username).FirstOrDefaultAsync();
+    }
+
+    public async Task AddDoctorAsync(Doctor doctor)
+    {
+        await _doctors.InsertOneAsync(doctor);
+    }
+
+    public async Task UpdateDoctorAsync(Doctor doctor)
+    {
+        await _doctors.ReplaceOneAsync(d => d.Id == doctor.Id, doctor);
+    }
+
+    public async Task DeleteDoctorAsync(string id)
+    {
+        await _doctors.DeleteOneAsync(d => d.Id == id);
+    }
+
 }

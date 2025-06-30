@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MedProject_UI"
         mc:Ignorable="d"
-        Title="Login" Height="452" Width="432" ResizeMode="CanMinimize" WindowStartupLocation="Manual" Icon="/smallIcon.jpg" >
+        Title="Login" Height="525" Width="432" ResizeMode="CanMinimize" WindowStartupLocation="Manual" Icon="/smallIcon.jpg" >
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/background.jpg" Stretch="UniformToFill" TileMode="Tile" Opacity="0.3" AlignmentX="Left"/>
         </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2.7*"/>
-            <RowDefinition Height="3*"/>
+            <RowDefinition Height="2.3*"/>
+            <RowDefinition Height="2.5*"/>
             <RowDefinition Height="1.5*"/>
         </Grid.RowDefinitions>
         <Label x:Name="APP_Name" Content="Medical APP" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Roboto" FontSize="36">
@@ -37,16 +37,25 @@
             </Grid.RowDefinitions>
             <Label x:Name="Lable_Login" Content="Ваш логін" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Center" FontFamily="Roboto" FontSize="22" Margin="15,0,0,0"/>
             <Label x:Name="Label_Pass" Content="Ваш пароль" HorizontalAlignment="Left" Grid.Row="3" VerticalAlignment="Center" FontFamily="Roboto" FontSize="22" Margin="15,0,0,0"/>
-            <TextBox x:Name="TB_Login" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Margin="0,7,15,7" FontSize="22"/>
-            <PasswordBox x:Name="TB_Pass" Grid.Row="3" Margin="0,7,15,7" FontSize="22" Grid.Column="1"/>
+            <TextBox x:Name="TB_Login" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Margin="0,7,15,7" FontSize="22" VerticalContentAlignment="Center"/>
+            <PasswordBox x:Name="TB_Pass" Grid.Row="3" Margin="0,7,15,7" FontSize="22" Grid.Column="1" VerticalContentAlignment="Center"/>
         </Grid>
         <Button x:Name="BTN_Login" 
                 Style="{StaticResource RoundButtonTemplate}"
                 Content="Увійти" 
                 Grid.Row="2" 
                 FontSize="22"
-                RenderTransformOrigin="0.5,0.5" Background="#FF56B1A9" Margin="75,25,75,25" Padding="1,2,1,2" Click="BTN_Login_Click" 
+                Cursor="Hand"
+                RenderTransformOrigin="0.5,0.5" Background="#FF56B1A9" Margin="75,20,75,0" Padding="1,-1,1,5" Click="BTN_Login_Click" VerticalAlignment="Top" Height="40" 
                 />
+        <TextBlock Text="Немає акаунту? Зареєструватися"
+                   Grid.Row="2"
+                   Foreground="Blue"
+                   TextDecorations="Underline"
+                   Cursor="Hand"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,20"
+                   MouseLeftButtonUp="RegisterLink_Click" VerticalAlignment="Bottom" FontSize="15" FontFamily="Roboto"/>
 
     </Grid>
 </Window>

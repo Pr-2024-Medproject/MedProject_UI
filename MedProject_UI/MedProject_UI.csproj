@@ -37,8 +37,4 @@
     <Resource Include="web.png" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="View\Pages\" />
-  </ItemGroup>
-
 </Project>
