@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MedProject_UI"
         xmlns:UserControls="clr-namespace:MedProject_UI.View.UserControls"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Add Patient" Height="756" Width="1200" MinHeight="750" MinWidth="1200"  WindowStartupLocation="CenterScreen" Icon="/smallIcon.jpg" Loaded="Window_Loaded">
     <Window.Resources>
@@ -173,7 +174,7 @@
 
 
 
-        <Grid x:Name="mainGridPage3" Visibility="Visible">
+        <Grid x:Name="mainGridPage3" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.8*"/>
                 <RowDefinition Height="3*"/>
@@ -467,7 +468,7 @@
 
 
 
-        <Grid x:Name="mainGridPage5" Visibility="Hidden">
+        <Grid x:Name="mainGridPage5" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.8*"/>
                 <RowDefinition Height="3*"/>
@@ -620,8 +621,19 @@
                         <ColumnDefinition Width="0.7*"/>
                     </Grid.ColumnDefinitions>
                     <Border x:Name="borderOverallItem12" Grid.Column="0" Margin="5,0,5,0" Height="33" CornerRadius="5" BorderBrush="#AAAAAA" BorderThickness="1.5" UseLayoutRounding="False" ClipToBounds="True" Padding="2,2,2,2" Background="#F0F0F0">
-                        <TextBox x:Name="tbOverallItem12"    FontSize="19" FontFamily="Roboto" Background="#F0F0F0" BorderBrush="{x:Null}" SelectionBrush="#FF56B1A9" PreviewTextInput="tbOverallItem12_PreviewTextInput"/>
-
+                        <!--<TextBox x:Name="tbOverallItem12"    FontSize="19" FontFamily="Roboto" Background="#F0F0F0" BorderBrush="{x:Null}" SelectionBrush="#FF56B1A9" PreviewTextInput="tbOverallItem12_PreviewTextInput"/>-->
+                        <xctk:MaskedTextBox x:Name="tbOverallItem12"
+                                Grid.Column="0" Grid.Row="9"
+                                VerticalContentAlignment="Center" 
+                                Margin="10,0,10,0" 
+                                HorizontalAlignment="Stretch" 
+                                VerticalAlignment="Stretch" 
+                                FontSize="19" FontFamily="Roboto" 
+                                Background="#F0F0F0" BorderBrush="{x:Null}" 
+                                SelectionBrush="#FF56B1A9"
+                                Mask="900\/009"
+                                PromptChar="_"
+                                TextAlignment="Left" />
                     </Border>
 
                     <Label x:Name="OverallItem12_1Label" Content="мм.рт.ст."   Grid.Column="1" VerticalAlignment="Center" FontSize="19" Margin="5,0,5,0" />

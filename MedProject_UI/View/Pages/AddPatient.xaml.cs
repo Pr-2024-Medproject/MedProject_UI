@@ -34,9 +34,10 @@ public partial class AddPatient : Window
     /// <para>patient != null &amp;&amp; isNewVisitMode == false  &rarr;  редагування пацієнта</para>
     /// <para>patient != null &amp;&amp; isNewVisitMode == true   &rarr;  додавання нового візиту</para>
     /// </summary>
-    public AddPatient(Patient patient = null, bool isNewVisitMode = false)
+    public AddPatient(Patient patient = null, bool isNewVisitMode = false, Visit visit = null)
     {
         InitializeComponent();
+
 
         // ініціалізуємо доступ до БД
         var config = AppConfig.Load();
@@ -67,7 +68,7 @@ public partial class AddPatient : Window
             _isEditMode = true;
             _patient = patient;
             // беремо ОСТАННІЙ візит, або створимо новий, щоб форма відкрилася коректно
-            _visit = patient.Visits?.LastOrDefault() ?? new Visit();
+            _visit = visit ?? new Visit();
         }
 
         ConfigureButtons();
@@ -214,8 +215,8 @@ public partial class AddPatient : Window
             datePickerBirthday.customDatePicker.SelectedDate = _patient.BirthDate;
             tbLivingAddress.tbSearchText.Text = _patient.Address;
             tbWorkAddress.tbSearchText.Text = _patient.Profession;
-            datePickerHospitalStart.customDatePicker.SelectedDate = _visit.StartDate;
-            datePickerHospitalEnd.customDatePicker.SelectedDate = _visit.EndDate;
+            datePickerHospitalStart.customDatePicker.SelectedDate = _visit.StartDate.Year == 1 ? null : _visit.EndDate;
+            datePickerHospitalEnd.customDatePicker.SelectedDate = _visit.EndDate.Year == 1 ? null : _visit.EndDate;
             tbClaims.Text = GetSymptom("_fieldClaims") ?? "";
             tbEntrDiagnosis.Text = GetSymptom("_fieldEntrDiagnosis") ?? "";
             tbFinalDiagnosis.Text = GetSymptom("_fieldFinalDiagnosis") ?? "";
@@ -223,9 +224,15 @@ public partial class AddPatient : Window
             tbAdditionDiagnosis.Text = GetSymptom("_fieldAdditionalDiagnosis") ?? "";
             tbMKX.tbSearchText.Text = GetSymptom("_fieldMKX") ?? "";
             tbOperationName.tbSearchText.Text = GetSymptom("_fieldOperationName") ?? "";
-            dateOperation.customDatePicker.SelectedDate = ParseDate(GetSymptom("_fieldOperationDate"));
+            var temp = ParseDate(GetSymptom("_fieldOperationDate"));
+
+            dateOperation.customDatePicker.SelectedDate = ParseDate(GetSymptom("_fieldOperationDate")).GetValueOrDefault().Year == 1 
+                                                            ? null 
+                                                            : ParseDate(GetSymptom("_fieldOperationDate"));
             tbChemotherapyName.tbSearchText.Text = GetSymptom("_fieldChemotherapy") ?? "";
-            dateChemotherapy.customDatePicker.SelectedDate = ParseDate(GetSymptom("_fieldChemotherapyDate"));
+            dateChemotherapy.customDatePicker.SelectedDate = ParseDate(GetSymptom("_fieldChemotherapyDate")).GetValueOrDefault().Year == 1 
+                                                            ? null 
+                                                            : ParseDate(GetSymptom("_fieldChemotherapyDate"));
             tbHistology.tbSearchText.Text = GetSymptom("_fieldHistology") ?? "";
             //var doctors = new List<string>();
             //foreach (var item in comboBoxDoctorName.Items) doctors.Add((item as ComboBoxItem).Content.ToString());
@@ -234,6 +241,7 @@ public partial class AddPatient : Window
             //        ? doctors.IndexOf(GetSymptom("_fieldDoctor") ?? doctors[0])
             //        : 0;
             //cbDepartmentHead.Text = GetSymptom("_fieldDepartmentHead") ?? "Г.В. Петриченко";
+            LoadDoctorsAndChiefsAsync();
 
             string savedDoctorName = GetSymptom("_fieldDoctor");
             if (!string.IsNullOrWhiteSpace(savedDoctorName))
@@ -707,10 +715,10 @@ public partial class AddPatient : Window
 
             try
             {
-                if (dateOperation.customDatePicker.BlackoutDates.Count() > 0)
-                    dateOperation.customDatePicker.BlackoutDates.Clear();
-                dateOperation.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1),
-                    datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
+                //if (dateOperation.customDatePicker.BlackoutDates.Count() > 0)
+                //    dateOperation.customDatePicker.BlackoutDates.Clear();
+                //dateOperation.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1),
+                //    datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
             }
             catch (Exception ex)
             {
@@ -732,10 +740,10 @@ public partial class AddPatient : Window
 
             try
             {
-                if (dateChemotherapy.customDatePicker.BlackoutDates.Count() > 0)
-                    dateChemotherapy.customDatePicker.BlackoutDates.Clear();
-                dateChemotherapy.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1),
-                    datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
+                //if (dateChemotherapy.customDatePicker.BlackoutDates.Count() > 0)
+                //    dateChemotherapy.customDatePicker.BlackoutDates.Clear();
+                //dateChemotherapy.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1),
+                //    datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
             }
             catch (Exception ex)
             {
@@ -870,6 +878,11 @@ public partial class AddPatient : Window
             _patient.BirthDate = datePickerBirthday.customDatePicker.SelectedDate.GetValueOrDefault();
             _patient.Address = tbLivingAddress.tbSearchText.Text;
             _patient.Profession = tbWorkAddress.tbSearchText.Text;
+            if (_isEditMode) 
+            {
+                _visit.StartDate = datePickerHospitalStart.customDatePicker.SelectedDate.GetValueOrDefault();
+                _visit.EndDate = datePickerHospitalEnd.customDatePicker.SelectedDate.GetValueOrDefault();
+            }
             //_patient.HospitalDate = datePickerHospitalStart.customDatePicker.SelectedDate.GetValueOrDefault();
             //_patient.LeaveDate = datePickerHospitalEnd.customDatePicker.SelectedDate.GetValueOrDefault();
         }
@@ -1087,7 +1100,7 @@ public partial class AddPatient : Window
         {
             if (string.IsNullOrEmpty(tbOverallItem11.Text))
                 borderOverallItem11.BorderBrush = new SolidColorBrush(Colors.Red);
-            if (string.IsNullOrEmpty(tbOverallItem12.Text))
+            if (string.IsNullOrEmpty(tbOverallItem12.Text) || tbOverallItem12.Text == "___/___")
                 borderOverallItem12.BorderBrush = new SolidColorBrush(Colors.Red);
             if (string.IsNullOrEmpty(tbOverallItem15.Text))
                 borderOverallItem15.BorderBrush = new SolidColorBrush(Colors.Red);
@@ -1129,7 +1142,7 @@ public partial class AddPatient : Window
         var flag = 0;
         int.TryParse(tbOverallItem11.Text, out flag);
         SetSymptom("_fieldOverallItem11", flag.ToString());
-        SetSymptom("_fieldOverallItem12", tbOverallItem12.Text);
+        SetSymptom("_fieldOverallItem12", tbOverallItem12.Text.TrimEnd('_'));
 
         contentHolder = LogicalTreeHelper.GetChildren(containerOverallItem13)
             .OfType<RadioButton>()
@@ -1742,7 +1755,7 @@ public partial class AddPatient : Window
 
         if (_currentDoctor != null && (_currentDoctor.AccessLevel == "chief_doctor" || _currentDoctor.AccessLevel == "admin"))
         {
-            comboBoxDoctorName.SelectedIndex = 0;
+            if (!_isEditMode) comboBoxDoctorName.SelectedIndex = 0;
             comboBoxDoctorName.IsEnabled = true;
         }
 
@@ -1765,6 +1778,6 @@ public partial class AddPatient : Window
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        LoadDoctorsAndChiefsAsync();
+        if (!_isEditMode) LoadDoctorsAndChiefsAsync();
     }
 }

@@ -37,7 +37,7 @@ public partial class DocBuilder : Window
         {
             var list = JsonConvert.DeserializeObject<List<string>>(value);
             if (list != null)
-                return string.Join("\n• ", list.Prepend(""));
+                return string.Join("\n ", list.Prepend(""));
         }
         catch
         {
@@ -86,7 +86,7 @@ public partial class DocBuilder : Window
             { "_docAnamnesisItem10", GetSymptom("_fieldAnamnesisItem10") },
             { "_docAnamnesisItem11", GetSymptom("_fieldAnamnesisItem11") },
             { "_docHistology", GetSymptom("_fieldHistology") },
-            { "_docChemotherapyDate", GetSymptom("_fieldChemotherapyDate") },
+            { "_docChemotherapyDate", GetSymptom("_fieldChemotherapyDate") ?? "" },
             { "_docChemotherapy", GetSymptom("_fieldChemotherapy") },
             { "_docCreationDate", DateTime.Now.ToString("dd.MM.yyyy") },
             { "_docDoctor", GetSymptom("_fieldDoctor") }
@@ -110,7 +110,7 @@ public partial class DocBuilder : Window
             { "_docHospitalEndDate", _visit.EndDate.ToString("dd.MM.yyyy") ?? "" },
             { "_docDiagnosisMain", GetSymptom("_fieldFinalDiagnosis") },
             { "_docMKX", GetSymptom("_fieldMKX") },
-            { "_docFirstOpertaionDate", GetSymptom("_fieldOperationDate") },
+            { "_docFirstOpertaionDate", GetSymptom("_fieldOperationDate") ?? "" },
             { "_docFirstOpertaionName", GetSymptom("_fieldOperationName") },
             { "_docSecOpertaionDate", "" },
             { "_docSecOpertaionName", "" },

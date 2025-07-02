@@ -182,7 +182,7 @@ public partial class PatientDescription : Window
 
     private async void btnChangeDescription(object sender, RoutedEventArgs e)
     {
-        var infoEditor = new AddPatient(_patient);
+        var infoEditor = new AddPatient(_patient, false, _visit);
         infoEditor.ShowDialog();
 
         var updatedPatient = await _mongoDbService.GetPatientByIdAsync(_patient.Id);
