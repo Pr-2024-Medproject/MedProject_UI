@@ -1,8 +1,10 @@
-﻿using MedProject_UI.Helpers;
+﻿using System.Text.RegularExpressions;
+using System.Windows;
+using System.Windows.Input;
+using System.Windows.Media;
+using MedProject_UI.Helpers;
 using MedProject_UI.Models;
 using MedProject_UI.Services;
-using System.Windows;
-using System.Windows.Media;
 
 namespace MedProject_UI.View.Pages;
 
@@ -27,7 +29,7 @@ public partial class RegisterDoctorWindow : Window
 
     private void btnCancel_Click(object sender, RoutedEventArgs e)
     {
-        this.Close();
+        Close();
     }
 
     private async void btnRegister_Click(object sender, RoutedEventArgs e)
@@ -47,7 +49,7 @@ public partial class RegisterDoctorWindow : Window
 
         ResetFieldHighlights();
 
-        bool hasError = false;
+        var hasError = false;
 
         #region Перевірка необхідних полів
 
@@ -56,47 +58,78 @@ public partial class RegisterDoctorWindow : Window
             tbFirstName.Style = (Style)FindResource("ErrorTextBox");
             hasError = true;
         }
+
         if (string.IsNullOrWhiteSpace(lastName))
         {
             tbLastName.Style = (Style)FindResource("ErrorTextBox");
             hasError = true;
         }
+
         if (string.IsNullOrWhiteSpace(middleName))
         {
             tbMiddleName.Style = (Style)FindResource("ErrorTextBox");
             hasError = true;
         }
+
         if (string.IsNullOrWhiteSpace(position))
         {
             cbPosition.Style = (Style)FindResource("ErrorComboBox");
             hasError = true;
         }
+
         if (string.IsNullOrWhiteSpace(phone))
         {
             tbPhone.Style = (Style)FindResource("ErrorTextBox");
             hasError = true;
         }
+
         if (string.IsNullOrWhiteSpace(email))
         {
             tbEmail.Style = (Style)FindResource("ErrorTextBox");
             hasError = true;
         }
+
+        if (!Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
+        {
+            tbEmail.Style = (Style)FindResource("ErrorTextBox");
+            MessageBox.Show("Невірний формат email.", "Помилка", MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
+        var existingDoctor = await _mongoService.GetDoctorByEmailAsync(email);
+        if (existingDoctor != null)
+        {
+            MessageBox.Show("Лікар з таким email вже існує в системі.", "Помилка", MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+            return;
+        }
+
         if (birthDate == null)
         {
             dpBirthDate.Style = (Style)FindResource("ErrorDatePicker");
             hasError = true;
         }
+
         if (startDate == null)
         {
             dpStartDate.Style = (Style)FindResource("ErrorDatePicker");
             hasError = true;
         }
+
+        if ((startDate.Value - birthDate.Value).TotalDays < 16 * 365.25)
+        {
+            MessageBox.Show("Дата початку роботи повинна бути не раніше ніж після досягнення 16 років.", "Помилка",
+                MessageBoxButton.OK, MessageBoxImage.Warning);
+            return;
+        }
+
         if (string.IsNullOrWhiteSpace(password))
         {
             pbPassword.BorderBrush = Brushes.Red;
             pbPassword.BorderThickness = new Thickness(2);
             hasError = true;
         }
+
         if (string.IsNullOrWhiteSpace(confirmPassword))
         {
             pbConfirmPassword.BorderBrush = Brushes.Red;
@@ -104,9 +137,17 @@ public partial class RegisterDoctorWindow : Window
             hasError = true;
         }
 
+        if (password.Length < 8)
+        {
+            MessageBox.Show("Пароль повинен містити щонайменше 8 символів.", "Помилка", MessageBoxButton.OK,
+                MessageBoxImage.Warning);
+            return;
+        }
+
         if (hasError)
         {
-            MessageBox.Show("Будь ласка, заповніть усі обов'язкові поля.", "Помилка", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show("Будь ласка, заповніть усі обов'язкові поля.", "Помилка", MessageBoxButton.OK,
+                MessageBoxImage.Warning);
             return;
         }
 
@@ -124,6 +165,7 @@ public partial class RegisterDoctorWindow : Window
             FirstName = firstName,
             LastName = lastName,
             MiddleName = middleName,
+            Username = $"{Transliterate(lastName)}_{Transliterate(firstName)}_{birthDate.Value.ToString("dd.MM.yyyy")}",
             Position = position,
             Phone = phone,
             Email = email,
@@ -131,7 +173,7 @@ public partial class RegisterDoctorWindow : Window
             BirthDate = birthDate.Value,
             StartDate = startDate.Value,
             PasswordHash = PasswordHelper.HashPassword(password),
-            AccessLevel = cbAccessLevel.SelectionBoxItem?.ToString() ?? "doctor", // За замовчуванням
+            AccessLevel = cbAccessLevel.SelectedValue?.ToString() ?? "doctor", // За замовчуванням
             PatientIds = new List<string>(),
             WorkSchedule = new List<WorkShift>()
         };
@@ -139,12 +181,14 @@ public partial class RegisterDoctorWindow : Window
         try
         {
             await _mongoService.AddDoctorAsync(newDoctor);
-            MessageBox.Show("Доктора успішно зареєстровано!", "Успіх", MessageBoxButton.OK, MessageBoxImage.Information);
-            this.Close();
+            MessageBox.Show("Доктора успішно зареєстровано!", "Успіх", MessageBoxButton.OK,
+                MessageBoxImage.Information);
+            Close();
         }
         catch (Exception ex)
         {
-            MessageBox.Show("Помилка при реєстрації: " + ex.Message, "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("Помилка при реєстрації: " + ex.Message, "Помилка", MessageBoxButton.OK,
+                MessageBoxImage.Error);
         }
     }
 
@@ -167,5 +211,67 @@ public partial class RegisterDoctorWindow : Window
 
         pbConfirmPassword.BorderBrush = Brushes.Gray;
         pbConfirmPassword.BorderThickness = new Thickness(1);
+    }
+
+    private void UkrainianOnlyTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        // Дозволено тільки українські літери без пробілів
+        var regex = new Regex("^[а-щА-ЩьЬюЮяЯїЇєЄіІґҐ']+$");
+        e.Handled = !regex.IsMatch(e.Text);
+    }
+
+    private string Transliterate(string text)
+    {
+        var map = new Dictionary<char, string>
+        {
+            ['а'] = "a",
+            ['б'] = "b",
+            ['в'] = "v",
+            ['г'] = "h",
+            ['ґ'] = "g",
+            ['д'] = "d",
+            ['е'] = "e",
+            ['є'] = "ie",
+            ['ж'] = "zh",
+            ['з'] = "z",
+            ['и'] = "y",
+            ['і'] = "i",
+            ['ї'] = "i",
+            ['й'] = "i",
+            ['к'] = "k",
+            ['л'] = "l",
+            ['м'] = "m",
+            ['н'] = "n",
+            ['о'] = "o",
+            ['п'] = "p",
+            ['р'] = "r",
+            ['с'] = "s",
+            ['т'] = "t",
+            ['у'] = "u",
+            ['ф'] = "f",
+            ['х'] = "kh",
+            ['ц'] = "ts",
+            ['ч'] = "ch",
+            ['ш'] = "sh",
+            ['щ'] = "shch",
+            ['ь'] = "",
+            ['ю'] = "iu",
+            ['я'] = "ia",
+            ['ґ'] = "g",
+            ['’'] = "",
+            ['\''] = ""
+        };
+
+        return string.Concat(text.Select(c =>
+        {
+            var lower = char.ToLower(c);
+            var result = map.ContainsKey(lower) ? map[lower] : c.ToString();
+            return char.IsUpper(c) ? Capitalize(result) : result;
+        }));
+    }
+
+    private string Capitalize(string input)
+    {
+        return string.IsNullOrEmpty(input) ? "" : input[..1].ToUpper() + input[1..];
     }
 }

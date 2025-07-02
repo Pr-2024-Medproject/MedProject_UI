@@ -23,6 +23,7 @@ public partial class AddPatient : Window
     private readonly bool _isEditMode;              // редагуємо пацієнта цілком
     private readonly bool _isNewVisitMode;          // додаємо лише новий візит існуючому пацієнту
     private readonly MongoDbService _mongoService;  // робота з БД
+    private readonly Doctor _currentDoctor;
     #endregion
 
     #region конструктор
@@ -43,6 +44,7 @@ public partial class AddPatient : Window
             config.MongoDbConnection,
             config.DatabaseName);
 
+        _currentDoctor = App.CurrentUser;
         _isNewVisitMode = isNewVisitMode;
 
         // --- режим створення нового пацієнта --------------------------------
@@ -212,8 +214,8 @@ public partial class AddPatient : Window
             datePickerBirthday.customDatePicker.SelectedDate = _patient.BirthDate;
             tbLivingAddress.tbSearchText.Text = _patient.Address;
             tbWorkAddress.tbSearchText.Text = _patient.Profession;
-            datePickerHospitalStart.customDatePicker.SelectedDate = _patient.HospitalDate;
-            datePickerHospitalEnd.customDatePicker.SelectedDate = _patient.LeaveDate;
+            datePickerHospitalStart.customDatePicker.SelectedDate = _visit.StartDate;
+            datePickerHospitalEnd.customDatePicker.SelectedDate = _visit.EndDate;
             tbClaims.Text = GetSymptom("_fieldClaims") ?? "";
             tbEntrDiagnosis.Text = GetSymptom("_fieldEntrDiagnosis") ?? "";
             tbFinalDiagnosis.Text = GetSymptom("_fieldFinalDiagnosis") ?? "";
@@ -225,13 +227,50 @@ public partial class AddPatient : Window
             tbChemotherapyName.tbSearchText.Text = GetSymptom("_fieldChemotherapy") ?? "";
             dateChemotherapy.customDatePicker.SelectedDate = ParseDate(GetSymptom("_fieldChemotherapyDate"));
             tbHistology.tbSearchText.Text = GetSymptom("_fieldHistology") ?? "";
-            var doctors = new List<string>();
-            foreach (var item in comboBoxDoctorName.Items) doctors.Add((item as ComboBoxItem).Content.ToString());
-            comboBoxDoctorName.SelectedIndex =
-                doctors.IndexOf(GetSymptom("_fieldDoctor") ?? doctors[0]) != -1
-                    ? doctors.IndexOf(GetSymptom("_fieldDoctor") ?? doctors[0])
-                    : 0;
-            tbDepartmentHead.Text = GetSymptom("_fieldDepartmentHead") ?? "Г.В. Петриченко";
+            //var doctors = new List<string>();
+            //foreach (var item in comboBoxDoctorName.Items) doctors.Add((item as ComboBoxItem).Content.ToString());
+            //comboBoxDoctorName.SelectedIndex =
+            //    doctors.IndexOf(GetSymptom("_fieldDoctor") ?? doctors[0]) != -1
+            //        ? doctors.IndexOf(GetSymptom("_fieldDoctor") ?? doctors[0])
+            //        : 0;
+            //cbDepartmentHead.Text = GetSymptom("_fieldDepartmentHead") ?? "Г.В. Петриченко";
+
+            string savedDoctorName = GetSymptom("_fieldDoctor");
+            if (!string.IsNullOrWhiteSpace(savedDoctorName))
+            {
+                foreach (ComboBoxItem item in comboBoxDoctorName.Items)
+                {
+                    if (item.Tag is Doctor doctor)
+                    {
+                        var formattedName = $"{doctor.FirstName[0]}.{doctor.MiddleName[0]}. {doctor.LastName}";
+                        if (formattedName == savedDoctorName)
+                        {
+                            comboBoxDoctorName.SelectedItem = item;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Препопуляція cbDepartmentHead
+            string savedHead = GetSymptom("_fieldDepartmentHead");
+            if (!string.IsNullOrWhiteSpace(savedHead))
+            {
+                foreach (ComboBoxItem item in cbDepartmentHead.Items)
+                {
+                    if (item.Tag is Doctor chief)
+                    {
+                        var formatted = $"{chief.FirstName[0]}.{chief.MiddleName[0]}. {chief.LastName}";
+                        if (formatted == savedHead)
+                        {
+                            cbDepartmentHead.SelectedItem = item;
+                            break;
+                        }
+                    }
+                }
+            }
+
+
             tbDepartHeadAssistant.Text = GetSymptom("_fieldDepartHeadAssistant") ?? "";
             LogicalTreeHelper.GetChildren(containerOverallItem1)
                 .OfType<RadioButton>()
@@ -831,8 +870,8 @@ public partial class AddPatient : Window
             _patient.BirthDate = datePickerBirthday.customDatePicker.SelectedDate.GetValueOrDefault();
             _patient.Address = tbLivingAddress.tbSearchText.Text;
             _patient.Profession = tbWorkAddress.tbSearchText.Text;
-            _patient.HospitalDate = datePickerHospitalStart.customDatePicker.SelectedDate.GetValueOrDefault();
-            _patient.LeaveDate = datePickerHospitalEnd.customDatePicker.SelectedDate.GetValueOrDefault();
+            //_patient.HospitalDate = datePickerHospitalStart.customDatePicker.SelectedDate.GetValueOrDefault();
+            //_patient.LeaveDate = datePickerHospitalEnd.customDatePicker.SelectedDate.GetValueOrDefault();
         }
     }
 
@@ -879,29 +918,33 @@ public partial class AddPatient : Window
 
     private void btnPage3Next_Click(object sender, RoutedEventArgs e)
     {
-        borderDepartmentHead.BorderBrush = new SolidColorBrush(Color.FromRgb(170, 170, 170));
-        if (string.IsNullOrEmpty(tbDepartmentHead.Text))
-        {
-            borderDepartmentHead.BorderBrush = new SolidColorBrush(Colors.Red);
-        }
-        else
-        {
-            mainGridPage3.Visibility = Visibility.Hidden;
-            mainGridPage4.Visibility = Visibility.Visible;
+        mainGridPage3.Visibility = Visibility.Hidden;
+        mainGridPage4.Visibility = Visibility.Visible;
 
 
-            SetSymptom("_fieldOperationName", tbOperationName.tbSearchText.Text);
-            SetSymptom("_fieldOperationDate", dateOperation.customDatePicker.SelectedDate?.ToString());
-            SetSymptom("_fieldChemotherapy", tbChemotherapyName.tbSearchText.Text);
-            SetSymptom("_fieldChemotherapyDate", dateChemotherapy.customDatePicker.SelectedDate?.ToString());
-            SetSymptom("_fieldHistology", tbHistology.tbSearchText.Text);
-            SetSymptom("_fieldDoctor",
-                (comboBoxDoctorName.Items[comboBoxDoctorName.SelectedIndex] as ComboBoxItem).Content.ToString());
-            _patient.Doctor = (comboBoxDoctorName.Items[comboBoxDoctorName.SelectedIndex] as ComboBoxItem).Content
-                .ToString();
-            SetSymptom("_fieldDepartmentHead", tbDepartmentHead.Text);
-            SetSymptom("_fieldDepartHeadAssistant", tbDepartHeadAssistant.Text);
+        SetSymptom("_fieldOperationName", tbOperationName.tbSearchText.Text);
+        SetSymptom("_fieldOperationDate", dateOperation.customDatePicker.SelectedDate?.ToString());
+        SetSymptom("_fieldChemotherapy", tbChemotherapyName.tbSearchText.Text);
+        SetSymptom("_fieldChemotherapyDate", dateChemotherapy.customDatePicker.SelectedDate?.ToString());
+        SetSymptom("_fieldHistology", tbHistology.tbSearchText.Text);
+        if (comboBoxDoctorName.SelectedItem is ComboBoxItem selectedDoctorItem &&
+            selectedDoctorItem.Tag is Doctor selectedDoctor)
+        {
+            var displayName =
+                $"{selectedDoctor.FirstName[0]}.{selectedDoctor.MiddleName[0]}. {selectedDoctor.LastName}";
+            SetSymptom("_fieldDoctor", displayName);
+            _patient.Doctor = displayName;
+            _patient.DoctorId = selectedDoctor.Id;
         }
+
+        if (cbDepartmentHead.SelectedItem is ComboBoxItem selectedHeadItem &&
+            selectedHeadItem.Tag is Doctor headDoctor)
+        {
+            var headName = $"{headDoctor.FirstName[0]}.{headDoctor.MiddleName[0]}. {headDoctor.LastName}";
+            SetSymptom("_fieldDepartmentHead", headName);
+        }
+
+        SetSymptom("_fieldDepartHeadAssistant", tbDepartHeadAssistant.Text);
     }
 
 
@@ -1255,9 +1298,15 @@ public partial class AddPatient : Window
         {
             if (_isNewVisitMode)
             {
+                //_patient.HospitalDate = datePickerHospitalStart.customDatePicker.SelectedDate.GetValueOrDefault();
+                //_patient.LeaveDate = datePickerHospitalEnd.customDatePicker.SelectedDate.GetValueOrDefault();
+
                 // додаємо новий візит і оновлюємо пацієнта в БД
                 _patient.Visits ??= new List<Visit>();
-                _visit.Date = _patient.HospitalDate ?? DateTime.Today;
+                _visit.StartDate = datePickerHospitalStart.customDatePicker.SelectedDate.GetValueOrDefault().Year == 1
+                                        ? DateTime.Today
+                                        : datePickerHospitalStart.customDatePicker.SelectedDate.GetValueOrDefault();
+                _visit.EndDate = datePickerHospitalEnd.customDatePicker.SelectedDate.GetValueOrDefault();
                 _visit.Notes = $"Запис від {DateTime.Today.ToString("D")}";
                 _patient.Visits.Add(_visit);
                 await _mongoService.InsertOrUpdatePatientAsync(_patient);
@@ -1272,7 +1321,10 @@ public partial class AddPatient : Window
                 _patient.CardNumber = GuidHelper.GenerateShortGuid();
                 var unfixedAge = DateTime.Today.Year - _patient.BirthDate.Year;
                 _patient.Age = _patient.BirthDate > DateTime.Today.AddYears(-unfixedAge) ? --unfixedAge : unfixedAge;
-                _visit.Date = _patient.HospitalDate ?? DateTime.Today;
+                _visit.StartDate = datePickerHospitalStart.customDatePicker.SelectedDate.GetValueOrDefault().Year == 1
+                    ? DateTime.Today
+                    : datePickerHospitalStart.customDatePicker.SelectedDate.GetValueOrDefault();
+                _visit.EndDate = datePickerHospitalEnd.customDatePicker.SelectedDate.GetValueOrDefault();
                 _visit.Notes = $"Запис від {DateTime.Today.ToString("D")}";
                 _patient.Visits = new List<Visit> { _visit };
                 await _mongoService.InsertOrUpdatePatientAsync(_patient);
@@ -1666,8 +1718,53 @@ public partial class AddPatient : Window
         return value;
     }
 
-    private DateTime? ParseDate(string text)
+    private DateTime? ParseDate(string text) => DateTime.TryParse(text, out var result) ? result : null;
+
+    private async void LoadDoctorsAndChiefsAsync()
     {
-        return DateTime.TryParse(text, out var result) ? result : null;
+        var allDoctors = await _mongoService.GetAllDoctorsAsync();
+
+        // Встановити список лікарів у comboBoxDoctorName
+        comboBoxDoctorName.Items.Clear();
+        foreach (var doctor in allDoctors)
+        {
+            var formatted = $"{doctor.FirstName[0]}.{doctor.MiddleName[0]}. {doctor.LastName}";
+            var item = new ComboBoxItem { Content = formatted, Tag = doctor };
+            comboBoxDoctorName.Items.Add(item);
+
+            // Якщо поточний користувач = doctor => заборонити редагування
+            if (_currentDoctor != null && doctor.Email == _currentDoctor.Email && _currentDoctor.AccessLevel == "doctor")
+            {
+                comboBoxDoctorName.SelectedItem = item;
+                comboBoxDoctorName.IsEnabled = false;
+            }
+        }
+
+        if (_currentDoctor != null && (_currentDoctor.AccessLevel == "chief_doctor" || _currentDoctor.AccessLevel == "admin"))
+        {
+            comboBoxDoctorName.SelectedIndex = 0;
+            comboBoxDoctorName.IsEnabled = true;
+        }
+
+        // Замість tbDepartmentHead використовуємо comboBox
+        cbDepartmentHead.Items.Clear();
+        foreach (var chief in allDoctors.Where(d => d.AccessLevel == "chief_doctor"))
+        {
+            var formatted = $"{chief.FirstName[0]}.{chief.MiddleName[0]}. {chief.LastName}";
+            cbDepartmentHead.Items.Add(new ComboBoxItem
+            {
+                Content = formatted,
+                Tag = chief
+            });
+        }
+
+        cbDepartmentHead.SelectedIndex = 0;
+
+        // Встановлюємо попередній вибір, якщо він був (можна за Email чи ID)
+    }
+
+    private void Window_Loaded(object sender, RoutedEventArgs e)
+    {
+        LoadDoctorsAndChiefsAsync();
     }
 }

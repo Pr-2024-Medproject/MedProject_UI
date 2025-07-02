@@ -25,7 +25,7 @@ namespace MedProject_UI
         public VisitSelector(List<Visit> visits, string patientFullName = null)
         {
             InitializeComponent();
-            lbVisitDates.ItemsSource = visits.OrderByDescending(v => v.Date).ToList();
+            lbVisitDates.ItemsSource = visits.OrderByDescending(v => v.StartDate).ToList();
             lbVisitsLabel.Text = $"Перелік візитів пацієнта {patientFullName ?? ""}";
         }
 

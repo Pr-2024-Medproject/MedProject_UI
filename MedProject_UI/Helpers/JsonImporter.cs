@@ -19,7 +19,8 @@ internal static class JsonImporter
         {
             var visit = new Visit
             {
-                Date = DateTime.Now,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(30),
                 Notes = "", 
                 DocumentGenerated = false,
                 Symptoms = obj.Properties()
@@ -37,8 +38,6 @@ internal static class JsonImporter
                 Age = int.TryParse(obj["_colAge"]?.ToString(), out var age) ? age : 0,
                 Address = obj["_colAddress"]?.ToString(),
                 Profession = obj["_colProfession"]?.ToString(),
-                HospitalDate = TryParseDate(obj["_colHospitalDate"]?.ToString()),
-                LeaveDate = TryParseDate(obj["_colLeaveDate"]?.ToString()),
 
                 Phone = "0000000000",
                 Email = "unknown@example.com",

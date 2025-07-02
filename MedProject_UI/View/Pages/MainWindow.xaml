@@ -22,14 +22,29 @@
             <RowDefinition/>
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
-        <TextBlock x:Name="Label_Cat2" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Список пацієнтів" VerticalAlignment="Center" FontSize="27" FontFamily="Roboto" Margin="0,0,0,0">
-            <TextBlock.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF56B1A9" Offset="1"/>
-                    <GradientStop Color="Transparent" Offset="0.667"/>
-                </LinearGradientBrush>
-            </TextBlock.Background>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
+            <Button x:Name="btnBack" Width="30" Height="30" Margin="0,0,10,0"
+                    Click="btnBack_Click"
+                    ToolTip="Повернутись"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Cursor="Hand" Padding="1,0,1,5">
+                <TextBlock Text="←" FontSize="35" VerticalAlignment="Center"/>
+            </Button>
+            <TextBlock 
+            x:Name="Label_Cat2" 
+            HorizontalAlignment="Center" VerticalAlignment="Center" 
+            TextWrapping="Wrap" Text="Список пацієнтів"  
+            FontSize="27" FontFamily="Roboto" 
+            Margin="0,0,0,0">
+                <TextBlock.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF56B1A9" Offset="1"/>
+                        <GradientStop Color="Transparent" Offset="0.667"/>
+                    </LinearGradientBrush>
+                </TextBlock.Background>
         </TextBlock>
+        </StackPanel>
         <DataGrid x:Name="MainGrid" Grid.Row="1" Grid.ColumnSpan="3" IsReadOnly="True" FontSize="18"  FontFamily="Roboto"  Foreground="#FF063234"  FontWeight="Regular" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <!--<DataGridCheckBoxColumn Binding="{Binding _colCheckBox}"/>-->
@@ -52,14 +67,17 @@
                 <DataGridTemplateColumn Header="Видалення">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="BTN_DeleteRecord" Click="BTN_DeleteRecord_Click"> Видалити </Button>
+                            <Button x:Name="BTN_DeleteRecord" 
+                                    Content="Видалити"
+                                    Click="BTN_DeleteRecord_Click"
+                                    IsEnabled="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=IsDeleteEnabled}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
             </DataGrid.Columns>
         </DataGrid>
-        <UserControls:ClearableSearchBar x:Name="SearchBar"   Grid.Column="1" Margin="34,0,34,0" VerticalAlignment="Center"  MyLabel="Введіть ім'я та прізвище"  Height="45"/>
+        <UserControls:ClearableSearchBar x:Name="SearchBar" Grid.Column="1" Margin="34,0,34,0" VerticalAlignment="Center"  MyLabel="Введіть ім'я та прізвище"  Height="45"/>
         <UserControls:btnTemplate x:Name="btnAddNewPatient" Grid.Column="2" VerticalAlignment="Center"  MyBtnText="Додати пацієнта" HorizontalAlignment="Center"/>
        
 

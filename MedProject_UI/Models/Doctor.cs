@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MedProject_UI.Models
 {
-    internal class Doctor
+    public class Doctor
     {
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]

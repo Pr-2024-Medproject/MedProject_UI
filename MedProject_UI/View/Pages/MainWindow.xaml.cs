@@ -23,9 +23,12 @@ public partial class MainWindow : Window
         InitializeMongo();
         _ = RefreshPatientsAsync();
 
+        if (App.CurrentUser == null)
+            btnAddNewPatient.Visibility = Visibility.Hidden;
+
         SearchBar.TextChanged += RouteViewerOpened;
         SearchBar.PreviewTextInput += PreviewTextSearch;
-
+        DataContext = this;
         btnAddNewPatient.btnClick += AddPatientBtnClick;
     }
 
@@ -127,6 +130,8 @@ public partial class MainWindow : Window
             }
     }
 
+    private void btnBack_Click(object sender, RoutedEventArgs e) => Close();
+
     private void InitializeMongo()
     {
         var config = AppConfig.Load();
@@ -138,8 +143,16 @@ public partial class MainWindow : Window
 
     private async Task RefreshPatientsAsync()
     {
-        var patients = await _mongoService.GetAllPatientsAsync();
+        List<Patient> patients;
+
+        if (App.CurrentUser?.AccessLevel is "doctor")
+            patients = await _mongoService.GetPatientsByDoctorIdAsync(App.CurrentUser.Id);
+        else
+            patients = await _mongoService.GetAllPatientsAsync();
+
         _collectionViewSource = new CollectionViewSource { Source = patients };
         MainGrid.ItemsSource = _collectionViewSource.View;
     }
+
+    public bool IsDeleteEnabled => (App.CurrentUser) != null;
 }

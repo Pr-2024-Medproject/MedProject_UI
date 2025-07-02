@@ -17,11 +17,11 @@ public partial class DocBuilder : Window
         InitializeComponent();
     }
 
-    public DocBuilder(Patient patient)
+    public DocBuilder(Patient patient, Visit visit = null)
     {
         InitializeComponent();
         _patient = patient;
-        _visit = patient.Visits?.LastOrDefault() ?? new Visit();
+        _visit = visit ?? new Visit();
 
         btnCreateF1.btnClick += BtnCreateF1_Click;
         btnCreateF2.btnClick += BtnCreateF2_Click;
@@ -74,8 +74,8 @@ public partial class DocBuilder : Window
             { "_docBirthDay", _patient.BirthDate.ToString("dd.MM.yyyy") },
             { "_docLivingAddress", _patient.Address },
             { "_docProfession", _patient.Profession },
-            { "_docHospitalStartDate", _patient.HospitalDate?.ToString("dd.MM.yyyy") ?? "" },
-            { "_docHospitalEndDate", _patient.LeaveDate?.ToString("dd.MM.yyyy") ?? "" },
+            { "_docHospitalStartDate", _visit.StartDate.ToString("dd.MM.yyyy") ?? "" },
+            { "_docHospitalEndDate", _visit.EndDate.ToString("dd.MM.yyyy") ?? "" },
             { "_docDiagnosisMain", GetSymptom("_fieldFinalDiagnosis") },
             { "_docComplication", GetSymptom("_fieldComplication") },
             { "_docAdditionalDiagnosis", GetSymptom("_fieldAdditionalDiagnosis") },
@@ -101,13 +101,13 @@ public partial class DocBuilder : Window
         var fieldValues = new Dictionary<string, string>
         {
             { "_docCardNumber", _patient.CardNumber },
-            { "_docHospitalStartDate", _patient.HospitalDate?.ToString("dd.MM.yyyy") ?? "" },
+            { "_docHospitalStartDate", _visit.StartDate.ToString("dd.MM.yyyy") ?? "" },
             { "_docLastFirstMiddleName", $"{_patient.LastName} {_patient.FirstName} {_patient.MiddleName}" },
             { "_docBirthDay", _patient.BirthDate.ToString("dd.MM.yyyy") },
             { "_docAge", _patient.Age.ToString() },
             { "_docLivingAddress", _patient.Address },
             { "_docProfession", _patient.Profession },
-            { "_docHospitalEndDate", _patient.LeaveDate?.ToString("dd.MM.yyyy") ?? "" },
+            { "_docHospitalEndDate", _visit.EndDate.ToString("dd.MM.yyyy") ?? "" },
             { "_docDiagnosisMain", GetSymptom("_fieldFinalDiagnosis") },
             { "_docMKX", GetSymptom("_fieldMKX") },
             { "_docFirstOpertaionDate", GetSymptom("_fieldOperationDate") },

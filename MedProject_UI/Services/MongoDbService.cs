@@ -24,6 +24,12 @@ internal class MongoDbService
         return await _patients.Find(_ => true).ToListAsync();
     }
 
+    public async Task<List<Patient>> GetPatientsByDoctorIdAsync(string doctorId)
+    {
+        var filter = Builders<Patient>.Filter.Eq(p => p.DoctorId, doctorId);
+        return await _patients.Find(filter).ToListAsync();
+    }
+
     public async Task<Patient?> GetPatientByIdAsync(string id)
     {
         return await _patients.Find(p => p.Id == id).FirstOrDefaultAsync();
@@ -70,6 +76,11 @@ internal class MongoDbService
     public async Task<Doctor?> GetDoctorByUsernameAsync(string username)
     {
         return await _doctors.Find(d => d.Username == username).FirstOrDefaultAsync();
+    }
+
+    public async Task<Doctor?> GetDoctorByEmailAsync(string email)
+    {
+        return await _doctors.Find(d => d.Email == email).FirstOrDefaultAsync();
     }
 
     public async Task AddDoctorAsync(Doctor doctor)

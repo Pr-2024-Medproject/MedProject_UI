@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MedProject_UI.View.Pages"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Реєстрація лікаря" Height="470" Width="800" ResizeMode="CanMinimize">
     <Window.Resources>
@@ -61,19 +62,29 @@
 
         <!-- Ліва колонка -->
         <TextBlock Grid.Column="0" Grid.Row="0" Text="Прізвище" Margin="10,0,10,3" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
-        <TextBox Grid.Column="0" Grid.Row="1" x:Name="tbLastName" VerticalContentAlignment="Center" Margin="10,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" />
+        <TextBox Grid.Column="0" Grid.Row="1" x:Name="tbLastName" VerticalContentAlignment="Center" Margin="10,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" PreviewTextInput="UkrainianOnlyTextBox_PreviewTextInput"/>
 
         <TextBlock Grid.Column="0" Grid.Row="2" Text="Ім’я" Margin="10,0,10,0" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
-        <TextBox Grid.Column="0" Grid.Row="3" x:Name="tbFirstName" VerticalContentAlignment="Center" Margin="10,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" />
+        <TextBox Grid.Column="0" Grid.Row="3" x:Name="tbFirstName" VerticalContentAlignment="Center" Margin="10,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" PreviewTextInput="UkrainianOnlyTextBox_PreviewTextInput"/>
 
         <TextBlock Grid.Column="0" Grid.Row="4" Text="По-батькові" Margin="10,0,10,0" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
-        <TextBox Grid.Column="0" Grid.Row="5" x:Name="tbMiddleName" VerticalContentAlignment="Center" Margin="10,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" />
+        <TextBox Grid.Column="0" Grid.Row="5" x:Name="tbMiddleName" VerticalContentAlignment="Center" Margin="10,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" PreviewTextInput="UkrainianOnlyTextBox_PreviewTextInput"/>
 
         <TextBlock Grid.Column="0" Grid.Row="6" Text="Дата народження" Margin="10,0,10,0" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
         <DatePicker Grid.Column="0" Grid.Row="7" x:Name="dpBirthDate" VerticalContentAlignment="Center" Margin="10,0,10,0" HorizontalAlignment="Stretch" Height="NaN" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" />
 
         <TextBlock Grid.Column="0" Grid.Row="8" Text="Телефон" Margin="10,0,10,0" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
-        <TextBox Grid.Column="0" Grid.Row="9" x:Name="tbPhone" VerticalContentAlignment="Center" Margin="10,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" />
+        <xctk:MaskedTextBox x:Name="tbPhone"
+                            Grid.Column="0" Grid.Row="9"
+                            VerticalContentAlignment="Center" 
+                            Margin="10,0,10,0" 
+                            HorizontalAlignment="Stretch" 
+                            VerticalAlignment="Stretch" 
+                            FontSize="14" FontFamily="Roboto"
+                            Mask="+38(000)000-00-00"
+                            PromptChar="_"
+                            TextAlignment="Left" />
+        <!--<TextBox Grid.Column="0" Grid.Row="9" x:Name="tbPhone" VerticalContentAlignment="Center" Margin="10,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" />-->
 
         <TextBlock Grid.Column="0" Grid.Row="10" Text="Email" Margin="10,0,10,0" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
         <TextBox Grid.Column="0" Grid.Row="11" x:Name="tbEmail" VerticalContentAlignment="Center" Margin="10,0,10,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" />
@@ -94,9 +105,9 @@
         <DatePicker Grid.Column="1" Grid.Row="5" x:Name="dpStartDate" VerticalContentAlignment="Center" Margin="10,0,10,0" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" />
 
         <TextBlock Grid.Column="1" Grid.Row="6" Text="Рівень доступу" Margin="10,0,10,0" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
-        <ComboBox Grid.Column="1" Grid.Row="7" x:Name="cbAccessLevel" VerticalContentAlignment="Center" Margin="10,0,10,0" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" SelectedIndex="1">
-            <ComboBoxItem Content="doctor" />
-            <ComboBoxItem Content="visitor" />
+        <ComboBox Grid.Column="1" Grid.Row="7" x:Name="cbAccessLevel" VerticalContentAlignment="Center" Margin="10,0,10,0" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" SelectedIndex="1" SelectedValuePath="Tag">
+            <ComboBoxItem Content="Лікар" Tag="doctor"/>
+            <ComboBoxItem Content="Гість" Tag="visitor"/>
         </ComboBox>
 
         <TextBlock Grid.Column="1" Grid.Row="8" Text="Пароль" Margin="10,0,10,0" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />

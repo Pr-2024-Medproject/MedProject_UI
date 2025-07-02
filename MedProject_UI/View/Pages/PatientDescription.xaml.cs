@@ -9,6 +9,7 @@ namespace MedProject_UI;
 public partial class PatientDescription : Window
 {
     private readonly Patient _patient;
+    private Visit _visit;
     private readonly OverallDictionaries _overallDictionaries = new();
     private readonly MongoDbService _mongoDbService;
 
@@ -23,6 +24,14 @@ public partial class PatientDescription : Window
 
         _patient = patient;
         LoadData(_patient);
+
+        if (App.CurrentUser == null)
+        {
+            btnChangeDesc.Visibility = Visibility.Hidden;
+            btnAddVisit.Visibility = Visibility.Hidden;
+            btnGenerateDoc.Visibility = Visibility.Hidden;
+            btnChangeVisit.Visibility = Visibility.Hidden;
+        }
 
 
         btnGenerateDoc.btnClick += btnGenerateDocument;
@@ -39,6 +48,7 @@ public partial class PatientDescription : Window
     private void LoadData(Patient patient, Visit? selectedVisit = null)
     {
         var visit = selectedVisit ?? GetLatestVisit(); // використати обраний або останній
+        _visit = visit;
 
         string GetSymptom(string key, string fallback = "--------")
         {
@@ -72,7 +82,7 @@ public partial class PatientDescription : Window
         lbTypDescriptionItem4.Content = "Дата народження: " + patient.BirthDate.ToString("dd.MM.yyyy");
         lbTypDescriptionItem5.Content = "Вік: " + patient.Age;
 
-        lbCurrentVisit.Content = $"Візит від {visit.Date.ToString("d")}";
+        lbCurrentVisit.Content = $"Візит від {visit.StartDate.ToString("d")}";
 
         tbLastName.Text = patient.LastName;
         tbFirstName.Text = patient.FirstName;
@@ -80,8 +90,8 @@ public partial class PatientDescription : Window
         tbBirthday.Text = patient.BirthDate.ToString("dd.MM.yyyy");
         tbLivingAddress.Text = patient.Address;
         tbWork.Text = patient.Profession;
-        tbHospitalStart.Text = patient.HospitalDate?.ToString("dd.MM.yyyy") ?? "--.--.----";
-        tbHospitalEnd.Text = patient.LeaveDate.GetValueOrDefault().Year == 1 ? "--.--.----" : patient.LeaveDate?.ToString("dd.MM.yyyy");
+        tbHospitalStart.Text = visit.StartDate.ToString("dd.MM.yyyy") ?? "--.--.----";
+        tbHospitalEnd.Text = visit.EndDate.Year == 1 ? "--.--.----" : visit.EndDate.ToString("dd.MM.yyyy");
 
         try
         {
@@ -166,7 +176,7 @@ public partial class PatientDescription : Window
 
     private void btnGenerateDocument(object sender, RoutedEventArgs e)
     {
-        var doc = new DocBuilder(_patient);
+        var doc = new DocBuilder(_patient, _visit);
         doc.Show();
     }
 

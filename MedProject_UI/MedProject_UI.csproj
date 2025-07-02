@@ -12,6 +12,7 @@
     <None Remove="background.jpg" />
     <None Remove="config.json" />
     <None Remove="database.json" />
+    <None Remove="person.png" />
     <None Remove="smallIcon.jpg" />
     <None Remove="web.png" />
   </ItemGroup>
@@ -26,15 +27,28 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="person.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="EasyDox" Version="2.0.39" />
+    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.7.25104.5739" />
     <PackageReference Include="MongoDB.Driver" Version="3.4.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="background.jpg" />
-    <Resource Include="smallIcon.jpg" />
-    <Resource Include="web.png" />
+    <Resource Include="background.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="smallIcon.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="web.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

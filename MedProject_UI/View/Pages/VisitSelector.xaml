@@ -31,7 +31,7 @@
         <ListBox x:Name="lbVisitDates" Grid.ColumnSpan="3" Margin="10,10,10,10" Grid.Row="1" FontSize="18" FontFamily="Roboto">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Date, StringFormat='Госпіталізація від {0:dd.MM.yyyy}'}"/>
+                    <TextBlock Text="{Binding StartDate, StringFormat='Госпіталізація від {0:dd.MM.yyyy}'}"/>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
