@@ -2,8 +2,10 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:MedProject_UI"
+             xmlns:helpers="clr-namespace:MedProject_UI.Helpers"
              StartupUri="/View/Pages/Login.xaml">
     <Application.Resources>
+        <helpers:FullNameConverter x:Key="FullNameConverter"/>
         <Style x:Key="RoundButtonTemplate" TargetType="Button">
             <Setter Property="Background" Value="DodgerBlue" />
             <Setter Property="Foreground" Value="White" />
@@ -15,7 +17,7 @@
 
                             </ContentPresenter>
                         </Border>
-                        
+
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -62,7 +64,5 @@
             <Setter Property="BorderBrush" Value="Red" />
             <Setter Property="BorderThickness" Value="2" />
         </Style>
-
     </Application.Resources>
-    
 </Application>

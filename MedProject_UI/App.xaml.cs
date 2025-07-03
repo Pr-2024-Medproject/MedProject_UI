@@ -1,6 +1,8 @@
 ﻿using MedProject_UI.Helpers;
 using MedProject_UI.Models;
+using System.Globalization;
 using System.Windows;
+using System.Windows.Data;
 
 namespace MedProject_UI;
 
