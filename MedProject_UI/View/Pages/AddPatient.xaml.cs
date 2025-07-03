@@ -215,7 +215,7 @@ public partial class AddPatient : Window
             datePickerBirthday.customDatePicker.SelectedDate = _patient.BirthDate;
             tbLivingAddress.tbSearchText.Text = _patient.Address;
             tbWorkAddress.tbSearchText.Text = _patient.Profession;
-            datePickerHospitalStart.customDatePicker.SelectedDate = _visit.StartDate.Year == 1 ? null : _visit.EndDate;
+            datePickerHospitalStart.customDatePicker.SelectedDate = _visit.StartDate.Year == 1 ? null : _visit.StartDate;
             datePickerHospitalEnd.customDatePicker.SelectedDate = _visit.EndDate.Year == 1 ? null : _visit.EndDate;
             tbClaims.Text = GetSymptom("_fieldClaims") ?? "";
             tbEntrDiagnosis.Text = GetSymptom("_fieldEntrDiagnosis") ?? "";
@@ -241,43 +241,6 @@ public partial class AddPatient : Window
             //        ? doctors.IndexOf(GetSymptom("_fieldDoctor") ?? doctors[0])
             //        : 0;
             //cbDepartmentHead.Text = GetSymptom("_fieldDepartmentHead") ?? "Г.В. Петриченко";
-            LoadDoctorsAndChiefsAsync();
-
-            string savedDoctorName = GetSymptom("_fieldDoctor");
-            if (!string.IsNullOrWhiteSpace(savedDoctorName))
-            {
-                foreach (ComboBoxItem item in comboBoxDoctorName.Items)
-                {
-                    if (item.Tag is Doctor doctor)
-                    {
-                        var formattedName = $"{doctor.FirstName[0]}.{doctor.MiddleName[0]}. {doctor.LastName}";
-                        if (formattedName == savedDoctorName)
-                        {
-                            comboBoxDoctorName.SelectedItem = item;
-                            break;
-                        }
-                    }
-                }
-            }
-
-            // Препопуляція cbDepartmentHead
-            string savedHead = GetSymptom("_fieldDepartmentHead");
-            if (!string.IsNullOrWhiteSpace(savedHead))
-            {
-                foreach (ComboBoxItem item in cbDepartmentHead.Items)
-                {
-                    if (item.Tag is Doctor chief)
-                    {
-                        var formatted = $"{chief.FirstName[0]}.{chief.MiddleName[0]}. {chief.LastName}";
-                        if (formatted == savedHead)
-                        {
-                            cbDepartmentHead.SelectedItem = item;
-                            break;
-                        }
-                    }
-                }
-            }
-
 
             tbDepartHeadAssistant.Text = GetSymptom("_fieldDepartHeadAssistant") ?? "";
             LogicalTreeHelper.GetChildren(containerOverallItem1)
@@ -715,10 +678,10 @@ public partial class AddPatient : Window
 
             try
             {
-                //if (dateOperation.customDatePicker.BlackoutDates.Count() > 0)
-                //    dateOperation.customDatePicker.BlackoutDates.Clear();
-                //dateOperation.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1),
-                //    datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
+                if (dateOperation.customDatePicker.BlackoutDates.Count() > 0)
+                    dateOperation.customDatePicker.BlackoutDates.Clear();
+                dateOperation.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1),
+                    datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
             }
             catch (Exception ex)
             {
@@ -740,10 +703,10 @@ public partial class AddPatient : Window
 
             try
             {
-                //if (dateChemotherapy.customDatePicker.BlackoutDates.Count() > 0)
-                //    dateChemotherapy.customDatePicker.BlackoutDates.Clear();
-                //dateChemotherapy.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1),
-                //    datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
+                if (dateChemotherapy.customDatePicker.BlackoutDates.Count() > 0)
+                    dateChemotherapy.customDatePicker.BlackoutDates.Clear();
+                dateChemotherapy.customDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1900, 1, 1),
+                    datePickerHospitalStart.customDatePicker.SelectedDate.Value.Date.AddDays(-1)));
             }
             catch (Exception ex)
             {
@@ -907,6 +870,45 @@ public partial class AddPatient : Window
 
         mainGridPage2.Visibility = Visibility.Hidden;
         mainGridPage3.Visibility = Visibility.Visible;
+
+        if (_isEditMode)
+        {
+
+            string savedDoctorName = GetSymptom("_fieldDoctor");
+            if (!string.IsNullOrWhiteSpace(savedDoctorName))
+            {
+                foreach (ComboBoxItem item in comboBoxDoctorName.Items)
+                {
+                    if (item.Tag is Doctor doctor)
+                    {
+                        var formattedName = $"{doctor.FirstName[0]}.{doctor.MiddleName[0]}. {doctor.LastName}";
+                        if (formattedName == savedDoctorName)
+                        {
+                            comboBoxDoctorName.SelectedItem = item;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // Препопуляція cbDepartmentHead
+            string savedHead = GetSymptom("_fieldDepartmentHead");
+            if (!string.IsNullOrWhiteSpace(savedHead))
+            {
+                foreach (ComboBoxItem item in cbDepartmentHead.Items)
+                {
+                    if (item.Tag is Doctor chief)
+                    {
+                        var formatted = $"{chief.FirstName[0]}.{chief.MiddleName[0]}. {chief.LastName}";
+                        if (formatted == savedHead)
+                        {
+                            cbDepartmentHead.SelectedItem = item;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
 
         SetSymptom("_fieldClaims", JsonConvert.SerializeObject(tbClaims.Text.Trim().TrimEnd(',').Split("\n")));
         SetSymptom("_fieldEntrDiagnosis", tbEntrDiagnosis.Text);
@@ -1778,6 +1780,6 @@ public partial class AddPatient : Window
 
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
-        if (!_isEditMode) LoadDoctorsAndChiefsAsync();
+        LoadDoctorsAndChiefsAsync();
     }
 }
