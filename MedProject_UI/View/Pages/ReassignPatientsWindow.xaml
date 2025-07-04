@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MedProject_UI.View.Pages"
         mc:Ignorable="d"
-        Title="ReassignPatientsWindow" MinHeight="500" MinWidth="800" MaxHeight="1200" MaxWidth="1400">
+        Title="ReassignPatientsWindow" MinHeight="500" MinWidth="800" MaxHeight="1200" MaxWidth="1400" Icon="/smallIcon.jpg">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/background.jpg" Stretch="UniformToFill" TileMode="Tile" Opacity="0.3" AlignmentX="Left"/>

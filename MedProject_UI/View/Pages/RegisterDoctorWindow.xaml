@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MedProject_UI.View.Pages"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="Реєстрація лікаря" Height="470" Width="800" ResizeMode="CanMinimize">
+        Title="Реєстрація лікаря" Height="470" Width="800" ResizeMode="CanMinimize" Icon="/smallIcon.jpg">
     <Window.Resources>
         <Style x:Key="RoundedButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#007bff"/>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MedProject_UI.View.Pages"
         mc:Ignorable="d"
         Title="Меню лікаря" Height="680" Width="450"
-        ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/smallIcon.jpg">
     <Window.Resources>
         <Style x:Key="BootstrapButtonPrimary" TargetType="Button">
             <Setter Property="Background" Value="#6ebaad"/>

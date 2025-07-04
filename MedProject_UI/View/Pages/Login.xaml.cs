@@ -49,14 +49,18 @@ public partial class Login : Window
             {
                 App.CurrentUser = doctor;
                 var doctorNav = new DoctorNavigationWindow(doctor);
-                Close();
-                doctorNav.Show();
+                Hide();
+                doctorNav.ShowDialog();
+                tbPass.Password = "";
+                Show();
             }
             else
             {
                 var main = new MainWindow();
-                Close();
-                main.Show();
+                Hide();
+                main.ShowDialog();
+                tbPass.Password = "";
+                Show();
             }
         }
         catch (Exception ex)
