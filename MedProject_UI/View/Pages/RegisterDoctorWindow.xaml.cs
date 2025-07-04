@@ -1,10 +1,11 @@
-﻿using System.Text.RegularExpressions;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media;
-using MedProject_UI.Helpers;
+﻿using MedProject_UI.Helpers;
 using MedProject_UI.Models;
 using MedProject_UI.Services;
+using System.Text.RegularExpressions;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
 
 namespace MedProject_UI.View.Pages;
 
@@ -14,6 +15,9 @@ namespace MedProject_UI.View.Pages;
 public partial class RegisterDoctorWindow : Window
 {
     private readonly MongoDbService _mongoService;
+    private readonly bool _isEditMode = false;
+    private readonly Doctor _editingDoctor;
+
 
     public RegisterDoctorWindow()
     {
@@ -25,6 +29,52 @@ public partial class RegisterDoctorWindow : Window
             config.MongoDbConnection,
             config.DatabaseName
         );
+
+        cbAccessLevel.ItemsSource = new List<AccessLevelItem>
+        {
+            new AccessLevelItem { Value = "visitor", Display = "Відвідувач" },
+            new AccessLevelItem { Value = "doctor", Display = "Лікар" }
+        };
+        cbAccessLevel.SelectedIndex = 0;
+    }
+
+    public RegisterDoctorWindow(Doctor doctorToEdit) : this()
+    {
+        _isEditMode = true;
+        _editingDoctor = doctorToEdit;
+
+        Title = "Редагування доктора";
+        btnRegister.Content = "Зберегти";
+
+        // Заповнення полів
+        tbFirstName.Text = doctorToEdit.FirstName;
+        tbLastName.Text = doctorToEdit.LastName;
+        tbMiddleName.Text = doctorToEdit.MiddleName;
+        cbPosition.Text = doctorToEdit.Position;
+        tbPhone.Text = doctorToEdit.Phone;
+        tbEmail.Text = doctorToEdit.Email;
+        tbAddress.Text = doctorToEdit.Address;
+        dpBirthDate.SelectedDate = doctorToEdit.BirthDate;
+        dpStartDate.SelectedDate = doctorToEdit.StartDate;
+        cbAccessLevel.SelectedValue = doctorToEdit.AccessLevel;
+
+        // Заблоковані поля
+        tbEmail.IsEnabled = false;
+        if (App.CurrentUser?.AccessLevel != "admin") dpBirthDate.IsEnabled = false;
+        pbPassword.IsEnabled = false;
+        pbConfirmPassword.IsEnabled = false;
+
+        // Розширені варіанти рівня доступу
+        cbAccessLevel.ItemsSource = new List<AccessLevelItem>
+        {
+            new AccessLevelItem { Value = "admin", Display = "Адміністратор" },
+            new AccessLevelItem { Value = "chief_doctor", Display = "Головний лікар" },
+            new AccessLevelItem { Value = "doctor", Display = "Лікар" },
+            new AccessLevelItem { Value = "visitor", Display = "Відвідувач" }
+        };
+
+        cbAccessLevel.SelectedItem = ((List<AccessLevelItem>)cbAccessLevel.ItemsSource)
+            .FirstOrDefault(item => item.Value == _editingDoctor.AccessLevel);
     }
 
     private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -34,183 +84,117 @@ public partial class RegisterDoctorWindow : Window
 
     private async void btnRegister_Click(object sender, RoutedEventArgs e)
     {
-        // Отримання даних з полів
-        var firstName = tbFirstName.Text.Trim();
-        var lastName = tbLastName.Text.Trim();
-        var middleName = tbMiddleName.Text.Trim();
-        var position = cbPosition.SelectionBoxItem?.ToString();
-        var phone = tbPhone.Text.Trim();
-        var email = tbEmail.Text.Trim();
-        var address = tbAddress.Text.Trim();
-        var birthDate = dpBirthDate.SelectedDate;
-        var startDate = dpStartDate.SelectedDate;
-        var password = pbPassword.Password.Trim();
-        var confirmPassword = pbConfirmPassword.Password.Trim();
+        bool hasErrors = false;
 
-        ResetFieldHighlights();
-
-        var hasError = false;
-
-        #region Перевірка необхідних полів
-
-        if (string.IsNullOrWhiteSpace(firstName))
+        // Очищення попередніх підсвічувань
+        void ClearBorders()
         {
-            tbFirstName.Style = (Style)FindResource("ErrorTextBox");
-            hasError = true;
+            tbFirstName.ClearValue(Border.BorderBrushProperty);
+            tbLastName.ClearValue(Border.BorderBrushProperty);
+            tbMiddleName.ClearValue(Border.BorderBrushProperty);
+            cbPosition.ClearValue(Border.BorderBrushProperty);
+            tbEmail.ClearValue(Border.BorderBrushProperty);
+            tbPhone.ClearValue(Border.BorderBrushProperty);
+            tbAddress.ClearValue(Border.BorderBrushProperty);
+            cbAccessLevel.ClearValue(Border.BorderBrushProperty);
+            dpStartDate.ClearValue(Border.BorderBrushProperty);
+            if (!_isEditMode)
+            {
+                pbPassword.ClearValue(Border.BorderBrushProperty);
+                pbConfirmPassword.ClearValue(Border.BorderBrushProperty);
+            }
         }
 
-        if (string.IsNullOrWhiteSpace(lastName))
+        void MarkError(Control control)
         {
-            tbLastName.Style = (Style)FindResource("ErrorTextBox");
-            hasError = true;
+            control.BorderBrush = Brushes.Red;
         }
 
-        if (string.IsNullOrWhiteSpace(middleName))
+        ClearBorders();
+
+        // Перевірка обов'язкових полів
+        if (string.IsNullOrWhiteSpace(tbFirstName.Text)) { MarkError(tbFirstName); hasErrors = true; }
+        if (string.IsNullOrWhiteSpace(tbLastName.Text)) { MarkError(tbLastName); hasErrors = true; }
+        if (string.IsNullOrWhiteSpace(tbMiddleName.Text)) { MarkError(tbMiddleName); hasErrors = true; }
+        if (string.IsNullOrWhiteSpace(cbPosition.Text)) { MarkError(cbPosition); hasErrors = true; }
+        if (string.IsNullOrWhiteSpace(dpBirthDate.Text)) { MarkError(dpBirthDate); hasErrors = true; }
+        if (string.IsNullOrWhiteSpace(tbEmail.Text)) { MarkError(tbEmail); hasErrors = true; }
+        if (string.IsNullOrWhiteSpace(tbPhone.Text) || tbPhone.Text == "+38(___)___-__-__") { MarkError(tbPhone); hasErrors = true; }
+        if (cbAccessLevel.SelectedItem == null) { MarkError(cbAccessLevel); hasErrors = true; }
+        if (dpStartDate.SelectedDate == null) { MarkError(dpStartDate); hasErrors = true; }
+
+        if (!_isEditMode)
         {
-            tbMiddleName.Style = (Style)FindResource("ErrorTextBox");
-            hasError = true;
+            if (string.IsNullOrWhiteSpace(pbPassword.Password)) { MarkError(pbPassword); hasErrors = true; }
+            if (string.IsNullOrWhiteSpace(pbConfirmPassword.Password)) { MarkError(pbConfirmPassword); hasErrors = true; }
+            if (pbPassword.Password != pbConfirmPassword.Password)
+            {
+                MarkError(pbPassword);
+                MarkError(pbConfirmPassword);
+                MessageBox.Show("Паролі не співпадають.", "Помилка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
         }
 
-        if (string.IsNullOrWhiteSpace(position))
+        if (hasErrors)
         {
-            cbPosition.Style = (Style)FindResource("ErrorComboBox");
-            hasError = true;
-        }
-
-        if (string.IsNullOrWhiteSpace(phone))
-        {
-            tbPhone.Style = (Style)FindResource("ErrorTextBox");
-            hasError = true;
-        }
-
-        if (string.IsNullOrWhiteSpace(email))
-        {
-            tbEmail.Style = (Style)FindResource("ErrorTextBox");
-            hasError = true;
-        }
-
-        if (!Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-        {
-            tbEmail.Style = (Style)FindResource("ErrorTextBox");
-            MessageBox.Show("Невірний формат email.", "Помилка", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show("Будь ласка, заповніть усі обов'язкові поля.", "Помилка", MessageBoxButton.OK, MessageBoxImage.Warning);
             return;
         }
 
-        var existingDoctor = await _mongoService.GetDoctorByEmailAsync(email);
-        if (existingDoctor != null)
+        if (_isEditMode)
         {
-            MessageBox.Show("Лікар з таким email вже існує в системі.", "Помилка", MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-            return;
+            _editingDoctor.FirstName = tbFirstName.Text.Trim();
+            _editingDoctor.LastName = tbLastName.Text.Trim();
+            _editingDoctor.MiddleName = tbMiddleName.Text.Trim();
+            _editingDoctor.Phone = tbPhone.Text.Trim();
+            _editingDoctor.Address = tbAddress.Text.Trim();
+            _editingDoctor.Position = cbPosition.Text.Trim();
+            _editingDoctor.StartDate = dpStartDate.SelectedDate ?? DateTime.Today;
+            var selectedAccessItem = cbAccessLevel.SelectedItem as AccessLevelItem;
+            if (selectedAccessItem != null)
+            {
+                _editingDoctor.AccessLevel = selectedAccessItem.Value;
+            }
+
+            await _mongoService.UpdateDoctorAsync(_editingDoctor);
+            MessageBox.Show("Дані лікаря оновлено!", "Успішно", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-
-        if (birthDate == null)
+        else
         {
-            dpBirthDate.Style = (Style)FindResource("ErrorDatePicker");
-            hasError = true;
-        }
+            var newDoctor = new Doctor
+            {
+                FirstName = tbFirstName.Text.Trim(),
+                LastName = tbLastName.Text.Trim(),
+                MiddleName = tbMiddleName.Text.Trim(),
+                Email = tbEmail.Text.Trim(),
+                Phone = tbPhone.Text.Trim(),
+                Address = tbAddress.Text.Trim(),
+                Position = cbPosition.Text.Trim(),
+                BirthDate = dpBirthDate.SelectedDate ?? DateTime.MinValue,
+                StartDate = dpStartDate.SelectedDate ?? DateTime.Today,
+                Username = tbEmail.Text.Trim(),
+                PasswordHash = PasswordHelper.HashPassword(pbPassword.Password)
+            };
+            var selectedAccessItem = cbAccessLevel.SelectedItem as AccessLevelItem;
+            if (selectedAccessItem != null)
+            {
+                newDoctor.AccessLevel = selectedAccessItem.Value;
+            }
 
-        if (startDate == null)
-        {
-            dpStartDate.Style = (Style)FindResource("ErrorDatePicker");
-            hasError = true;
-        }
+            var exists = await _mongoService.CheckDoctorExistsByEmailAsync(newDoctor.Email);
+            if (exists)
+            {
+                MessageBox.Show("Користувач з таким Email вже існує.", "Помилка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MarkError(tbEmail);
+                return;
+            }
 
-        if ((startDate.Value - birthDate.Value).TotalDays < 16 * 365.25)
-        {
-            MessageBox.Show("Дата початку роботи повинна бути не раніше ніж після досягнення 16 років.", "Помилка",
-                MessageBoxButton.OK, MessageBoxImage.Warning);
-            return;
-        }
-
-        if (string.IsNullOrWhiteSpace(password))
-        {
-            pbPassword.BorderBrush = Brushes.Red;
-            pbPassword.BorderThickness = new Thickness(2);
-            hasError = true;
-        }
-
-        if (string.IsNullOrWhiteSpace(confirmPassword))
-        {
-            pbConfirmPassword.BorderBrush = Brushes.Red;
-            pbConfirmPassword.BorderThickness = new Thickness(2);
-            hasError = true;
-        }
-
-        if (password.Length < 8)
-        {
-            MessageBox.Show("Пароль повинен містити щонайменше 8 символів.", "Помилка", MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-            return;
-        }
-
-        if (hasError)
-        {
-            MessageBox.Show("Будь ласка, заповніть усі обов'язкові поля.", "Помилка", MessageBoxButton.OK,
-                MessageBoxImage.Warning);
-            return;
-        }
-
-        #endregion
-
-        if (password != confirmPassword)
-        {
-            MessageBox.Show("Паролі не співпадають.", "Помилка", MessageBoxButton.OK, MessageBoxImage.Warning);
-            return;
-        }
-
-        // Створення нового об'єкта Doctor
-        var newDoctor = new Doctor
-        {
-            FirstName = firstName,
-            LastName = lastName,
-            MiddleName = middleName,
-            Username = $"{Transliterate(lastName)}_{Transliterate(firstName)}_{birthDate.Value.ToString("dd.MM.yyyy")}",
-            Position = position,
-            Phone = phone,
-            Email = email,
-            Address = address,
-            BirthDate = birthDate.Value,
-            StartDate = startDate.Value,
-            PasswordHash = PasswordHelper.HashPassword(password),
-            AccessLevel = cbAccessLevel.SelectedValue?.ToString() ?? "doctor", // За замовчуванням
-            PatientIds = new List<string>(),
-            WorkSchedule = new List<WorkShift>()
-        };
-
-        try
-        {
             await _mongoService.AddDoctorAsync(newDoctor);
-            MessageBox.Show("Доктора успішно зареєстровано!", "Успіх", MessageBoxButton.OK,
-                MessageBoxImage.Information);
-            Close();
+            MessageBox.Show("Користувача успішно зареєстровано!", "Успішно", MessageBoxButton.OK, MessageBoxImage.Information);
         }
-        catch (Exception ex)
-        {
-            MessageBox.Show("Помилка при реєстрації: " + ex.Message, "Помилка", MessageBoxButton.OK,
-                MessageBoxImage.Error);
-        }
-    }
 
-    private void ResetFieldHighlights()
-    {
-        // Відновлення стилів
-        tbFirstName.ClearValue(StyleProperty);
-        tbLastName.ClearValue(StyleProperty);
-        tbMiddleName.ClearValue(StyleProperty);
-        tbPhone.ClearValue(StyleProperty);
-        tbEmail.ClearValue(StyleProperty);
-        tbAddress.ClearValue(StyleProperty);
-        cbPosition.ClearValue(StyleProperty);
-        cbAccessLevel.ClearValue(StyleProperty);
-        dpBirthDate.ClearValue(StyleProperty);
-        dpStartDate.ClearValue(StyleProperty);
-
-        pbPassword.BorderBrush = Brushes.Gray;
-        pbPassword.BorderThickness = new Thickness(1);
-
-        pbConfirmPassword.BorderBrush = Brushes.Gray;
-        pbConfirmPassword.BorderThickness = new Thickness(1);
+        Close();
     }
 
     private void UkrainianOnlyTextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -273,5 +257,13 @@ public partial class RegisterDoctorWindow : Window
     private string Capitalize(string input)
     {
         return string.IsNullOrEmpty(input) ? "" : input[..1].ToUpper() + input[1..];
+    }
+
+    public class AccessLevelItem
+    {
+        public string Value { get; set; }      // внутрішнє значення, що зберігається
+        public string Display { get; set; }    // текст, який бачить користувач
+
+        public override string ToString() => Display; // Для відображення в ComboBox
     }
 }

@@ -8,9 +8,12 @@
         Title="DoctorsWindow" Height="450" Width="1000"
         Loaded="Window_Loaded">
     <Grid>
-        <DockPanel Background="White">
+        <Grid.Background>
+            <ImageBrush ImageSource="/background.jpg" Stretch="UniformToFill" TileMode="Tile" Opacity="0.3" AlignmentX="Left"/>
+        </Grid.Background>
+        <DockPanel Background="Transparent" Margin="10">
             <!-- Основна частина -->
-            <Grid Margin="10">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="1.5*"/>
                     <!-- 20% -->

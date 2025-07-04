@@ -25,6 +25,9 @@
     <Compile Update="View\Pages\PatientDescription.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\Pages\ReassignPatientsWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\Pages\RegisterDoctorWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

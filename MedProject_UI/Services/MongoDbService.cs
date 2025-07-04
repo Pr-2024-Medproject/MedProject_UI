@@ -83,6 +83,13 @@ internal class MongoDbService
         return await _doctors.Find(d => d.Email == email).FirstOrDefaultAsync();
     }
 
+    public async Task<bool> CheckDoctorExistsByEmailAsync(string email)
+    {
+        var filter = Builders<Doctor>.Filter.Eq(d => d.Email, email);
+        var result = await _doctors.Find(filter).FirstOrDefaultAsync();
+        return result != null;
+    }
+
     public async Task AddDoctorAsync(Doctor doctor)
     {
         await _doctors.InsertOneAsync(doctor);

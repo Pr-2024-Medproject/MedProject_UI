@@ -1,0 +1,74 @@
+﻿<Window x:Class="MedProject_UI.View.Pages.ReassignPatientsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MedProject_UI.View.Pages"
+        mc:Ignorable="d"
+        Title="ReassignPatientsWindow" MinHeight="500" MinWidth="800" MaxHeight="1200" MaxWidth="1400">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/background.jpg" Stretch="UniformToFill" TileMode="Tile" Opacity="0.3" AlignmentX="Left"/>
+        </Grid.Background>
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock 
+                x:Name="Label_Cat2" 
+                HorizontalAlignment="Left" VerticalAlignment="Center" 
+                TextWrapping="Wrap" Text="Виберіть нового лікаря для кожного пацієнта:"  
+                FontSize="24" FontFamily="Roboto" 
+                Margin="0,0,0,10">
+                <TextBlock.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF56B1A9" Offset="1"/>
+                        <GradientStop Color="Transparent" Offset="0.667"/>
+                    </LinearGradientBrush>
+                </TextBlock.Background>
+            </TextBlock>
+
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="PatientsPanel" />
+            </ScrollViewer>
+
+            <Grid Grid.Row="2" HorizontalAlignment="Stretch" Margin="0 10 0 0">
+                <Button Content="Назад" Width="100" Margin="5" Click="BtnBack_Click"
+                        FontFamily="Roboto" FontSize="16" Padding="5,5"
+                        Background="#D64550" Foreground="White" BorderBrush="#D64550"
+                        BorderThickness="0" Cursor="Hand" HorizontalAlignment="Left">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+                <Button Content="Взяти всіх на себе" Width="150" Margin="5" Click="BtnTakeAll_Click"
+                        FontFamily="Roboto" FontSize="16" Padding="5,5"
+                        Background="#084298" Foreground="White" BorderBrush="#084298"
+                        BorderThickness="0" Cursor="Hand" HorizontalAlignment="Center">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+                <Button Content="Зберегти" Width="100" Margin="5" Click="BtnSave_Click"
+                        FontFamily="Roboto" FontSize="16" Padding="5,5"
+                        Background="#6EBAAD" Foreground="White" BorderBrush="#6EBAAD"
+                        BorderThickness="0" Cursor="Hand" HorizontalAlignment="Right">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

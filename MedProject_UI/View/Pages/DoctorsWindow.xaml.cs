@@ -84,27 +84,72 @@ public partial class DoctorsWindow : Window
     {
         if (sender is Button btn && btn.DataContext is Doctor selectedDoctor)
         {
-            // TODO: Відкрити форму редагування лікаря
-            MessageBox.Show($"Редагування: {selectedDoctor.LastName} {selectedDoctor.FirstName}");
+            var editWindow = new RegisterDoctorWindow(selectedDoctor);
+            editWindow.ShowDialog();
+
+            // Оновити список після редагування
+            LoadDoctors();
         }
     }
 
-    private void BtnDelete_Click(object sender, RoutedEventArgs e)
+    private async void BtnDelete_Click(object sender, RoutedEventArgs e)
     {
         if (sender is Button btn && btn.DataContext is Doctor selectedDoctor)
         {
-            var result = MessageBox.Show($"Ви впевнені, що хочете видалити лікаря {selectedDoctor.LastName}?",
-                "Підтвердження видалення",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Warning);
+            // Не дозволяємо видалити самого себе — вже реалізовано
 
-            if (result == MessageBoxResult.Yes)
+            var config = AppConfig.Load();
+            var mongoService = new MongoDbService(config.MongoDbConnection, config.DatabaseName);
+
+            // Отримуємо пацієнтів, прив’язаних до цього лікаря
+            var patients = await mongoService.GetPatientsByDoctorIdAsync(selectedDoctor.Id);
+
+            // Якщо це visitor або немає пацієнтів — просте видалення
+            if (selectedDoctor.AccessLevel.ToLower() == "viewer" || patients.Count == 0)
             {
-                var config = AppConfig.Load();
-                var mongoService = new MongoDbService(config.MongoDbConnection, config.DatabaseName);
-                mongoService.DeleteDoctorAsync(selectedDoctor.Id);
+                var confirm = MessageBox.Show(
+                    $"Ви впевнені, що хочете видалити лікаря {selectedDoctor.LastName}?",
+                    "Підтвердження видалення",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning);
 
-                // Оновити список
+                if (confirm == MessageBoxResult.Yes)
+                {
+                    await mongoService.DeleteDoctorAsync(selectedDoctor.Id);
+                    LoadDoctors();
+                }
+
+                return;
+            }
+
+            // Якщо є пацієнти, відкриваємо вікно переназначення
+            var allDoctors = await mongoService.GetAllDoctorsAsync();
+
+            var reassignableDoctors = allDoctors
+                .Where(d =>
+                    d.Id != selectedDoctor.Id &&
+                    d.AccessLevel.ToLower() != "visitor" 
+                        && d.AccessLevel.ToLower() != "admin")
+                .ToList();
+
+            var reassignWindow = new ReassignPatientsWindow(patients, reassignableDoctors);
+
+            if (reassignWindow.ShowDialog() == true)
+            {
+                // Зберігаємо переназначення
+                foreach (var (patient, newDoctor) in reassignWindow.GetReassignments())
+                {
+                    patient.DoctorId = newDoctor.Id;
+                    patient.Doctor = $"{newDoctor.FullName}";
+                    await mongoService.UpdatePatientAsync(patient);
+                }
+
+                // Видаляємо лікаря
+                await mongoService.DeleteDoctorAsync(selectedDoctor.Id);
+
+                MessageBox.Show("Лікаря видалено, а пацієнтів переназначено.", "Успіх",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+
                 LoadDoctors();
             }
         }

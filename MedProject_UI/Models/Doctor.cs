@@ -32,6 +32,9 @@ namespace MedProject_UI.Models
 
         public List<string> PatientIds { get; set; } = new(); // ID пацієнтів
         public List<WorkShift> WorkSchedule { get; set; } = new(); // Робочий графік
+
+        [BsonIgnore] // Щоб не зберігати в MongoDB
+        public string FullName => $"{LastName} {FirstName} {MiddleName}";
     }
 
     public class WorkShift
@@ -40,4 +43,6 @@ namespace MedProject_UI.Models
         public TimeSpan StartTime { get; set; } // Початок
         public TimeSpan EndTime { get; set; } // Кінець
     }
+
+
 }

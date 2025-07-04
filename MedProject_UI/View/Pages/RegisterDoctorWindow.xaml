@@ -105,12 +105,9 @@
         <DatePicker Grid.Column="1" Grid.Row="5" x:Name="dpStartDate" VerticalContentAlignment="Center" Margin="10,0,10,0" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" />
 
         <TextBlock Grid.Column="1" Grid.Row="6" Text="Рівень доступу" Margin="10,0,10,0" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
-        <ComboBox Grid.Column="1" Grid.Row="7" x:Name="cbAccessLevel" VerticalContentAlignment="Center" Margin="10,0,10,0" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" SelectedIndex="1" SelectedValuePath="Tag">
-            <ComboBoxItem Content="Лікар" Tag="doctor"/>
-            <ComboBoxItem Content="Гість" Tag="visitor"/>
-        </ComboBox>
+        <ComboBox Grid.Column="1" Grid.Row="7" x:Name="cbAccessLevel" VerticalContentAlignment="Center" Margin="10,0,10,0" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" SelectedIndex="1" SelectedValuePath="Tag"/>
 
-        <TextBlock Grid.Column="1" Grid.Row="8" Text="Пароль" Margin="10,0,10,0" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
+            <TextBlock Grid.Column="1" Grid.Row="8" Text="Пароль" Margin="10,0,10,0" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
         <PasswordBox Grid.Column="1" Grid.Row="9" x:Name="pbPassword" VerticalContentAlignment="Center" Margin="10,0,10,0" VerticalAlignment="Stretch" FontSize="14" FontFamily="Roboto" />
 
         <TextBlock Grid.Column="1" Grid.Row="10" Text="Підтвердження паролю" Margin="10,0,10,0" FontFamily="Roboto" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Center" />
