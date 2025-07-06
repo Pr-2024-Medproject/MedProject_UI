@@ -31,6 +31,9 @@
     <Compile Update="View\Pages\RegisterDoctorWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\Pages\WorkScheduleWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="View\UserControls\btnTemplate.xaml.cs">
       <SubType>Code</SubType>
     </Compile>

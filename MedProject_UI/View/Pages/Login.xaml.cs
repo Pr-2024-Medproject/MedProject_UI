@@ -14,6 +14,10 @@ public partial class Login : Window
     public Login()
     {
         InitializeComponent();
+
+        //!!!FOR TEST PURPOSE ONLY!!!!
+        tbEmail.Text = "some.email@email.com";
+        tbPass.Password = "123456";
     }
 
     private async void BTN_Login_Click(object sender, RoutedEventArgs e)

@@ -105,12 +105,42 @@ public partial class DoctorNavigationWindow : Window
 
     private void BtnViewSchedule_Click(object sender, RoutedEventArgs e)
     {
-        MessageBox.Show("Форма перегляду графіка у розробці.", "Інформація");
+        var doctorOnlyList = new List<Doctor> { _doctor };
+
+        var scheduleWindow = new WorkScheduleWindow(doctorOnlyList);
+        Hide();
+        scheduleWindow.ShowDialog();
+        Show();
     }
 
-    private void BtnEditSchedule_Click(object sender, RoutedEventArgs e)
+    private async void BtnEditSchedule_Click(object sender, RoutedEventArgs e)
     {
-        MessageBox.Show("Форма редагування графіка у розробці.", "Інформація");
+        try
+        {
+            var config = AppConfig.Load();
+            var mongoService = new MongoDbService(config.MongoDbConnection, config.DatabaseName);
+
+            // Отримати список лікарів, яких можна відображати (без admin, chief_doctor, visitor)
+            var allDoctors = await mongoService.GetAllDoctorsAsync();
+            var editableDoctors = allDoctors
+                .Where(d => d.AccessLevel == "doctor")
+                .ToList();
+
+            if (editableDoctors.Count == 0)
+            {
+                MessageBox.Show("Немає лікарів для відображення.", "Інформація", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
+
+            var scheduleWindow = new WorkScheduleWindow(editableDoctors);
+            Hide();
+            scheduleWindow.ShowDialog();
+            Show();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Помилка при завантаженні графіка: {ex.Message}", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     private async void BtnExportPatients_Click(object sender, RoutedEventArgs e)
