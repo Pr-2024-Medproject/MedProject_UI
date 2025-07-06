@@ -48,11 +48,10 @@ public partial class Login : Window
             if (doctor.AccessLevel == "doctor" || doctor.AccessLevel == "chief_doctor" || doctor.AccessLevel == "admin")
             {
                 App.CurrentUser = doctor;
+                
                 var doctorNav = new DoctorNavigationWindow(doctor);
-                Hide();
+                Close();
                 doctorNav.ShowDialog();
-                tbPass.Password = "";
-                Show();
             }
             else
             {

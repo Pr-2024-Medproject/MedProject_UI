@@ -35,6 +35,8 @@ namespace MedProject_UI.Models
 
         [BsonIgnore] // Щоб не зберігати в MongoDB
         public string FullName => $"{LastName} {FirstName} {MiddleName}";
+        [BsonIgnore] // Щоб не зберігати в MongoDB
+        public string ShortName => $"{FirstName[0]}.{MiddleName[0]}. {LastName}";
     }
 
     public class WorkShift

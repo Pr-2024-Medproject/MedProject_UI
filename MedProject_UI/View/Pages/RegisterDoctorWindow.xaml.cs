@@ -16,6 +16,7 @@ public partial class RegisterDoctorWindow : Window
 {
     private readonly MongoDbService _mongoService;
     private readonly bool _isEditMode = false;
+    private readonly bool _isSelfEdit;
     private readonly Doctor _editingDoctor;
 
 
@@ -38,10 +39,11 @@ public partial class RegisterDoctorWindow : Window
         cbAccessLevel.SelectedIndex = 0;
     }
 
-    public RegisterDoctorWindow(Doctor doctorToEdit) : this()
+    public RegisterDoctorWindow(Doctor doctorToEdit, bool isSelfEdit = false) : this()
     {
         _isEditMode = true;
         _editingDoctor = doctorToEdit;
+        _isSelfEdit = isSelfEdit;
 
         Title = "Редагування доктора";
         btnRegister.Content = "Зберегти";
@@ -59,10 +61,10 @@ public partial class RegisterDoctorWindow : Window
         cbAccessLevel.SelectedValue = doctorToEdit.AccessLevel;
 
         // Заблоковані поля
-        tbEmail.IsEnabled = false;
+        tbEmail.IsEnabled = _isSelfEdit;
         if (App.CurrentUser?.AccessLevel != "admin") dpBirthDate.IsEnabled = false;
-        pbPassword.IsEnabled = false;
-        pbConfirmPassword.IsEnabled = false;
+        pbPassword.IsEnabled = _isSelfEdit;
+        pbConfirmPassword.IsEnabled = _isSelfEdit;
 
         // Розширені варіанти рівня доступу
         cbAccessLevel.ItemsSource = new List<AccessLevelItem>
@@ -75,6 +77,9 @@ public partial class RegisterDoctorWindow : Window
 
         cbAccessLevel.SelectedItem = ((List<AccessLevelItem>)cbAccessLevel.ItemsSource)
             .FirstOrDefault(item => item.Value == _editingDoctor.AccessLevel);
+
+        cbAccessLevel.IsEnabled = !_isSelfEdit;
+        cbPosition.IsEnabled = !_isSelfEdit;
     }
 
     private void btnCancel_Click(object sender, RoutedEventArgs e)
@@ -98,7 +103,7 @@ public partial class RegisterDoctorWindow : Window
             tbAddress.ClearValue(Border.BorderBrushProperty);
             cbAccessLevel.ClearValue(Border.BorderBrushProperty);
             dpStartDate.ClearValue(Border.BorderBrushProperty);
-            if (!_isEditMode)
+            if (!_isEditMode || _isSelfEdit)
             {
                 pbPassword.ClearValue(Border.BorderBrushProperty);
                 pbConfirmPassword.ClearValue(Border.BorderBrushProperty);
@@ -123,7 +128,7 @@ public partial class RegisterDoctorWindow : Window
         if (cbAccessLevel.SelectedItem == null) { MarkError(cbAccessLevel); hasErrors = true; }
         if (dpStartDate.SelectedDate == null) { MarkError(dpStartDate); hasErrors = true; }
 
-        if (!_isEditMode)
+        if (!_isEditMode || _isSelfEdit)
         {
             if (string.IsNullOrWhiteSpace(pbPassword.Password)) { MarkError(pbPassword); hasErrors = true; }
             if (string.IsNullOrWhiteSpace(pbConfirmPassword.Password)) { MarkError(pbConfirmPassword); hasErrors = true; }
@@ -148,6 +153,19 @@ public partial class RegisterDoctorWindow : Window
             _editingDoctor.LastName = tbLastName.Text.Trim();
             _editingDoctor.MiddleName = tbMiddleName.Text.Trim();
             _editingDoctor.Phone = tbPhone.Text.Trim();
+            if (_isSelfEdit)
+            {
+                var exists = await _mongoService.CheckDoctorExistsByEmailAsync(tbEmail.Text.Trim());
+                if (exists)
+                {
+                    MessageBox.Show("Користувач з таким Email вже існує.", "Помилка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MarkError(tbEmail);
+                    return;
+                }
+
+                _editingDoctor.Email = tbEmail.Text.Trim();
+                _editingDoctor.PasswordHash = PasswordHelper.HashPassword(pbPassword.Password);
+            }
             _editingDoctor.Address = tbAddress.Text.Trim();
             _editingDoctor.Position = cbPosition.Text.Trim();
             _editingDoctor.StartDate = dpStartDate.SelectedDate ?? DateTime.Today;
@@ -156,6 +174,7 @@ public partial class RegisterDoctorWindow : Window
             {
                 _editingDoctor.AccessLevel = selectedAccessItem.Value;
             }
+
 
             await _mongoService.UpdateDoctorAsync(_editingDoctor);
             MessageBox.Show("Дані лікаря оновлено!", "Успішно", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -194,6 +213,7 @@ public partial class RegisterDoctorWindow : Window
             MessageBox.Show("Користувача успішно зареєстровано!", "Успішно", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
+        DialogResult = true;
         Close();
     }
 

@@ -30,11 +30,13 @@ public partial class DoctorNavigationWindow : Window
         // Створюємо кнопки
         var btnDoctors = CreateButton("Переглянути список докторів", BtnViewDoctors_Click);
         var btnPatients = CreateButton("Переглянути список пацієнтів", BtnViewPatients_Click);
+        var btnSelfEdit = CreateButton("Редагувати власні дані", BtnEditSelf_Click);
         var btnExit = CreateButton("Вихід", BtnExit_Click);
 
 
         mainPanel.Children.Add(btnDoctors);
         mainPanel.Children.Add(btnPatients);
+        mainPanel.Children.Add(btnSelfEdit);
 
         // Графік: назва змінюється в залежності від ролі
         Button btnSchedule;
@@ -87,6 +89,17 @@ public partial class DoctorNavigationWindow : Window
         var patientsWindow = new MainWindow();
         Hide();
         patientsWindow.ShowDialog();
+        Show();
+    }
+
+    private void BtnEditSelf_Click(object sender, RoutedEventArgs e)
+    {
+        var editWindow = new RegisterDoctorWindow(_doctor, isSelfEdit: true);
+        Hide();
+        if (editWindow.ShowDialog() == true)
+        {
+            txtGreeting.Text = $"Вітаю, {_doctor.FirstName} {_doctor.LastName}!";
+        }
         Show();
     }
 
@@ -249,6 +262,8 @@ public partial class DoctorNavigationWindow : Window
 
     private void BtnExit_Click(object sender, RoutedEventArgs e)
     {
+        var loginWindowBack = new Login();
         Close();
+        loginWindowBack.ShowDialog();
     }
 }

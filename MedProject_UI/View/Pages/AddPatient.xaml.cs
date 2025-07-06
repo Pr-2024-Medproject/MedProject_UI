@@ -234,13 +234,6 @@ public partial class AddPatient : Window
                                                             ? null 
                                                             : ParseDate(GetSymptom("_fieldChemotherapyDate"));
             tbHistology.tbSearchText.Text = GetSymptom("_fieldHistology") ?? "";
-            //var doctors = new List<string>();
-            //foreach (var item in comboBoxDoctorName.Items) doctors.Add((item as ComboBoxItem).Content.ToString());
-            //comboBoxDoctorName.SelectedIndex =
-            //    doctors.IndexOf(GetSymptom("_fieldDoctor") ?? doctors[0]) != -1
-            //        ? doctors.IndexOf(GetSymptom("_fieldDoctor") ?? doctors[0])
-            //        : 0;
-            //cbDepartmentHead.Text = GetSymptom("_fieldDepartmentHead") ?? "Г.В. Петриченко";
 
             tbDepartHeadAssistant.Text = GetSymptom("_fieldDepartHeadAssistant") ?? "";
             LogicalTreeHelper.GetChildren(containerOverallItem1)
@@ -852,7 +845,7 @@ public partial class AddPatient : Window
     }
 
 
-    private void btnPage2Next_Click(object sender, RoutedEventArgs e)
+    private async void btnPage2Next_Click(object sender, RoutedEventArgs e)
     {
         var checkMandatory = new List<TextBox>
         {
@@ -874,15 +867,15 @@ public partial class AddPatient : Window
         if (_isEditMode)
         {
 
-            string savedDoctorName = GetSymptom("_fieldDoctor");
-            if (!string.IsNullOrWhiteSpace(savedDoctorName))
+            var savedDoctorName = await _mongoService.GetDoctorByIdAsync(_patient.DoctorId);
+            if (!string.IsNullOrWhiteSpace(savedDoctorName.ShortName))
             {
                 foreach (ComboBoxItem item in comboBoxDoctorName.Items)
                 {
                     if (item.Tag is Doctor doctor)
                     {
                         var formattedName = $"{doctor.FirstName[0]}.{doctor.MiddleName[0]}. {doctor.LastName}";
-                        if (formattedName == savedDoctorName)
+                        if (formattedName == savedDoctorName.ShortName)
                         {
                             comboBoxDoctorName.SelectedItem = item;
                             break;
@@ -1741,7 +1734,7 @@ public partial class AddPatient : Window
 
         // Встановити список лікарів у comboBoxDoctorName
         comboBoxDoctorName.Items.Clear();
-        foreach (var doctor in allDoctors)
+        foreach (var doctor in allDoctors.Where(d => d.AccessLevel != "visitor" && d.AccessLevel != "admin"))
         {
             var formatted = $"{doctor.FirstName[0]}.{doctor.MiddleName[0]}. {doctor.LastName}";
             var item = new ComboBoxItem { Content = formatted, Tag = doctor };
