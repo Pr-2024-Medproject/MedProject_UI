@@ -18,21 +18,23 @@ namespace MedProject_UI;
 public partial class AddPatient : Window
 {
     #region поля
-    private readonly Patient _patient;              // активний пацієнт (або новий)
-    private readonly Visit _visit;                  // візит, з яким працює форма
-    private readonly bool _isEditMode;              // редагуємо пацієнта цілком
-    private readonly bool _isNewVisitMode;          // додаємо лише новий візит існуючому пацієнту
-    private readonly MongoDbService _mongoService;  // робота з БД
+
+    private readonly Patient _patient; // активний пацієнт (або новий)
+    private readonly Visit _visit; // візит, з яким працює форма
+    private readonly bool _isEditMode; // редагуємо пацієнта цілком
+    private readonly bool _isNewVisitMode; // додаємо лише новий візит існуючому пацієнту
+    private readonly MongoDbService _mongoService; // робота з БД
     private readonly Doctor _currentDoctor;
+
     #endregion
 
     #region конструктор
+
     /// <summary>
-    /// Конструктор форми.
-    /// 
-    /// <para>patient == null  &rarr;  створення нового пацієнта</para>
-    /// <para>patient != null &amp;&amp; isNewVisitMode == false  &rarr;  редагування пацієнта</para>
-    /// <para>patient != null &amp;&amp; isNewVisitMode == true   &rarr;  додавання нового візиту</para>
+    ///     Конструктор форми.
+    ///     <para>patient == null  &rarr;  створення нового пацієнта</para>
+    ///     <para>patient != null &amp;&amp; isNewVisitMode == false  &rarr;  редагування пацієнта</para>
+    ///     <para>patient != null &amp;&amp; isNewVisitMode == true   &rarr;  додавання нового візиту</para>
     /// </summary>
     public AddPatient(Patient patient = null, bool isNewVisitMode = false, Visit visit = null)
     {
@@ -45,7 +47,7 @@ public partial class AddPatient : Window
             config.MongoDbConnection,
             config.DatabaseName);
 
-        _currentDoctor = App.CurrentUser;
+        _currentDoctor = CurrentUser;
         _isNewVisitMode = isNewVisitMode;
 
         // --- режим створення нового пацієнта --------------------------------
@@ -59,8 +61,8 @@ public partial class AddPatient : Window
         else if (_isNewVisitMode)
         {
             _isEditMode = false;
-            _patient = patient;            // пацієнт вже є в базі
-            _visit = new Visit();        // створюємо ПУСТИЙ новий візит
+            _patient = patient; // пацієнт вже є в базі
+            _visit = new Visit(); // створюємо ПУСТИЙ новий візит
         }
         // --- режим редагування наявного пацієнта ----------------------------
         else
@@ -73,11 +75,13 @@ public partial class AddPatient : Window
 
         ConfigureButtons();
         WireUpUiEvents();
-        PopulateFields();      // заповнюємо форму згідно з режимом
+        PopulateFields(); // заповнюємо форму згідно з режимом
     }
+
     #endregion
 
     #region налаштування UI
+
     private void ConfigureButtons()
     {
         // «Зберегти» vs «Зберегти зміни»
@@ -182,9 +186,11 @@ public partial class AddPatient : Window
         btnPage8Save.btnClick += btnPage8Save_Changes;
         btnPage8SaveChanges.btnClick += btnPage8Save_Changes;
     }
+
     #endregion
 
     #region заповнення полів
+
     private void PopulateFields()
     {
         // --- редагування пацієнта – залишаємо повне заповнення як було --------
@@ -215,7 +221,8 @@ public partial class AddPatient : Window
             datePickerBirthday.customDatePicker.SelectedDate = _patient.BirthDate;
             tbLivingAddress.tbSearchText.Text = _patient.Address;
             tbWorkAddress.tbSearchText.Text = _patient.Profession;
-            datePickerHospitalStart.customDatePicker.SelectedDate = _visit.StartDate.Year == 1 ? null : _visit.StartDate;
+            datePickerHospitalStart.customDatePicker.SelectedDate =
+                _visit.StartDate.Year == 1 ? null : _visit.StartDate;
             datePickerHospitalEnd.customDatePicker.SelectedDate = _visit.EndDate.Year == 1 ? null : _visit.EndDate;
             tbClaims.Text = GetSymptom("_fieldClaims") ?? "";
             tbEntrDiagnosis.Text = GetSymptom("_fieldEntrDiagnosis") ?? "";
@@ -226,13 +233,15 @@ public partial class AddPatient : Window
             tbOperationName.tbSearchText.Text = GetSymptom("_fieldOperationName") ?? "";
             var temp = ParseDate(GetSymptom("_fieldOperationDate"));
 
-            dateOperation.customDatePicker.SelectedDate = ParseDate(GetSymptom("_fieldOperationDate")).GetValueOrDefault().Year == 1 
-                                                            ? null 
-                                                            : ParseDate(GetSymptom("_fieldOperationDate"));
+            dateOperation.customDatePicker.SelectedDate =
+                ParseDate(GetSymptom("_fieldOperationDate")).GetValueOrDefault().Year == 1
+                    ? null
+                    : ParseDate(GetSymptom("_fieldOperationDate"));
             tbChemotherapyName.tbSearchText.Text = GetSymptom("_fieldChemotherapy") ?? "";
-            dateChemotherapy.customDatePicker.SelectedDate = ParseDate(GetSymptom("_fieldChemotherapyDate")).GetValueOrDefault().Year == 1 
-                                                            ? null 
-                                                            : ParseDate(GetSymptom("_fieldChemotherapyDate"));
+            dateChemotherapy.customDatePicker.SelectedDate =
+                ParseDate(GetSymptom("_fieldChemotherapyDate")).GetValueOrDefault().Year == 1
+                    ? null
+                    : ParseDate(GetSymptom("_fieldChemotherapyDate"));
             tbHistology.tbSearchText.Text = GetSymptom("_fieldHistology") ?? "";
 
             tbDepartHeadAssistant.Text = GetSymptom("_fieldDepartHeadAssistant") ?? "";
@@ -417,6 +426,7 @@ public partial class AddPatient : Window
             tbLocusMorbiItem7.Text = GetSymptom("_fieldLocusMorbiItem7") ?? "";
         }
     }
+
     #endregion
 
     private void DatePrewiewText_Birthday(object sender, TextCompositionEventArgs e)
@@ -834,7 +844,7 @@ public partial class AddPatient : Window
             _patient.BirthDate = datePickerBirthday.customDatePicker.SelectedDate.GetValueOrDefault();
             _patient.Address = tbLivingAddress.tbSearchText.Text;
             _patient.Profession = tbWorkAddress.tbSearchText.Text;
-            if (_isEditMode) 
+            if (_isEditMode)
             {
                 _visit.StartDate = datePickerHospitalStart.customDatePicker.SelectedDate.GetValueOrDefault();
                 _visit.EndDate = datePickerHospitalEnd.customDatePicker.SelectedDate.GetValueOrDefault();
@@ -866,12 +876,9 @@ public partial class AddPatient : Window
 
         if (_isEditMode)
         {
-
             var savedDoctorName = await _mongoService.GetDoctorByIdAsync(_patient.DoctorId);
             if (!string.IsNullOrWhiteSpace(savedDoctorName.ShortName))
-            {
                 foreach (ComboBoxItem item in comboBoxDoctorName.Items)
-                {
                     if (item.Tag is Doctor doctor)
                     {
                         var formattedName = $"{doctor.FirstName[0]}.{doctor.MiddleName[0]}. {doctor.LastName}";
@@ -881,15 +888,12 @@ public partial class AddPatient : Window
                             break;
                         }
                     }
-                }
-            }
 
             // Препопуляція cbDepartmentHead
-            string savedHead = GetSymptom("_fieldDepartmentHead");
+            var savedHead = GetSymptom("_fieldDepartmentHead");
             if (!string.IsNullOrWhiteSpace(savedHead))
             {
                 foreach (ComboBoxItem item in cbDepartmentHead.Items)
-                {
                     if (item.Tag is Doctor chief)
                     {
                         var formatted = $"{chief.FirstName[0]}.{chief.MiddleName[0]}. {chief.LastName}";
@@ -899,6 +903,14 @@ public partial class AddPatient : Window
                             break;
                         }
                     }
+
+                if (cbDepartmentHead.SelectedIndex == -1)
+                {
+                    cbDepartmentHead.SelectedIndex = 0;
+                    MessageBox.Show(
+                        $"Головний лікар {savedHead} був видалений з системи, чи не може бути знайдений! Буде встановлено головного лікаря лікаря за замовчуванням.",
+                        "Попередження!",
+                        MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
             }
         }
@@ -1299,7 +1311,8 @@ public partial class AddPatient : Window
                 ? $"Додати новий візит пацієнту {_patient.LastName} {_patient.FirstName}?"
                 : $"Додати пацієнта {_patient.LastName} {_patient.FirstName} до бази?";
 
-        if (MessageBox.Show(dlgText, "Перевірка", MessageBoxButton.OKCancel, MessageBoxImage.Question) != MessageBoxResult.OK)
+        if (MessageBox.Show(dlgText, "Перевірка", MessageBoxButton.OKCancel, MessageBoxImage.Question) !=
+            MessageBoxResult.OK)
             return;
 
         try
@@ -1312,8 +1325,8 @@ public partial class AddPatient : Window
                 // додаємо новий візит і оновлюємо пацієнта в БД
                 _patient.Visits ??= new List<Visit>();
                 _visit.StartDate = datePickerHospitalStart.customDatePicker.SelectedDate.GetValueOrDefault().Year == 1
-                                        ? DateTime.Today
-                                        : datePickerHospitalStart.customDatePicker.SelectedDate.GetValueOrDefault();
+                    ? DateTime.Today
+                    : datePickerHospitalStart.customDatePicker.SelectedDate.GetValueOrDefault();
                 _visit.EndDate = datePickerHospitalEnd.customDatePicker.SelectedDate.GetValueOrDefault();
                 _visit.Notes = $"Запис від {DateTime.Today.ToString("D")}";
                 _patient.Visits.Add(_visit);
@@ -1344,7 +1357,8 @@ public partial class AddPatient : Window
         }
         catch (Exception ex)
         {
-            MessageBox.Show("Сталася помилка при збереженні! Спробуйте пізніше.", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show("Сталася помилка при збереженні! Спробуйте пізніше.", "Помилка", MessageBoxButton.OK,
+                MessageBoxImage.Error);
             Console.WriteLine(ex);
         }
     }
@@ -1726,7 +1740,10 @@ public partial class AddPatient : Window
         return value;
     }
 
-    private DateTime? ParseDate(string text) => DateTime.TryParse(text, out var result) ? result : null;
+    private DateTime? ParseDate(string text)
+    {
+        return DateTime.TryParse(text, out var result) ? result : null;
+    }
 
     private async void LoadDoctorsAndChiefsAsync()
     {
@@ -1741,14 +1758,16 @@ public partial class AddPatient : Window
             comboBoxDoctorName.Items.Add(item);
 
             // Якщо поточний користувач = doctor => заборонити редагування
-            if (_currentDoctor != null && doctor.Email == _currentDoctor.Email && _currentDoctor.AccessLevel == "doctor")
+            if (_currentDoctor != null && doctor.Email == _currentDoctor.Email &&
+                _currentDoctor.AccessLevel == "doctor")
             {
                 comboBoxDoctorName.SelectedItem = item;
                 comboBoxDoctorName.IsEnabled = false;
             }
         }
 
-        if (_currentDoctor != null && (_currentDoctor.AccessLevel == "chief_doctor" || _currentDoctor.AccessLevel == "admin"))
+        if (_currentDoctor != null &&
+            (_currentDoctor.AccessLevel == "chief_doctor" || _currentDoctor.AccessLevel == "admin"))
         {
             if (!_isEditMode) comboBoxDoctorName.SelectedIndex = 0;
             comboBoxDoctorName.IsEnabled = true;
