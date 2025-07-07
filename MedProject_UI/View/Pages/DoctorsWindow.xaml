@@ -63,7 +63,7 @@
                         <TextBlock 
                             x:Name="Label_Cat2" 
                             HorizontalAlignment="Center" VerticalAlignment="Center" 
-                            TextWrapping="Wrap" Text="Список пацієнтів"  
+                            TextWrapping="Wrap" Text="Список лікарів"  
                             FontSize="24" FontFamily="Roboto" 
                             Margin="0,0,0,0">
                             <TextBlock.Background>

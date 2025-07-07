@@ -36,6 +36,8 @@ public class Doctor
 
     [BsonIgnore] // Щоб не зберігати в MongoDB
     public string ShortName => $"{FirstName[0]}.{MiddleName[0]}. {LastName}";
+    [BsonIgnore]
+    public string OnDutyStatus { get; set; }
 }
 
 public class WorkPeriod

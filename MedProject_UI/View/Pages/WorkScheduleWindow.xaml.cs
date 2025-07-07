@@ -70,10 +70,11 @@ public partial class WorkScheduleWindow : Window
     }
 
     private void BtnAutoDistribute_Click_Chief(object sender, RoutedEventArgs e)
-    {
-        MessageBox.Show("Виконується авторозподіл графіку для всіх лікарів...");
-        // TODO: реалізація логіки розподілу
-    }
+{
+    AutoDistributeSchedule();
+    MessageBox.Show("Графік успішно згенеровано!", "Успіх", MessageBoxButton.OK, MessageBoxImage.Information);
+    RefreshScheduleGrid();
+}
 
     private void BtnAutoDistribute_Click_Doctor(object sender, RoutedEventArgs e)
     {
@@ -450,6 +451,169 @@ public partial class WorkScheduleWindow : Window
         var currentIndex = statuses.IndexOf(current);
         var nextIndex = (currentIndex + 1) % statuses.Count;
         return statuses[nextIndex];
+    }
+
+    private void AutoDistributeSchedule()
+    {
+        var daysInMonth = DateTime.DaysInMonth(SelectedMonth.Year, SelectedMonth.Month);
+        var monthStart = new DateTime(SelectedMonth.Year, SelectedMonth.Month, 1);
+        var isWeekend = new bool[daysInMonth];
+        var dayStatuses = new Dictionary<Doctor, WorkStatus?[]>(); // For each doctor: status for each day
+
+        for (int i = 0; i < daysInMonth; i++)
+        {
+            var date = monthStart.AddDays(i);
+            isWeekend[i] = date.DayOfWeek == DayOfWeek.Saturday || date.DayOfWeek == DayOfWeek.Sunday;
+        }
+
+        foreach (var doctor in _doctors)
+        {
+            var statusArray = new WorkStatus?[daysInMonth];
+            // Set predefined values
+            foreach (var period in doctor.WorkSchedule)
+            {
+                for (var d = 0; d < daysInMonth; d++)
+                {
+                    var date = monthStart.AddDays(d).Date;
+                    if (date >= period.From.Date && date <= period.To.Date)
+                        statusArray[d] = period.Status;
+                }
+            }
+            dayStatuses[doctor] = statusArray;
+        }
+
+        if (_doctors.Count == 1)
+        {
+            var doctor = _doctors[0];
+            var statuses = dayStatuses[doctor];
+            int weekendsMarked = 0;
+
+            for (int i = 0; i < daysInMonth; i++)
+            {
+                if (statuses[i] != null) continue;
+
+                if (isWeekend[i] && weekendsMarked < 4)
+                {
+                    statuses[i] = WorkStatus.DayOff;
+                    weekendsMarked++;
+                }
+                else
+                {
+                    statuses[i] = WorkStatus.Work;
+                }
+            }
+        }
+        else if (_doctors.Count == 2)
+        {
+            var d1 = _doctors[0];
+            var d2 = _doctors[1];
+            var s1 = dayStatuses[d1];
+            var s2 = dayStatuses[d2];
+            var restCount1 = 0;
+            var restCount2 = 0;
+
+            for (int i = 0; i < daysInMonth; i++)
+            {
+                if (s1[i] != null && s2[i] != null) continue;
+
+                // Try alternate rest days
+                if (i % 3 == 0 && s1[i] == null && restCount1 < 8)
+                {
+                    s1[i] = WorkStatus.DayOff;
+                    restCount1++;
+                    if (s2[i] == null) s2[i] = WorkStatus.Work;
+                }
+                else if (i % 5 == 0 && s2[i] == null && restCount2 < 8)
+                {
+                    s2[i] = WorkStatus.DayOff;
+                    restCount2++;
+                    if (s1[i] == null) s1[i] = WorkStatus.Work;
+                }
+                else
+                {
+                    if (s1[i] == null) s1[i] = WorkStatus.Work;
+                    if (s2[i] == null) s2[i] = WorkStatus.Work;
+                }
+            }
+        }
+        else
+        {
+            // 3+ doctors
+            for (int i = 0; i < daysInMonth; i++)
+            {
+                var available = _doctors
+                    .Where(d => dayStatuses[d][i] == null)
+                    .ToList();
+
+                var required = isWeekend[i] ? 1 : 2;
+                var assigned = 0;
+
+                foreach (var doctor in available)
+                {
+                    if (assigned >= required) break;
+                    dayStatuses[doctor][i] = WorkStatus.Work;
+                    assigned++;
+                }
+
+                // Others off
+                foreach (var doctor in available.Skip(assigned))
+                {
+                    dayStatuses[doctor][i] = WorkStatus.DayOff;
+                }
+            }
+        }
+
+        // Save results to WorkSchedule
+        foreach (var doctor in _doctors)
+        {
+            var statuses = dayStatuses[doctor];
+            var schedule = new List<WorkPeriod>();
+            WorkStatus? currentStatus = null;
+            DateTime? periodStart = null;
+
+            for (int i = 0; i < daysInMonth; i++)
+            {
+                var status = statuses[i] ?? WorkStatus.None;
+                var date = monthStart.AddDays(i);
+
+                if (status == WorkStatus.None) continue;
+
+                if (currentStatus == null)
+                {
+                    currentStatus = status;
+                    periodStart = date;
+                }
+                else if (currentStatus != status)
+                {
+                    schedule.Add(new WorkPeriod
+                    {
+                        Status = currentStatus.Value,
+                        From = periodStart.Value,
+                        To = date.AddDays(-1)
+                    });
+                    currentStatus = status;
+                    periodStart = date;
+                }
+            }
+
+            if (currentStatus.HasValue && periodStart.HasValue)
+            {
+                schedule.Add(new WorkPeriod
+                {
+                    Status = currentStatus.Value,
+                    From = periodStart.Value,
+                    To = monthStart.AddDays(daysInMonth - 1)
+                });
+            }
+
+            // Залишаємо старі періоди, які не стосуються цього місяця
+            var monthEnd = monthStart.AddMonths(1).AddDays(-1);
+            var preserved = doctor.WorkSchedule
+                .Where(p => p.To < monthStart || p.From > monthEnd)
+                .ToList();
+
+            doctor.WorkSchedule = preserved.Concat(schedule).ToList();
+        }
     }
 
 }

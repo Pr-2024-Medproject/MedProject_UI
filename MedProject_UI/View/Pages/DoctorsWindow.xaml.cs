@@ -49,6 +49,8 @@ public partial class DoctorsWindow : Window
         var mongoService = new MongoDbService(config.MongoDbConnection, config.DatabaseName);
         allDoctors = await mongoService.GetAllDoctorsAsync();
 
+        foreach (var doctor in allDoctors) doctor.OnDutyStatus = GetOnDutyStatus(doctor);
+
         ApplyFilters();
     }
 
@@ -76,8 +78,11 @@ public partial class DoctorsWindow : Window
 
     private bool IsDoctorOnDuty(Doctor doctor)
     {
-        // TODO: реалізувати перевірку по графіку
-        return false;
+        var today = DateTime.Today;
+        return doctor.WorkSchedule.Any(p =>
+            p.Status == WorkStatus.Work &&
+            p.From.Date <= today &&
+            p.To.Date >= today);
     }
 
     private void BtnEdit_Click(object sender, RoutedEventArgs e)
@@ -128,8 +133,8 @@ public partial class DoctorsWindow : Window
             var reassignableDoctors = allDoctors
                 .Where(d =>
                     d.Id != selectedDoctor.Id &&
-                    d.AccessLevel.ToLower() != "visitor" 
-                        && d.AccessLevel.ToLower() != "admin")
+                    d.AccessLevel.ToLower() != "visitor"
+                    && d.AccessLevel.ToLower() != "admin")
                 .ToList();
 
             var reassignWindow = new ReassignPatientsWindow(patients, reassignableDoctors);
@@ -159,6 +164,7 @@ public partial class DoctorsWindow : Window
     {
         tbSearchPlaceholder.Visibility = Visibility.Collapsed;
     }
+
     private void btnBack_Click(object sender, RoutedEventArgs e)
     {
         Close();
@@ -192,5 +198,27 @@ public partial class DoctorsWindow : Window
         }
 
         LoadDoctors();
+    }
+
+    private string GetOnDutyStatus(Doctor doctor)
+    {
+        var today = DateTime.Today;
+
+        // Якщо на зміні сьогодні
+        var isOnShiftToday = doctor.WorkSchedule.Any(p =>
+            p.Status == WorkStatus.Work &&
+            p.From.Date <= today &&
+            p.To.Date >= today);
+
+        if (isOnShiftToday)
+            return "На зміні";
+
+        // Знайти найближчу майбутню зміну
+        var future = doctor.WorkSchedule
+            .Where(p => p.Status == WorkStatus.Work && p.From.Date > today)
+            .OrderBy(p => p.From)
+            .FirstOrDefault();
+
+        return future != null ? future.From.ToString("dd.MM.yyyy") : "—";
     }
 }
