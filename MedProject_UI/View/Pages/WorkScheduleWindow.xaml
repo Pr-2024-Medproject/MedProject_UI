@@ -172,36 +172,45 @@
             </Grid.RowDefinitions>
 
             <!-- 🔹 Заголовок -->
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,10">
-                <TextBlock Text="Графік роботи" FontSize="28" FontWeight="Bold" FontFamily="Roboto" VerticalAlignment="Center"/>
+            <Grid Grid.Row="0" Margin="0,0,0,20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-                <TextBlock Text=" | " FontSize="24" Margin="10,0" VerticalAlignment="Center"/>
+                <!-- Ліворуч: заголовок + місяць -->
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="0" Margin="0,0,10,0">
+                    <TextBlock Text="Графік роботи" FontSize="28" FontWeight="Bold" FontFamily="Roboto" VerticalAlignment="Center"/>
+                    <TextBlock Text=" | " FontSize="24" Margin="10,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="cbMonthSelector"
+                              Style="{StaticResource BootstrapComboBox}"
+                              SelectionChanged="CbMonthSelector_SelectionChanged"
+                              Margin="0,5,0,0">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Converter={StaticResource DateToMonthYearConverter}}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                        <ComboBox.Resources>
+                            <Style TargetType="ContentPresenter">
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Converter={StaticResource DateToMonthYearConverter}}"/>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ComboBox.Resources>
+                    </ComboBox>
+                </StackPanel>
 
-                <ComboBox x:Name="cbMonthSelector"
-                          Style="{StaticResource BootstrapComboBox}"
-                          SelectionChanged="CbMonthSelector_SelectionChanged"
-                          Margin="0,5,0,0"
-                          ItemsSource="{Binding}"
-                          SelectedItem="{Binding SelectedMonth, Mode=TwoWay}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource DateToMonthYearConverter}}"/>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                    <ComboBox.Resources>
-                        <!-- Примусово форматуємо заголовок -->
-                        <Style TargetType="ContentPresenter">
-                            <Setter Property="ContentTemplate">
-                                <Setter.Value>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Converter={StaticResource DateToMonthYearConverter}}"/>
-                                    </DataTemplate>
-                                </Setter.Value>
-                            </Setter>
-                        </Style>
-                    </ComboBox.Resources>
-                </ComboBox>
-            </StackPanel>
+                <!-- Праворуч: кнопка авторозподілу -->
+                <Button x:Name="BtnAutoDistribute"
+                        Grid.Column="1"
+                        Style="{StaticResource BootstrapPrimaryButton}"
+                        Margin="0,0,0,0" Padding="10,5,10,5"/>
+            </Grid>
 
 
             <!-- 🔹 Таблиця -->
@@ -261,7 +270,7 @@
 
                 <!-- 🔹 Кнопки -->
                 <StackPanel Orientation="Horizontal" Grid.Column="2">
-                    <Button Content="Зберегти" Style="{StaticResource BootstrapPrimaryButton}" Click="BtnSave_Click" Width="100"/>
+                    <Button x:Name="BtnSave" Content="Зберегти" Style="{StaticResource BootstrapPrimaryButton}" Click="BtnSave_Click" Width="100"/>
                 </StackPanel>
             </Grid>
         </Grid>

@@ -7,16 +7,17 @@ internal class MongoDbService
 {
     private readonly IMongoCollection<Patient> _patients;
     private readonly IMongoCollection<Doctor> _doctors;
+    private readonly IMongoDatabase _database;
 
     public MongoDbService(string connectionString, string dbName)
     {
         var config = AppConfig.Load();
 
         var client = new MongoClient(connectionString);
-        var database = client.GetDatabase(dbName);
+        var _database = client.GetDatabase(dbName);
 
-        _patients = database.GetCollection<Patient>(config.PatientsCollection);
-        _doctors = database.GetCollection<Doctor>(config.DoctorsCollection);
+        _patients = _database.GetCollection<Patient>(config.PatientsCollection);
+        _doctors = _database.GetCollection<Doctor>(config.DoctorsCollection);
     }
 
     public async Task<List<Patient>> GetAllPatientsAsync()
@@ -100,9 +101,18 @@ internal class MongoDbService
         await _doctors.ReplaceOneAsync(d => d.Id == doctor.Id, doctor);
     }
 
+    public async Task<bool> UpdateDoctorScheduleAsync(string doctorId, List<WorkPeriod> schedule)
+    {
+        var filter = Builders<Doctor>.Filter.Eq(d => d.Id, doctorId);
+        var update = Builders<Doctor>.Update.Set(d => d.WorkSchedule, schedule);
+
+        var result = await _doctors.UpdateOneAsync(filter, update);
+
+        return result.ModifiedCount > 0;
+    }
+
     public async Task DeleteDoctorAsync(string id)
     {
         await _doctors.DeleteOneAsync(d => d.Id == id);
     }
-
 }

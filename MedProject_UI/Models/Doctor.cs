@@ -13,12 +13,15 @@ public class Doctor
     public string FirstName { get; set; } // Ім'я
     public string MiddleName { get; set; } // По батькові
 
+    [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
     public DateTime BirthDate { get; set; } // Дата народження
     public string Phone { get; set; } // Номер телефону
     public string Email { get; set; } // Електронна пошта
     public string Address { get; set; } // Адреса проживання
 
     public string Position { get; set; } // Посада (e.g. Лікар-уролог)
+
+    [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
     public DateTime StartDate { get; set; } // Дата початку роботи
 
     public string Username { get; set; } // Логін
@@ -26,7 +29,7 @@ public class Doctor
     public string AccessLevel { get; set; } // Рівень доступу: "Admin", "Doctor", "Viewer" тощо
 
     public List<string> PatientIds { get; set; } = new(); // ID пацієнтів
-    public List<WorkShift> WorkSchedule { get; set; } = new(); // Робочий графік
+    public List<WorkPeriod> WorkSchedule { get; set; } = new(); // Робочий графік
 
     [BsonIgnore] // Щоб не зберігати в MongoDB
     public string FullName => $"{LastName} {FirstName} {MiddleName}";
@@ -35,9 +38,21 @@ public class Doctor
     public string ShortName => $"{FirstName[0]}.{MiddleName[0]}. {LastName}";
 }
 
-public class WorkShift
+public class WorkPeriod
 {
-    public DayOfWeek Day { get; set; } // День тижня
-    public TimeSpan StartTime { get; set; } // Початок
-    public TimeSpan EndTime { get; set; } // Кінець
+    public WorkStatus Status { get; set; } // "Р", "В", "В", "Н"
+
+    [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+    public DateTime From { get; set; }
+
+    [BsonDateTimeOptions(Kind = DateTimeKind.Local)]
+    public DateTime To { get; set; }
+}
+
+public enum WorkStatus
+{
+    None, // Н
+    Work, // Р
+    Vacation, // Відпустка
+    DayOff // Вихідний
 }

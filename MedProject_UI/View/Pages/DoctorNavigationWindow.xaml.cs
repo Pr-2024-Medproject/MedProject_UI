@@ -107,7 +107,7 @@ public partial class DoctorNavigationWindow : Window
     {
         var doctorOnlyList = new List<Doctor> { _doctor };
 
-        var scheduleWindow = new WorkScheduleWindow(doctorOnlyList);
+        var scheduleWindow = new WorkScheduleWindow(doctorOnlyList, isReadOnly: true);
         Hide();
         scheduleWindow.ShowDialog();
         Show();
