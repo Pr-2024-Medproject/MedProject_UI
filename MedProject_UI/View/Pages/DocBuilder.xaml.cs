@@ -89,7 +89,7 @@ public partial class DocBuilder : Window
             { "_docChemotherapyDate", GetSymptom("_fieldChemotherapyDate") ?? "" },
             { "_docChemotherapy", GetSymptom("_fieldChemotherapy") },
             { "_docCreationDate", DateTime.Now.ToString("dd.MM.yyyy") },
-            { "_docDoctor", GetSymptom("_fieldDoctor") }
+            { "_docDoctor", _patient.Doctor }
         };
 
         GenerateDocument("Виписка ОГП ОЦО_template.docx", fieldValues,
@@ -114,7 +114,7 @@ public partial class DocBuilder : Window
             { "_docFirstOpertaionName", GetSymptom("_fieldOperationName") },
             { "_docSecOpertaionDate", "" },
             { "_docSecOpertaionName", "" },
-            { "_docDoctor", GetSymptom("_fieldDoctor") },
+            { "_docDoctor", _patient.Doctor },
             { "_docCreationDate", DateTime.Now.ToString("dd.MM.yyyy") }
         };
 
@@ -136,7 +136,8 @@ public partial class DocBuilder : Window
 
             if (dialog.ShowDialog() == true)
             {
-                engine.Merge($"..\\..\\..\\{templateFileName}", values, dialog.FileName);
+                var templatePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates", templateFileName);
+                engine.Merge(templatePath, values, dialog.FileName);
                 MessageBox.Show("Документ було створено!", "Документ", MessageBoxButton.OK,
                     MessageBoxImage.Information);
                 new Process
