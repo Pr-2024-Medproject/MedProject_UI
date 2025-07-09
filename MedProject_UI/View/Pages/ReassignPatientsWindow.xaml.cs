@@ -64,7 +64,7 @@ public partial class ReassignPatientsWindow : Window
                 FontSize = 16,
                 FontFamily = new FontFamily("Roboto"),
                 Margin = new Thickness(10, 5, 10, 5),
-                DisplayMemberPath = "FullName",
+                DisplayMemberPath = "ShortNameWithSpec",
                 SelectedValuePath = "Id",
                 ItemsSource = _availableDoctors,
                 VerticalAlignment = VerticalAlignment.Center
