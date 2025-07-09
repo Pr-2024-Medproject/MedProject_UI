@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="MedProjectInstaller" Language="1033" Version="1.0.0.0" Manufacturer="Atlas Playbook v0.4.1" UpgradeCode="66959fd4-46d7-4b6c-80a2-59fb0eaa951d">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+	<Product Id="*" Name="MedProject" Language="1033" Version="1.0.0.0" Manufacturer="AsiaSM_KhNURE"
+	         UpgradeCode="812a9fd4-9027-4ccc-ad05-83463a12a65b">
+		<Package InstallerVersion="500" Compressed="yes" InstallScope="perMachine" />
 
-		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MajorUpgrade DowngradeErrorMessage="A newer version is already installed." />
 		<MediaTemplate />
-
-		<Feature Id="ProductFeature" Title="MedProjectInstaller" Level="1">
-			<ComponentGroupRef Id="ProductComponents" />
-		</Feature>
 	</Product>
 
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="MedProjectInstaller" />
+				<Directory Id="INSTALLFOLDER" Name="MedProject">
+					<Component Id="MainExecutable" Guid="a9927381-3ad4-4791-88f9-1d6d3e06da3e">
+						<File Id="MedExe" Name="MedProject_UI.exe" Source="$$(var.ReleaseOutput)\MedProject_UI.exe" />
+						<File Id="MedDll" Name="MedProject_UI.dll" Source="$$(var.ReleaseOutput)\MedProject_UI.dll" />
+						<File Id="EasyDox" Name="EasyDox.dll" Source="$$(var.ReleaseOutput)\EasyDox.dll" />
+						<File Id="Json" Name="Newtonsoft.Json.dll" Source="$$(var.ReleaseOutput)\Newtonsoft.Json.dll" />
+						<!-- Додай шаблони -->
+						<File Id="Template1" Name="Виписка ОГП ОЦО_template.docx" Source="$$(var.ReleaseOutput)\Виписка ОГП ОЦО_template.docx" />
+						<File Id="Template2" Name="Виписка 066_template.docx" Source="$$(var.ReleaseOutput)\Виписка 066_template.docx" />
+						<!-- Якщо є config.json -->
+						<File Id="Config" Name="config.json" Source="$$(var.ReleaseOutput)\config.json" />
+					</Component>
+				</Directory>
 			</Directory>
 		</Directory>
-	</Fragment>
-
-	<Fragment>
-		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
-			<!-- <Component Id="ProductComponent"> -->
-				<!-- TODO: Insert files, registry keys, and other resources here. -->
-			<!-- </Component> -->
-		</ComponentGroup>
 	</Fragment>
 </Wix>

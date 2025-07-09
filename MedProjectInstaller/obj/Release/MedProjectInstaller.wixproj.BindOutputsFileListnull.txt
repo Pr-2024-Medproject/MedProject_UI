@@ -1,0 +1,2 @@
+C:\Users\Serhii\source\repos\Pr-2024-Medproject\MedProject_UI\MedProjectInstaller\bin\Release\MedProjectInstaller.msi
+C:\Users\Serhii\source\repos\Pr-2024-Medproject\MedProject_UI\MedProjectInstaller\bin\Release\MedProjectInstaller.wixpdb

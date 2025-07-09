@@ -1,0 +1,6 @@
+obj\Release\Product.wixobj
+C:\Users\Serhii\source\repos\Pr-2024-Medproject\MedProject_UI\MedProjectInstaller\bin\Release\MedProjectInstaller.msi
+C:\Users\Serhii\source\repos\Pr-2024-Medproject\MedProject_UI\MedProjectInstaller\bin\Release\MedProjectInstaller.wixpdb
+obj\Release\MedProjectInstaller.wixproj.BindContentsFileListnull.txt
+obj\Release\MedProjectInstaller.wixproj.BindOutputsFileListnull.txt
+obj\Release\MedProjectInstaller.wixproj.BindBuiltOutputsFileListnull.txt
