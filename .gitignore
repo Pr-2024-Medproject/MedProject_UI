@@ -155,3 +155,4 @@ MedProject_UI/obj/project.nuget.cache
 /.vs
 /MedProject_UI/config.json
 /MedProject_UI/database.json
+/MedProject_UI/InnoBuilderProject.iss

@@ -3,18 +3,20 @@ using MongoDB.Driver;
 
 namespace MedProject_UI.Services;
 
-internal class MongoDbService
+internal class MongoDbService : IDisposable
 {
     private readonly IMongoCollection<Patient> _patients;
     private readonly IMongoCollection<Doctor> _doctors;
     private readonly IMongoDatabase _database;
+    private readonly MongoClient _client;
+    private bool _disposed = false;
 
     public MongoDbService(string connectionString, string dbName)
     {
         var config = AppConfig.Load();
 
-        var client = new MongoClient(connectionString);
-        var _database = client.GetDatabase(dbName);
+        _client = new MongoClient(connectionString);
+        _database = _client.GetDatabase(dbName);
 
         _patients = _database.GetCollection<Patient>(config.PatientsCollection);
         _doctors = _database.GetCollection<Doctor>(config.DoctorsCollection);
@@ -114,5 +116,25 @@ internal class MongoDbService
     public async Task DeleteDoctorAsync(string id)
     {
         await _doctors.DeleteOneAsync(d => d.Id == id);
+    }
+
+    // Dispose pattern
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!_disposed)
+        {
+            if (disposing)
+            {
+                //_client?.Cluster.Dispose(); 
+            }
+
+            _disposed = true;
+        }
     }
 }

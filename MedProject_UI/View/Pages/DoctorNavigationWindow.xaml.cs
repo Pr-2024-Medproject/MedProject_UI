@@ -113,29 +113,19 @@ public partial class DoctorNavigationWindow : Window
         Show();
     }
 
+
     private async void BtnEditSchedule_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            var config = AppConfig.Load();
-            var mongoService = new MongoDbService(config.MongoDbConnection, config.DatabaseName);
-
-            // Отримати список лікарів, яких можна відображати (без admin, chief_doctor, visitor)
-            var allDoctors = await mongoService.GetAllDoctorsAsync();
-            var editableDoctors = allDoctors
-                .Where(d => d.AccessLevel == "doctor")
-                .ToList();
-
-            if (editableDoctors.Count == 0)
+            var editableList = await GetEditableDoctors() ?? new List<Doctor>();
+            if (editableList.Count > 0)
             {
-                MessageBox.Show("Немає лікарів для відображення.", "Інформація", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
+                var scheduleWindow = new WorkScheduleWindow(editableList);
+                Hide();
+                scheduleWindow.ShowDialog();
+                Show();
             }
-
-            var scheduleWindow = new WorkScheduleWindow(editableDoctors);
-            Hide();
-            scheduleWindow.ShowDialog();
-            Show();
         }
         catch (Exception ex)
         {
@@ -147,65 +137,7 @@ public partial class DoctorNavigationWindow : Window
     {
         try
         {
-            var config = AppConfig.Load();
-            var _mongoService = new MongoDbService(config.MongoDbConnection, config.DatabaseName);
-
-            // Отримання пацієнтів згідно з роллю
-            var patients = _doctor.AccessLevel == "chief_doctor"
-                ? await _mongoService.GetAllPatientsAsync()
-                : await _mongoService.GetPatientsByDoctorIdAsync(_doctor.Id);
-
-            if (patients.Count == 0)
-            {
-                MessageBox.Show("Немає пацієнтів для експорту.", "Інформація", MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-                return;
-            }
-
-            // Мінімізований формат: зберігаємо лише потрібні поля
-            var minimalPatients = patients.Select(p => new
-            {
-                p.Id,
-                p.CardNumber,
-                p.FirstName,
-                p.LastName,
-                p.MiddleName,
-                p.BirthDate,
-                p.Age,
-                p.Address,
-                p.Profession,
-                p.Phone,
-                p.Email,
-                p.Gender,
-                p.Doctor,
-                p.DoctorId,
-                p.Visits
-            });
-
-            var json = JsonConvert.SerializeObject(minimalPatients, Formatting.None);
-
-            // Діалог збереження
-            var saveDialog = new SaveFileDialog
-            {
-                Title = "Зберегти архів пацієнтів",
-                Filter = "ZIP files (*.zip)|*.zip",
-                FileName = "exported_patients.zip"
-            };
-
-            if (saveDialog.ShowDialog() == true)
-            {
-                using (var zipStream = new FileStream(saveDialog.FileName, FileMode.Create))
-                using (var archive = new ZipArchive(zipStream, ZipArchiveMode.Create))
-                {
-                    var entry = archive.CreateEntry("patients.json", CompressionLevel.Optimal);
-                    using var entryStream = entry.Open();
-                    using var writer = new StreamWriter(entryStream);
-                    writer.Write(json);
-                }
-
-                MessageBox.Show("Пацієнтів експортовано у архів успішно.", "Успіх", MessageBoxButton.OK,
-                    MessageBoxImage.Information);
-            }
+            ExportData();
         }
         catch (Exception ex)
         {
@@ -227,66 +159,14 @@ public partial class DoctorNavigationWindow : Window
 
         try
         {
-            var config = AppConfig.Load();
-            var _mongoService = new MongoDbService(config.MongoDbConnection, config.DatabaseName);
-
-            using var zip = ZipFile.OpenRead(openFileDialog.FileName);
-
-            // Перевірка, що всередині лише один файл і це .json
-            if (zip.Entries.Count != 1 || !zip.Entries[0].Name.EndsWith(".json"))
-            {
-                MessageBox.Show("Архів має містити один JSON-файл.", "Помилка структури", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                return;
-            }
-
-            // Зчитування JSON
-            string jsonContent;
-            using (var stream = zip.Entries[0].Open())
-            using (var reader = new StreamReader(stream))
-            {
-                jsonContent = reader.ReadToEnd();
-            }
-
-            // Десеріалізація
-            var importedPatients = JsonConvert.DeserializeObject<List<Patient>>(jsonContent);
-
-            if (importedPatients == null || importedPatients.Count == 0)
-            {
-                MessageBox.Show("Файл не містить даних пацієнтів.", "Помилка", MessageBoxButton.OK,
-                    MessageBoxImage.Warning);
-                return;
-            }
-
-            // Перевірити скільки нових/оновлюваних
-            var existingPatients = await _mongoService.GetAllPatientsAsync();
-            var existingIds = new HashSet<string>(existingPatients.Select(p => p.Id));
-
-            var toUpdate = importedPatients.Where(p => existingIds.Contains(p.Id)).ToList();
-            var toInsert = importedPatients.Where(p => !existingIds.Contains(p.Id)).ToList();
-
-            // Запит підтвердження
-            var msg = $"Буде оновлено {toUpdate.Count} пацієнтів та додано {toInsert.Count}. Продовжити?";
-            var result = MessageBox.Show(msg, "Підтвердження імпорту", MessageBoxButton.YesNo,
-                MessageBoxImage.Question);
-
-            if (result != MessageBoxResult.Yes)
-                return;
-
-            // Вставлення та оновлення
-            foreach (var patient in toInsert)
-                await _mongoService.AddPatientAsync(patient);
-
-            foreach (var patient in toUpdate)
-                await _mongoService.UpdatePatientAsync(patient);
-
-            MessageBox.Show("Імпорт завершено успішно.", "Успіх", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-        catch (Exception ex)
+            ImportData(openFileDialog.FileName);
+        } 
+        catch(Exception ex)
         {
             MessageBox.Show($"Помилка при імпорті: {ex.Message}", "Помилка", MessageBoxButton.OK,
                 MessageBoxImage.Error);
         }
+        
     }
 
 
@@ -295,5 +175,167 @@ public partial class DoctorNavigationWindow : Window
         var loginWindowBack = new Login();
         Close();
         loginWindowBack.ShowDialog();
+    }
+
+    private async void ExportData()
+    {
+        try
+        {
+            using (var _mongoService = new MongoDbService(AppConfig.Load().MongoDbConnection, AppConfig.Load().DatabaseName)) {
+                // Отримання пацієнтів згідно з роллю
+                var patients = _doctor.AccessLevel == "chief_doctor"
+                    ? await _mongoService.GetAllPatientsAsync()
+                    : await _mongoService.GetPatientsByDoctorIdAsync(_doctor.Id);
+
+                if (patients.Count == 0)
+                {
+                    MessageBox.Show("Немає пацієнтів для експорту.", "Інформація", MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                    return;
+                }
+
+                // Мінімізований формат: зберігаємо лише потрібні поля
+                var minimalPatients = patients.Select(p => new
+                {
+                    p.Id,
+                    p.CardNumber,
+                    p.FirstName,
+                    p.LastName,
+                    p.MiddleName,
+                    p.BirthDate,
+                    p.Age,
+                    p.Address,
+                    p.Profession,
+                    p.Phone,
+                    p.Email,
+                    p.Gender,
+                    p.Doctor,
+                    p.DoctorId,
+                    p.Visits
+                });
+
+                var json = JsonConvert.SerializeObject(minimalPatients, Formatting.None);
+
+                // Діалог збереження
+                var saveDialog = new SaveFileDialog
+                {
+                    Title = "Зберегти архів пацієнтів",
+                    Filter = "ZIP files (*.zip)|*.zip",
+                    FileName = "exported_patients.zip"
+                };
+
+                if (saveDialog.ShowDialog() == true)
+                {
+                    using (var zipStream = new FileStream(saveDialog.FileName, FileMode.Create))
+                    using (var archive = new ZipArchive(zipStream, ZipArchiveMode.Create))
+                    {
+                        var entry = archive.CreateEntry("patients.json", CompressionLevel.Optimal);
+                        using var entryStream = entry.Open();
+                        using var writer = new StreamWriter(entryStream);
+                        writer.Write(json);
+                    }
+
+                    MessageBox.Show("Пацієнтів експортовано у архів успішно.", "Успіх", MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Помилка експорту: {ex.Message}", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private async void ImportData(string zipFileName)
+    {
+        try
+        {
+            using (var _mongoService = new MongoDbService(AppConfig.Load().MongoDbConnection, AppConfig.Load().DatabaseName))
+            { 
+                using var zip = ZipFile.OpenRead(zipFileName);
+
+                // Перевірка, що всередині лише один файл і це .json
+                if (zip.Entries.Count != 1 || !zip.Entries[0].Name.EndsWith(".json"))
+                {
+                    MessageBox.Show("Архів має містити один JSON-файл.", "Помилка структури", MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                    return;
+                }
+
+                // Зчитування JSON
+                string jsonContent;
+                using (var stream = zip.Entries[0].Open())
+                using (var reader = new StreamReader(stream))
+                {
+                    jsonContent = reader.ReadToEnd();
+                }
+
+                // Десеріалізація
+                var importedPatients = JsonConvert.DeserializeObject<List<Patient>>(jsonContent);
+
+                if (importedPatients == null || importedPatients.Count == 0)
+                {
+                    MessageBox.Show("Файл не містить даних пацієнтів.", "Помилка", MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Перевірити скільки нових/оновлюваних
+                var existingPatients = await _mongoService.GetAllPatientsAsync();
+                var existingIds = new HashSet<string>(existingPatients.Select(p => p.Id));
+
+                var toUpdate = importedPatients.Where(p => existingIds.Contains(p.Id)).ToList();
+                var toInsert = importedPatients.Where(p => !existingIds.Contains(p.Id)).ToList();
+
+                // Запит підтвердження
+                var msg = $"Буде оновлено {toUpdate.Count} пацієнтів та додано {toInsert.Count}. Продовжити?";
+                var result = MessageBox.Show(msg, "Підтвердження імпорту", MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (result != MessageBoxResult.Yes)
+                    return;
+
+                // Вставлення та оновлення
+                foreach (var patient in toInsert)
+                    await _mongoService.AddPatientAsync(patient);
+
+                foreach (var patient in toUpdate)
+                    await _mongoService.UpdatePatientAsync(patient);
+
+                MessageBox.Show("Імпорт завершено успішно.", "Успіх", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Помилка при імпорті: {ex.Message}", "Помилка", MessageBoxButton.OK,
+                MessageBoxImage.Error);
+        }
+    }
+
+    private async Task<List<Doctor>?> GetEditableDoctors()
+    {
+        try
+        {
+            using var mongoService = new MongoDbService(AppConfig.Load().MongoDbConnection, AppConfig.Load().DatabaseName);
+            var allDoctors = await mongoService.GetAllDoctorsAsync();
+
+            // Отримати список лікарів, яких можна відображати (без admin, chief_doctor, visitor)
+            var editableDoctors = allDoctors
+                .Where(d => d.AccessLevel == "doctor")
+                .ToList();
+
+            if (editableDoctors.Count == 0)
+            {
+                MessageBox.Show("Немає лікарів для відображення.", "Інформація", MessageBoxButton.OK, MessageBoxImage.Information);
+                return null;
+            }
+
+            return editableDoctors;
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Помилка при завантаженні графіка: {ex.Message}", "Помилка", MessageBoxButton.OK, MessageBoxImage.Error);
+            return null;
+        }
     }
 }

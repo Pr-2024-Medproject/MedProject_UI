@@ -9,7 +9,8 @@
         Title="Графік роботи"
         SizeToContent="WidthAndHeight"
         WindowStartupLocation="CenterScreen"
-        Background="#f8f9fa">
+        Background="#f8f9fa"
+        Icon="/smallIcon.jpg">
     <Window.Resources>
         <SolidColorBrush x:Key="BootstrapPrimaryBrush" Color="#6ebaad" />
         <helpers:DateToMonthYearConverter x:Key="DateToMonthYearConverter"/>
