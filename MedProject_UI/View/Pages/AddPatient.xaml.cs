@@ -1367,7 +1367,8 @@ public partial class AddPatient : Window
     private void comboBoxClaims_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var newClaims = sender as ComboBox;
-        tbClaims.Text += newClaims.SelectedValue.ToString().Split(": ")[1] + "\n";
+        if (!string.IsNullOrEmpty(tbClaims.Text)) tbClaims.Text += '\n';
+        tbClaims.Text += newClaims.SelectedValue.ToString().Split(": ")[1];
     }
 
     private void RadioButton_Checked(object sender, RoutedEventArgs e)

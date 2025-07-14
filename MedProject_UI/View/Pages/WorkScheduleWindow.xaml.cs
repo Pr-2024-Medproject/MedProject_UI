@@ -38,12 +38,12 @@ public partial class WorkScheduleWindow : Window
         {
             var updated = await mongoService.UpdateDoctorScheduleAsync(doctor.Id, doctor.WorkSchedule);
             if (updated) successCount++;
-            else
-                MessageBox.Show(
-                    "Графік не було збережено!",
-                    "Помилка!",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Error);
+            //else
+            //    MessageBox.Show(
+            //        "Графік не було збережено!",
+            //        "Помилка!",
+            //        MessageBoxButton.OK,
+            //        MessageBoxImage.Error);
         }
 
         MessageBox.Show(
