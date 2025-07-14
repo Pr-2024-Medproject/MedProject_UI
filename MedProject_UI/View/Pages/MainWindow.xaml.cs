@@ -23,7 +23,7 @@ public partial class MainWindow : Window
         InitializeMongo();
         _ = RefreshPatientsAsync();
 
-        if (App.CurrentUser == null)
+        if (App.CurrentUser == null || App.CurrentUser.AccessLevel == "admin")
             btnAddNewPatient.Visibility = Visibility.Hidden;
 
         SearchBar.TextChanged += RouteViewerOpened;
@@ -154,5 +154,5 @@ public partial class MainWindow : Window
         MainGrid.ItemsSource = _collectionViewSource.View;
     }
 
-    public bool IsDeleteEnabled => (App.CurrentUser) != null;
+    public bool IsDeleteEnabled => (App.CurrentUser) != null && (App.CurrentUser.AccessLevel) != "admin";
 }

@@ -39,12 +39,6 @@ public partial class DoctorNavigationWindow : Window
         mainPanel.Children.Add(btnSelfEdit);
 
         // Графік: назва змінюється в залежності від ролі
-        Button btnSchedule;
-        if (_doctor.AccessLevel == "chief_doctor" || _doctor.AccessLevel == "admin")
-            btnSchedule = CreateButton("Редагувати графік", BtnEditSchedule_Click);
-        else
-            btnSchedule = CreateButton("Переглянути графік", BtnViewSchedule_Click);
-
         if (_doctor.AccessLevel == "doctor" || _doctor.AccessLevel == "chief_doctor")
         {
             var btnExport = CreateButton("Експортувати пацієнтів", BtnExportPatients_Click);
@@ -59,7 +53,15 @@ public partial class DoctorNavigationWindow : Window
 
 
         // Додаємо кнопки до панелі
-        mainPanel.Children.Add(btnSchedule);
+        if (_doctor.AccessLevel.Contains("doctor")) 
+        {
+            Button btnSchedule;
+            if (_doctor.AccessLevel == "chief_doctor")
+                btnSchedule = CreateButton("Редагувати графік", BtnEditSchedule_Click);
+            else
+                btnSchedule = CreateButton("Переглянути графік", BtnViewSchedule_Click);
+            mainPanel.Children.Add(btnSchedule);
+        }
         mainPanel.Children.Add(btnExit);
     }
 
@@ -78,7 +80,7 @@ public partial class DoctorNavigationWindow : Window
     // Обробники
     private void BtnViewDoctors_Click(object sender, RoutedEventArgs e)
     {
-        var doctorListWindow = new DoctorsWindow(); // ← назва твого вікна перегляду докторів
+        var doctorListWindow = new DoctorsWindow(); // назва  вікна перегляду докторів
         Hide();
         doctorListWindow.ShowDialog();
         Show();

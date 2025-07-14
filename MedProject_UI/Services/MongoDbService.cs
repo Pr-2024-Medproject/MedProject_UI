@@ -1,5 +1,6 @@
 ﻿using MedProject_UI.Models;
 using MongoDB.Driver;
+using System.Windows;
 
 namespace MedProject_UI.Services;
 
@@ -116,6 +117,36 @@ internal class MongoDbService : IDisposable
     public async Task DeleteDoctorAsync(string id)
     {
         await _doctors.DeleteOneAsync(d => d.Id == id);
+    }
+
+    public async Task EnsureDatabaseSetupAsync()
+    {
+        try
+        {
+            var dbList = await _database.Client.ListDatabaseNamesAsync();
+            var dbExists = dbList.ToList().Contains(_database.DatabaseNamespace.DatabaseName);
+
+            if (!dbExists)
+            {
+                await _database.CreateCollectionAsync("Doctors");
+                await _database.CreateCollectionAsync("Patients");
+                return;
+            }
+
+            var collections = await _database.ListCollectionNames().ToListAsync();
+
+            if (!collections.Contains("Doctors"))
+                await _database.CreateCollectionAsync("Doctors");
+
+            if (!collections.Contains("Patients"))
+                await _database.CreateCollectionAsync("Patients");
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Помилка підключення до бази даних MongoDB:\n{ex.Message}",
+                "Помилка ініціалізації", MessageBoxButton.OK, MessageBoxImage.Error);
+            Environment.Exit(1);
+        }
     }
 
     // Dispose pattern

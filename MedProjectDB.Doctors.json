@@ -1,0 +1,597 @@
+[{
+  "_id": {
+    "$oid": "686300d96048aadd270f2142"
+  },
+  "LastName": "Симоненко",
+  "FirstName": "Ілля",
+  "MiddleName": "Петрович",
+  "BirthDate": {
+    "$date": "1994-03-15T23:00:00.000Z"
+  },
+  "Phone": "+38(099)321-86-71",
+  "Email": "some.email@email.com",
+  "Address": "вул. Нарманова 23",
+  "Position": "Хірург",
+  "StartDate": {
+    "$date": "2020-10-12T22:00:00.000Z"
+  },
+  "Username": null,
+  "PasswordHash": "o8c2d73Z/BBg0QrcOTTr4/Zt2Dr9mjTPoZlNOLu8h4rK2T58f3+YaLhA+c0y19nh",
+  "AccessLevel": "chief_doctor",
+  "PatientIds": [],
+  "WorkSchedule": []
+},
+{
+  "_id": {
+    "$oid": "6863031b914e9973824f807c"
+  },
+  "LastName": "Лікар",
+  "FirstName": "Тіхон",
+  "MiddleName": "Валентинович",
+  "BirthDate": {
+    "$date": "1994-07-26T22:00:00.000Z"
+  },
+  "Phone": "+38(099)911-56-32",
+  "Email": "email@email.com",
+  "Address": "вул. Тринадцята 23",
+  "Position": "Терапевт",
+  "StartDate": {
+    "$date": "2025-06-20T22:00:00.000Z"
+  },
+  "Username": null,
+  "PasswordHash": "PT/a9fGqAIxrxzkfgB+bgzdOKXVtzQkAOFIlhydoVU1Y/JCSXuzr58x716daKe8/",
+  "AccessLevel": "doctor",
+  "PatientIds": [],
+  "WorkSchedule": [
+    {
+      "Status": 2,
+      "From": {
+        "$date": "2025-07-31T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-31T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 1,
+      "From": {
+        "$date": "2025-08-01T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-08-03T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 3,
+      "From": {
+        "$date": "2025-08-04T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-08-05T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 1,
+      "From": {
+        "$date": "2025-08-06T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-08-13T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 2,
+      "From": {
+        "$date": "2025-08-14T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-08-15T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 0,
+      "From": {
+        "$date": "2025-08-16T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-08-30T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 1,
+      "From": {
+        "$date": "2025-05-31T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-06-29T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 1,
+      "From": {
+        "$date": "2025-06-30T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-09T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 2,
+      "From": {
+        "$date": "2025-07-10T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-16T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 1,
+      "From": {
+        "$date": "2025-07-17T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-24T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 3,
+      "From": {
+        "$date": "2025-07-25T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-26T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 1,
+      "From": {
+        "$date": "2025-07-27T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-30T22:00:00.000Z"
+      }
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "68656e22594e25a0473809ad"
+  },
+  "LastName": "Петриченко",
+  "FirstName": "Василь",
+  "MiddleName": "Едуардович",
+  "BirthDate": {
+    "$date": "1990-05-24T22:00:00.000Z"
+  },
+  "Phone": "+38(097)123-41-23",
+  "Email": "email.apty@email.com",
+  "Address": "",
+  "Position": "Педіатр",
+  "StartDate": {
+    "$date": "2024-09-18T22:00:00.000Z"
+  },
+  "Username": "Petrychenko_Vasyl_25.05.1990",
+  "PasswordHash": "XToTkkrPxUK+UJ1h6MD9WXzqESQGLCcq5qLA+vysTkWkC7mLBBOO0kn2Y8raZ8g4",
+  "AccessLevel": "doctor",
+  "PatientIds": [],
+  "WorkSchedule": [
+    {
+      "Status": 2,
+      "From": {
+        "$date": "2025-07-31T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-31T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 1,
+      "From": {
+        "$date": "2025-08-01T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-08-09T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 3,
+      "From": {
+        "$date": "2025-08-10T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-08-11T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 1,
+      "From": {
+        "$date": "2025-08-12T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-08-15T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 0,
+      "From": {
+        "$date": "2025-08-16T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-08-30T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 1,
+      "From": {
+        "$date": "2025-05-31T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-06-29T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 1,
+      "From": {
+        "$date": "2025-06-30T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-04T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 3,
+      "From": {
+        "$date": "2025-07-05T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-05T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 2,
+      "From": {
+        "$date": "2025-07-06T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-10T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 1,
+      "From": {
+        "$date": "2025-07-11T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-24T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 3,
+      "From": {
+        "$date": "2025-07-25T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-26T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 1,
+      "From": {
+        "$date": "2025-07-27T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-30T22:00:00.000Z"
+      }
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "6865770b7535ab1040bb2379"
+  },
+  "LastName": "Грігор'єв",
+  "FirstName": "Василь",
+  "MiddleName": "Дмитрович",
+  "BirthDate": {
+    "$date": "1994-04-17T22:00:00.000Z"
+  },
+  "Phone": "+38(098)532-42-13",
+  "Email": "email1@email.com",
+  "Address": "",
+  "Position": "Педіатр",
+  "StartDate": {
+    "$date": "2025-07-03T22:00:00.000Z"
+  },
+  "Username": "Hrihoriev_Vasyl_18.04.1994",
+  "PasswordHash": "lJANcY6DDClxynsedQwkpf2zP6cUhVKLIO1agQbbokWNyXVq+He2g8NFImg/01Hr",
+  "AccessLevel": "doctor",
+  "PatientIds": [],
+  "WorkSchedule": [
+    {
+      "Status": 1,
+      "From": {
+        "$date": "2025-07-31T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-08-03T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 3,
+      "From": {
+        "$date": "2025-08-04T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-08-05T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 1,
+      "From": {
+        "$date": "2025-08-06T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-08-08T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 2,
+      "From": {
+        "$date": "2025-08-09T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-08-15T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 0,
+      "From": {
+        "$date": "2025-08-16T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-08-30T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 1,
+      "From": {
+        "$date": "2025-05-31T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-06-29T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 1,
+      "From": {
+        "$date": "2025-06-30T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-01T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 2,
+      "From": {
+        "$date": "2025-07-02T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-04T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 1,
+      "From": {
+        "$date": "2025-07-05T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-10T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 3,
+      "From": {
+        "$date": "2025-07-11T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-12T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 1,
+      "From": {
+        "$date": "2025-07-13T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-17T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 3,
+      "From": {
+        "$date": "2025-07-18T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-19T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 1,
+      "From": {
+        "$date": "2025-07-20T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-30T22:00:00.000Z"
+      }
+    }
+  ]
+},
+{
+  "_id": {
+    "$oid": "686846ef4408878e953bad32"
+  },
+  "LastName": "Горецький",
+  "FirstName": "Богдан",
+  "MiddleName": "Сергійович",
+  "BirthDate": {
+    "$date": "1990-08-28T22:00:00.000Z"
+  },
+  "Phone": "+38(095)321-88-21",
+  "Email": "your.email@email.com",
+  "Address": "вул. Вулична 34",
+  "Position": "Терапевт",
+  "StartDate": {
+    "$date": "2023-05-02T22:00:00.000Z"
+  },
+  "Username": "your.email@email.com",
+  "PasswordHash": "aO6prNpQ+Y91glBPnsbMOAnGBcS2GUjpy+/B7ulYQsAtyvIg0w1tp7le62Tm2m+G",
+  "AccessLevel": "admin",
+  "PatientIds": [],
+  "WorkSchedule": []
+},
+{
+  "_id": {
+    "$oid": "686a6fbb5e0f97cf4c940d27"
+  },
+  "LastName": "Коробацький",
+  "FirstName": "Роман",
+  "MiddleName": "Алексійович",
+  "BirthDate": {
+    "$date": "2000-08-11T22:00:00.000Z"
+  },
+  "Phone": "+38(097)335-26-67",
+  "Email": "his.email@email.com",
+  "Address": "вул. Юліанського 2",
+  "Position": "Педіатр",
+  "StartDate": {
+    "$date": "2021-06-22T22:00:00.000Z"
+  },
+  "Username": "his.email@email.com",
+  "PasswordHash": "SwQHNZaOWdfxlHmBIAXmsik9v5iEHIzU5p4Q8G/dZvTePvFnRGiOKnY13xsjc98L",
+  "AccessLevel": "visitor",
+  "PatientIds": [],
+  "WorkSchedule": []
+},
+{
+  "_id": {
+    "$oid": "686e076cf051675790bcc052"
+  },
+  "LastName": "Семоненко",
+  "FirstName": "Семен",
+  "MiddleName": "Іванович",
+  "BirthDate": {
+    "$date": "1994-06-11T22:00:00.000Z"
+  },
+  "Phone": "+38(095)381-23-26",
+  "Email": "newdoctor@gmail.com",
+  "Address": "м Харків, вулиця Нескорених 23",
+  "Position": "Хірург",
+  "StartDate": {
+    "$date": "2025-07-06T22:00:00.000Z"
+  },
+  "Username": "newdoctor@gmail.com",
+  "PasswordHash": "hvP5D2C1zPKxax4ChChQUsonRvuPJfOBY+P6vnyxxnPbYvmR/63a5gEigvzuav1t",
+  "AccessLevel": "doctor",
+  "PatientIds": [],
+  "WorkSchedule": [
+    {
+      "Status": 0,
+      "From": {
+        "$date": "2025-06-30T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-01T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 1,
+      "From": {
+        "$date": "2025-07-02T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-03T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 2,
+      "From": {
+        "$date": "2025-07-04T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-04T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 3,
+      "From": {
+        "$date": "2025-07-05T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-05T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 2,
+      "From": {
+        "$date": "2025-07-06T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-07T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 3,
+      "From": {
+        "$date": "2025-07-08T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-09T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 0,
+      "From": {
+        "$date": "2025-07-10T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-11T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 2,
+      "From": {
+        "$date": "2025-07-12T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-12T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 0,
+      "From": {
+        "$date": "2025-07-13T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-14T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 3,
+      "From": {
+        "$date": "2025-07-15T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-15T22:00:00.000Z"
+      }
+    },
+    {
+      "Status": 0,
+      "From": {
+        "$date": "2025-07-16T22:00:00.000Z"
+      },
+      "To": {
+        "$date": "2025-07-30T22:00:00.000Z"
+      }
+    }
+  ]
+}]

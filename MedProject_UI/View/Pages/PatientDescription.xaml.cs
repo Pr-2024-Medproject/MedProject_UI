@@ -33,6 +33,11 @@ public partial class PatientDescription : Window
             btnChangeVisit.Visibility = Visibility.Hidden;
         }
 
+        if (App.CurrentUser.AccessLevel == "admin")
+        {
+            btnChangeDesc.Visibility = Visibility.Hidden;
+            btnAddVisit.Visibility = Visibility.Hidden;
+        }
 
         btnGenerateDoc.btnClick += btnGenerateDocument;
         btnChangeDesc.btnClick += btnChangeDescription;

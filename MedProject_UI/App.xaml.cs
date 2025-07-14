@@ -1,5 +1,6 @@
 ﻿using MedProject_UI.Helpers;
 using MedProject_UI.Models;
+using MedProject_UI.Services;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
@@ -72,4 +73,15 @@ public partial class App : Application
         { 1, "Знижений" },
         { 2, "Дізурія" }
     };
+
+    protected async override void OnStartup(StartupEventArgs e)
+    {
+        base.OnStartup(e);
+
+        var config = AppConfig.Load();
+        var mongoService = new MongoDbService(config.MongoDbConnection, config.DatabaseName);
+
+        await mongoService.EnsureDatabaseSetupAsync();
+    }
+
 }
