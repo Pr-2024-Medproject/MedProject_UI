@@ -27,8 +27,6 @@ public class Doctor
     public string Username { get; set; } // Логін
     public string PasswordHash { get; set; } // Пароль (у вигляді хешу)
     public string AccessLevel { get; set; } // Рівень доступу: "Admin", "Doctor", "Viewer" тощо
-
-    public List<string> PatientIds { get; set; } = new(); // ID пацієнтів
     public List<WorkPeriod> WorkSchedule { get; set; } = new(); // Робочий графік
 
     [BsonIgnore] // Щоб не зберігати в MongoDB
